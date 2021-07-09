@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <div className="App">
-      <Button>깃 테스트</Button>
+      <Button>깃 테스트2</Button>
       <NormBtn>나는 버튼2다</NormBtn>
       <Title>로그인</Title>
       <Input type="text" placeholder="내용을 입력해주세요"></Input>
