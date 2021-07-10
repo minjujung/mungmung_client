@@ -60,8 +60,12 @@ const Title = styled.h1`
   ${PageTitle}
 `;
 const Input = styled.input`
-  margin: 10px 0 50px 0;
+  margin: 10px 0 35px 0;
   ${InputStyle}
+
+  @media screen and (max-width: 320px) {
+    margin: 3px 0 25px 0;
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -73,7 +77,7 @@ const BtnContainer = styled.div`
 
 const SignupBtn = styled.button`
   width: 250px;
-  margin: 0px auto;
+  margin: 0 auto;
   ${ThemeBtnColor}
 `;
 

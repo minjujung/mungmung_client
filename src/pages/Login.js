@@ -49,8 +49,12 @@ const Title = styled.h1`
   ${PageTitle}
 `;
 const Input = styled.input`
-  margin: 10px 0 50px 0;
+  margin: 10px 0 35px 0;
   ${InputStyle}
+
+  @media screen and (max-width: 320px) {
+    margin: 3px 0 25px 0;
+  }
 `;
 
 const BtnContainer = styled.div`
