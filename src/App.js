@@ -28,7 +28,8 @@ function App() {
 
 const Container = styled.div`
   width: 100%;
-  padding-bottom: 100px;
+  position: relative;
+  min-height: 100vh;
 
   @media screen and (min-width: 768px) {
     width: 768px;
