@@ -7,8 +7,7 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 
-import UserReview from "../components/UserReview";
-import ReviewWrite from "../components/ReviewWrite";
+import Review from "../components/Review";
 import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
 
@@ -100,8 +99,7 @@ const HospitalDetail = () => {
             case "review": {
               return (
                 <>
-                  <ReviewWrite></ReviewWrite>
-                  <UserReview></UserReview>
+                  <Review></Review>
                 </>
               );
             }
