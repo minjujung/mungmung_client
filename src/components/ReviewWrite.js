@@ -19,14 +19,6 @@ const ReviewWrite = (props) => {
 
   //비활성화된 별 갯수
   const notValuedStartCount = totalStarCount - starCount;
-
-  //   const [review, setReview] = React.useState({
-  //     id: new Date(),
-  //     nick_name: "나야나",
-  //     review_content: "",
-  //     review_score: 5,
-  //   });
-
   const inputRef = useRef();
   const handleReviewScore = (score) => {
     setReview({
@@ -40,6 +32,13 @@ const ReviewWrite = (props) => {
       ...review,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleEnterReviewContent = (e) => {
+    if (e.key === "Enter") {
+      handleAddReview(review);
+      inputRef.current.value = "";
+    }
   };
   return (
     <ReviewContainer>
@@ -71,6 +70,7 @@ const ReviewWrite = (props) => {
           name="review_content"
           placeholder="리뷰를 입력해주세요"
           onChange={handleChangeReviewContent}
+          onKeyPress={handleEnterReviewContent}
           ref={inputRef}
         ></ReviewInput>
         <ReviewBtn
