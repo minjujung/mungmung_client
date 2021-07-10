@@ -12,6 +12,9 @@ const UserReview = ({
   review_score,
   handleDeleteReview,
 }) => {
+  //임시 닉네임임, 리뷰 닉네임이 이거랑 다르면 수정 / 삭제 비노출
+  const my_nick_name = "나야나";
+
   //비활성화 + 활성화된 모든 별 갯수
   const totalStarCount = 5;
 
@@ -37,11 +40,13 @@ const UserReview = ({
               return <StarBorderIcon onClick={() => {}}></StarBorderIcon>;
             })}
           </StarBox>
-          <ControllBox>
-            <span>수정 </span>
-            <span>/</span>
-            <span onClick={() => handleDeleteReview(id)}> 삭제</span>
-          </ControllBox>
+          {my_nick_name === nick_name && (
+            <ControllBox>
+              <span>수정 </span>
+              <span>/</span>
+              <span onClick={() => handleDeleteReview(id)}> 삭제</span>
+            </ControllBox>
+          )}
         </StarAndControll>
         <Content>{review_content}</Content>
       </ReviewInfo>
