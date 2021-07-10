@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import "./App.css";
 import {
   InputStyle,
   NormalBtnColor,
@@ -7,33 +6,15 @@ import {
   ThemeBtnColor,
 } from "./common_css/style";
 import Footer from "./components/Footer";
-
+import { Route, Switch } from "react-router-dom";
+import HospitalDetail from "./pages/HospitalDetail";
 function App() {
   return (
-    <div className="App">
-      <Button>깃 테스트3</Button>
-      <NormBtn>나는 버튼3다</NormBtn>
-      <Title>로그인</Title>
-      <Input type="text" placeholder="내용을 입력해주세요"></Input>
+    <div className="App" style={{ paddingBottom: "100px" }}>
+      <Route path="/hospitals/:id" component={HospitalDetail}></Route>
       <Footer />
     </div>
   );
 }
-
-const Button = styled.button`
-  ${ThemeBtnColor}
-`;
-
-const NormBtn = styled.button`
-  ${NormalBtnColor}
-`;
-
-const Title = styled.h1`
-  ${PageTitle}
-`;
-
-const Input = styled.input`
-  ${InputStyle}
-`;
 
 export default App;
