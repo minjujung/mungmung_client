@@ -11,13 +11,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NormalBtnColor } from "../common_css/style";
 import styled from "styled-components";
 
-const Schedule = (props) => {
+const Schedule = ({ setSchedule }) => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
   const save = () => {
+    setSchedule(date + time);
     setShow(true);
   };
   const handleDateChange = (date, e) => {

@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router";
 import styled, { css } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -11,10 +12,11 @@ import Review from "../components/Review";
 import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
 import Footer from "../components/Footer";
-
+import { ThemeBtnColor } from "../common_css/style";
+import { history } from "../redux/configureStore";
 SwiperCore.use([Navigation, Pagination]);
 
-const HospitalDetail = () => {
+const HospitalDetail = (props) => {
   const [tabIndex, setTabIndex] = React.useState(1);
   const [currentInfo, setCurrentInfo] = React.useState("intro");
   const [tabContent, setTabContent] = React.useState([
@@ -35,8 +37,19 @@ const HospitalDetail = () => {
       type: "location",
     },
   ]);
+
+  const historyWithData = useHistory();
+  const hospitalId = props.match.params.id;
+
   const handleCurrentInfo = (value) => {
     setCurrentInfo(value);
+  };
+
+  const goToReservation = (id) => {
+    historyWithData.push({
+      pathname: "/reservation",
+      state: { id },
+    });
   };
 
   const imgBoxCss = { width: "100%", height: "250px" };
@@ -94,7 +107,14 @@ const HospitalDetail = () => {
         {(function () {
           switch (currentInfo) {
             case "intro": {
-              return <HospitalIntro></HospitalIntro>;
+              return (
+                <>
+                  <HospitalIntro></HospitalIntro>
+                  <Button onClick={() => goToReservation(hospitalId)}>
+                    예약하기
+                  </Button>
+                </>
+              );
             }
 
             case "review": {
@@ -155,6 +175,14 @@ const Tab = styled.div`
 
 const CurrentInfoContainer = styled.div`
   padding: 15px;
+`;
+
+const Button = styled.div`
+  width: 150px;
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  ${ThemeBtnColor}
 `;
 
 const ReviewBox = styled.div``;
