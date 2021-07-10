@@ -16,11 +16,11 @@ function App() {
   return (
     <Container>
       <ConnectedRouter history={history}>
-        {/* <Route exact path="/" component={Start} /> */}
+        <Route exact path="/" component={Start} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/reservation" component={Reservation} />
-        {/* <Route path="/hospitals/:id" component={HospitalDetail}></Route> */}
+        <Route path="/hospitals/:id" component={HospitalDetail}></Route>
       </ConnectedRouter>
     </Container>
   );
@@ -28,7 +28,8 @@ function App() {
 
 const Container = styled.div`
   width: 100%;
-  padding-bottom: 100px;
+  position: relative;
+  min-height: 100vh;
 
   @media screen and (min-width: 768px) {
     width: 768px;

@@ -10,7 +10,7 @@ import "swiper/components/pagination/pagination.scss";
 import Review from "../components/Review";
 import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -57,7 +57,7 @@ const HospitalDetail = () => {
     },
   ];
   return (
-    <div>
+    <Container>
       <Swiper
         spaceBetween={50}
         slidesPerView={1}
@@ -112,9 +112,17 @@ const HospitalDetail = () => {
         })()}
       </CurrentInfoContainer>
       <Footer />
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  @media screen and (min-width: 768px) {
+    width: 768px;
+    margin: 0 auto;
+  }
+`;
 
 const TabBox = styled.div`
   width: 100%;
