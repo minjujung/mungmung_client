@@ -9,7 +9,7 @@ import { useRef } from "react";
 
 const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
-  const { review, setReview, handleAddReview } = props;
+  const { review, setReview, handleAddReview, type } = props;
 
   //비활성화 + 활성화된 모든 별 갯수
   const totalStarCount = 5;
@@ -104,4 +104,8 @@ const ReviewBtn = styled.div`
   ${ThemeBtnColor}
   width:23%
 `;
+
+ReviewWrite.defaultProps = {
+  type: "write",
+};
 export default ReviewWrite;
