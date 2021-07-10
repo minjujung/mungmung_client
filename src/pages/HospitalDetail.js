@@ -10,6 +10,7 @@ import "swiper/components/pagination/pagination.scss";
 import Review from "../components/Review";
 import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
+import Footer from "../components/Footer";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -110,6 +111,7 @@ const HospitalDetail = () => {
           }
         })()}
       </CurrentInfoContainer>
+      <Footer />
     </div>
   );
 };
