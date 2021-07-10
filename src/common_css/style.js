@@ -35,7 +35,7 @@ export const InputStyle = css`
 export const NormalFooter = css`
   background-color: rgb(190, 190, 190);
   display: flex;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
   height: 60px;
