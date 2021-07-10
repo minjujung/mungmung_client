@@ -1,20 +1,63 @@
+import "./App.css";
 import styled from "styled-components";
-import {
-  InputStyle,
-  NormalBtnColor,
-  PageTitle,
-  ThemeBtnColor,
-} from "./common_css/style";
-import Footer from "./components/Footer";
-import { Route, Switch } from "react-router-dom";
+
+import { Route } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+
+import { history } from "./redux/configureStore";
+
+import Start from "./pages/Start";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Reservation from "./pages/Reservation";
 import HospitalDetail from "./pages/HospitalDetail";
+
 function App() {
   return (
-    <div className="App" style={{ paddingBottom: "100px" }}>
-      <Route path="/hospitals/:id" component={HospitalDetail}></Route>
-      <Footer />
-    </div>
+    <Container>
+      <ConnectedRouter history={history}>
+        {/* <Route exact path="/" component={Start} /> */}
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/reservation" component={Reservation} />
+        {/* <Route path="/hospitals/:id" component={HospitalDetail}></Route> */}
+      </ConnectedRouter>
+    </Container>
   );
+}
+
+const Container = styled.div`
+  width: 100%;
+  padding-bottom: 100px;
+
+  @media screen and (min-width: 768px) {
+    width: 768px;
+    margin: 0 auto;
+  }
+`;
+
+{
+  /* <Button>깃 테스트2</Button>
+<NormBtn>나는 버튼2다</NormBtn>
+<Title>로그인</Title>
+<Input type="text" placeholder="내용을 입력해주세요"></Input>
+<Footer />
+
+const Button = styled.button`
+  ${ThemeBtnColor}
+`;
+
+const NormBtn = styled.button`
+  ${NormalBtnColor}
+`;
+
+const Title = styled.h1`
+  ${PageTitle}
+`;
+
+const Input = styled.input`
+  ${InputStyle}
+`; */
 }
 
 export default App;
