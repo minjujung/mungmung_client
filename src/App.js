@@ -1,39 +1,22 @@
-import styled from "styled-components";
 import "./App.css";
-import {
-  InputStyle,
-  NormalBtnColor,
-  PageTitle,
-  ThemeBtnColor,
-} from "./common_css/style";
-import Footer from "./components/Footer";
+import Search from "./pages/Search";
+import MyPage from "./pages/MyPage";
+import MainPage from "./pages/MainPage";
+import { ConnectedRouter} from "connected-react-router";
+import {history} from "./redux/configureStore";
+import { Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Button>깃 테스트3</Button>
-      <NormBtn>나는 버튼3다</NormBtn>
-      <Title>로그인</Title>
-      <Input type="text" placeholder="내용을 입력해주세요"></Input>
-      <Footer />
+      <ConnectedRouter history={history}>
+      <Route path="/pages/search" component={Search}/>
+      <Route path="/pages/mypage" component={MyPage}/>
+      <Route path="/pages/mainpage" component={MainPage}/>
+      </ConnectedRouter>
     </div>
   );
 }
 
-const Button = styled.button`
-  ${ThemeBtnColor}
-`;
-
-const NormBtn = styled.button`
-  ${NormalBtnColor}
-`;
-
-const Title = styled.h1`
-  ${PageTitle}
-`;
-
-const Input = styled.input`
-  ${InputStyle}
-`;
 
 export default App;
