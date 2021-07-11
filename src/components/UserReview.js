@@ -6,6 +6,7 @@ import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 import { useHistory } from "react-router-dom";
+import ReviewWrite from "./ReviewWrite";
 const UserReview = ({
   id,
   nick_name,
@@ -27,43 +28,42 @@ const UserReview = ({
   const notValuedStartCount = totalStarCount - starCount;
 
   return (
-    <ReviewContainer>
-      <ProfileBox>
-        <AccountCircleIcon style={{ fontSize: "3.3rem" }}></AccountCircleIcon>
-        <NickName>{nick_name}</NickName>
-      </ProfileBox>
-      <ReviewInfo>
-        <StarAndControll>
-          <StarBox>
-            {[...Array(starCount)].map((n, index) => {
-              return <StarIcon style={{ color: "#ECBA11" }}></StarIcon>;
-            })}
-            {[...Array(notValuedStartCount)].map((n, index) => {
-              return <StarBorderIcon onClick={() => {}}></StarBorderIcon>;
-            })}
-          </StarBox>
-          {my_nick_name === nick_name && (
-            <ControllBox>
-              <span
-                onClick={() => {
-                  history.push({
-                    pathname: `/review/update/${id}`,
-                    state: {
-                      type: "update",
-                    },
-                  });
-                }}
-              >
-                수정{" "}
-              </span>
-              <span>/</span>
-              <span onClick={() => handleDeleteReview(id)}> 삭제</span>
-            </ControllBox>
-          )}
-        </StarAndControll>
-        <Content>{review_content}</Content>
-      </ReviewInfo>
-    </ReviewContainer>
+    <>
+      <ReviewContainer>
+        <ProfileBox>
+          <AccountCircleIcon style={{ fontSize: "3.3rem" }}></AccountCircleIcon>
+          <NickName>{nick_name}</NickName>
+        </ProfileBox>
+        <ReviewInfo>
+          <StarAndControll>
+            <StarBox>
+              {[...Array(starCount)].map((n, index) => {
+                return <StarIcon style={{ color: "#ECBA11" }}></StarIcon>;
+              })}
+              {[...Array(notValuedStartCount)].map((n, index) => {
+                return <StarBorderIcon onClick={() => {}}></StarBorderIcon>;
+              })}
+            </StarBox>
+            {my_nick_name === nick_name && (
+              <ControllBox>
+                <span
+                  onClick={() =>
+                    history.push({
+                      pathname: `/review/update/${id}`,
+                    })
+                  }
+                >
+                  수정{" "}
+                </span>
+                <span>/</span>
+                <span onClick={() => handleDeleteReview(id)}> 삭제</span>
+              </ControllBox>
+            )}
+          </StarAndControll>
+          <Content>{review_content}</Content>
+        </ReviewInfo>
+      </ReviewContainer>
+    </>
   );
 };
 

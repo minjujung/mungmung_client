@@ -6,12 +6,27 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 import { InputStyle, ThemeBtnColor } from "../common_css/style";
 import { useRef } from "react";
+import { useEffect } from "react";
 
 const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
-  const { review, setReview, handleAddReview, type } = props;
+  const { handleAddReview } = props;
 
-  //비활성화 + 활성화된 모든 별 갯수
+  useEffect(() => {
+    if (props.type === "update") {
+      inputRef.current.value = props.review_content;
+      setCurrentReviewScore(props.starCount);
+    }
+  });
+
+  const [review, setReview] = React.useState({
+    id: new Date(),
+    nick_name: "나야나",
+    review_content: "",
+    review_score: 5,
+  });
+
+  //비활성화 + 활성화된 모든 별 갯정
   const totalStarCount = 5;
 
   //활성화된 별 갯수
@@ -73,14 +88,25 @@ const ReviewWrite = (props) => {
           onKeyPress={handleEnterReviewContent}
           ref={inputRef}
         ></ReviewInput>
-        <ReviewBtn
-          onClick={() => {
-            handleAddReview(review);
-            inputRef.current.value = "";
-          }}
-        >
-          작성
-        </ReviewBtn>
+        {props.type === "write" ? (
+          <ReviewBtn
+            onClick={() => {
+              handleAddReview(review);
+              inputRef.current.value = "";
+            }}
+          >
+            작성
+          </ReviewBtn>
+        ) : (
+          <ReviewBtn
+            onClick={() => {
+              //   handleUpdateReview(review);
+              inputRef.current.value = "";
+            }}
+          >
+            수정
+          </ReviewBtn>
+        )}
       </ReviewWriteBox>
     </ReviewContainer>
   );

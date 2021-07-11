@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Reservation from "./pages/Reservation";
 import HospitalDetail from "./pages/HospitalDetail";
+import ReviewUpdate from "./pages/ReviewUpdate";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/reservation" component={Reservation} />
         <Route path="/hospitals/:id" component={HospitalDetail}></Route>
+        <Route path="/review/update/:id" component={ReviewUpdate}></Route>
       </ConnectedRouter>
     </Container>
   );
