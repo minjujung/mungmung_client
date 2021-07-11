@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ThemeBtnColor } from "../common_css/style";
 
 const HospitalIntro = () => {
   return (
@@ -18,6 +19,10 @@ const HospitalIntro = () => {
   );
 };
 
+// const Container = styled.div`
+//   position: relative;
+// `;
+
 const HostpitalName = styled.h2``;
 const IntroContent = styled.pre`
   white-space: pre-wrap;
@@ -25,4 +30,5 @@ const IntroContent = styled.pre`
 `;
 const HospitalSubjectTitle = styled.h3``;
 const HospitalSubject = styled.div``;
+
 export default HospitalIntro;
