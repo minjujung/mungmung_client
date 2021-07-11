@@ -25,6 +25,8 @@ const MyPage = (props) => {
 };
 
 const Title = styled.h1`
+  display: flex;
+  justify-content: center;
   ${PageTitle}
 `;
 
@@ -55,8 +57,8 @@ const Text = styled.div`
 
 const Grid2 = styled.div`
   display: flex;
-  margin-left: 53px;
-  width: 70vw;
+  margin: auto;
+  width: 70%;
   min-height: 120px;
   border-radius: 10px;
   padding: 10px;
