@@ -6,6 +6,9 @@ import { ConnectedRouter } from "connected-react-router";
 
 import { history } from "./redux/configureStore";
 
+import Search from "./pages/Search";
+import MyPage from "./pages/MyPage";
+import MainPage from "./pages/MainPage";
 import Start from "./pages/Start";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -21,6 +24,9 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/reservation" component={Reservation} />
         <Route path="/hospitals/:id" component={HospitalDetail}></Route>
+        <Route path="/pages/search" component={Search}/>
+        <Route path="/pages/mypage" component={MyPage}/>
+        <Route path="/pages/mainpage" component={MainPage}/>
       </ConnectedRouter>
     </Container>
   );
@@ -36,29 +42,5 @@ const Container = styled.div`
     margin: 0 auto;
   }
 `;
-
-{
-  /* <Button>깃 테스트2</Button>
-<NormBtn>나는 버튼2다</NormBtn>
-<Title>로그인</Title>
-<Input type="text" placeholder="내용을 입력해주세요"></Input>
-<Footer />
-
-const Button = styled.button`
-  ${ThemeBtnColor}
-`;
-
-const NormBtn = styled.button`
-  ${NormalBtnColor}
-`;
-
-const Title = styled.h1`
-  ${PageTitle}
-`;
-
-const Input = styled.input`
-  ${InputStyle}
-`; */
-}
 
 export default App;
