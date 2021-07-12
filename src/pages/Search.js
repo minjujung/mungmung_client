@@ -22,9 +22,8 @@ const Search = () => {
 };
 
 const Title = styled.h1`
-  display: flex;
-  justify-content: center;
-  ${PageTitle}
+  text-align: center;
+  ${PageTitle};
 `;
 
 const Input = styled.input`

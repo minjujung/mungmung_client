@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "../components/Footer";
 import styled from "styled-components";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import instance from "../shared/config";
 
 import { history } from "../redux/configureStore";
 
@@ -12,6 +17,11 @@ const MainPage = (props) => {
     hospitalRate: "별점",
   };
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    instance.get("/hospitals").then((response) => console.log(response));
+  }, []);
   const imgBoxCss = { width: "100%", height: "250px" };
   const imgCss = { width: "100%", height: "100%" };
 
@@ -24,6 +34,19 @@ const MainPage = (props) => {
   return (
     <div>
       <Grid2>
+        <ExitToAppIcon
+          onClick={() => {
+            dispatch(userActions.logoutDB());
+          }}
+          style={{
+            width: "30px",
+            height: "30px",
+            position: "absolute",
+            top: "30px",
+            right: "20px",
+            color: "gray",
+          }}
+        />
         {imgList.map(({ img_url }, index) => {
           return (
             <div key={index} style={imgBoxCss}>

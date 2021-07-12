@@ -3,6 +3,7 @@ import produce from "immer";
 import moment from "moment";
 import axios from "axios";
 import { result } from "lodash";
+import { getCookie } from "../../shared/cookie";
 
 const GET_REVIEW = "GET_REVIEW";
 const ADD_REVIEW = "ADD_REVIEW";
@@ -29,21 +30,24 @@ const initialState = {
 const getReviewDB = () => {
   return function (dispatch, getState, { history }) {
     axios.get(serverIP + "/hospitals/1/reviews").then((result) => {
-      // console.log("result : ", result);
       dispatch(getReview(result.data));
     });
   };
 };
 
 const addReviewDB = (review) => {
-  const { id, dogName, reviewContent, hospitalRate } = review;
-  const param = {
-    dogName: dogName,
-    reviewContent: reviewContent,
-  };
   return function (dispatch, getState, { history }) {
-    axios.post(serverIP + "/hospitals/1/reviews", param).then((result) => {
-      dispatch(getReviewDB());
+    const token = getCookie();
+    axios.defaults.headers.common["Authorization"] = `${token}`;
+    const { reviewContent, reviewRate } = review;
+    const new_review = {
+      reviewContent,
+      reviewRate,
+    };
+    axios.post(serverIP + "/hospitals/1/reviews", new_review).then((result) => {
+      const user_info = getState().user.user;
+      console.log(result);
+      dispatch(addReview({ ...new_review, dogName: user_info.dogName }));
     });
   };
 };
@@ -74,6 +78,11 @@ export default handleActions(
     [GET_REVIEW]: (state, action) => {
       return produce(state, (draft) => {
         draft.review_list = action.payload.review;
+      });
+    },
+    [ADD_REVIEW]: (state, action) => {
+      return produce(state, (draft) => {
+        draft.review_list.unshift(action.payload.review);
       });
     },
   },

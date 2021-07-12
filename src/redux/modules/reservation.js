@@ -1,7 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import moment from "moment";
+import instance from "../../shared/config";
 import axios from "axios";
+import { getCookie } from "../../shared/cookie";
 
 // actions
 const ADD_RESERVATION = "ADD_RESERVATION";
@@ -37,22 +39,36 @@ const addReservationDB = (
       reservationDate,
       reservationDetail,
     };
-    axios
-      .post("/reservations", new_reservation)
+    console.log(new_reservation);
+    console.log(getCookie());
+    const token = getCookie();
+    instance.defaults.headers.common["Authorization"] = `${token}`;
+
+    instance
+      .post(
+        "/reservations",
+        new_reservation
+        // ... add other header lines like: 'Content-Type': 'application/json'
+      )
       .then((response) => {
+        console.log(response);
         switch (response.data.msg) {
           case "success":
             dispatch(addReservation(new_reservation));
             window.alert(
               "예약이 완료되었습니다. 마이페이지에서 예약 목록을 확인해 보세요 :)"
             );
+            history.push("/pages/mypage");
             break;
           case "not_login":
             window.alert("로그인이 필요합니다!");
             history.replace("/login");
             break;
           default:
-            window.alert("예약 신청 중 오류가 생겼네요! 다시 부탁드려요!");
+            // window.alert("예약 신청 중 오류가 생겼네요! 다시 부탁드려요!");
+            dispatch(addReservation(new_reservation));
+            window.alert("test server ok!");
+            history.push("/pages/mypage");
             break;
         }
       })
@@ -68,12 +84,17 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.unshift(action.payload.reservation);
       }),
+    [GET_RESERVATION]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.reservation_list;
+      }),
   },
   initialState
 );
 
 const actionCreators = {
   addReservationDB,
+  getReservation,
 };
 
 export { actionCreators };

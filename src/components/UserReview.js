@@ -16,6 +16,7 @@ const UserReview = ({
   handleUpdateReview,
 }) => {
   //임시 닉네임임, 리뷰 닉네임이 이거랑 다르면 수정 / 삭제 비노출
+  // review정보에 userId밖에 없어서 userName이랑 비교 불가
   const my_nick_name = "나야나";
 
   const history = useHistory();
@@ -23,11 +24,11 @@ const UserReview = ({
   const totalStarCount = 5;
 
   //활성화된 별 갯수
-  const starCount = hospitalRate; //나중에 여기에 평점값 출력
+  const starCount = hospitalRate ? hospitalRate : 0; //나중에 여기에 평점값 출력
 
   //비활성화된 별 갯수
   const notValuedStartCount = totalStarCount - starCount;
-
+  console.log(starCount, totalStarCount);
   return (
     <>
       <ReviewContainer>

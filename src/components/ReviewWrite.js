@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import StarIcon from "@material-ui/icons/Star";
@@ -12,11 +12,9 @@ const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
   const { handleAddReview, handleUpdateReview, update_id } = props;
 
-  const [review, setReview] = React.useState({
-    id: new Date(),
-    dogName: "나야나",
+  const [review, setReview] = useState({
     reviewContent: "",
-    hospitalRate: 5,
+    reviewRate: 5,
   });
 
   //비활성화 + 활성화된 모든 별 갯정
@@ -31,7 +29,7 @@ const ReviewWrite = (props) => {
   const handleReviewScore = (score) => {
     setReview({
       ...review,
-      hospitalRate: score,
+      reviewRate: score,
     });
   };
 
