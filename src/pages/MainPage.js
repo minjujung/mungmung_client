@@ -2,14 +2,15 @@ import React from "react";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 
+import { getSearch } from "../redux/modules/search";
 import { history } from "../redux/configureStore";
 
 const MainPage = (props) => {
   const hospital = {
-    hospitalName: "병원이름",
+    hospitalName: "멍멍병원",
     hospitalId: "병원 id",
-    hospitalContent: "소개",
-    hospitalRate: "별점",
+    hospitalContent: "여기 무지 좋아용",
+    hospitalRate: "4.5점",
   };
 
   const imgBoxCss = { width: "100%", height: "250px" };

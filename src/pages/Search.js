@@ -6,7 +6,7 @@ import { PageTitle, InputStyle, ThemeBtnColor } from "../common_css/style";
 const Search = () => {
   const dogName = [
     {
-      dogName : "ludi",
+      dogName : "루디",
     },
   ]
   return (

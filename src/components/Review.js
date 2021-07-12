@@ -3,13 +3,6 @@ import ReviewWrite from "./ReviewWrite";
 import UserReview from "./UserReview";
 
 const Review = () => {
-  const [review, setReview] = React.useState({
-    id: new Date(),
-    nick_name: "나야나",
-    review_content: "",
-    review_score: 5,
-  });
-
   const [review_list, setReviewList] = React.useState([
     {
       id: 1,
@@ -35,20 +28,21 @@ const Review = () => {
     setReviewList([review, ...review_list]);
   };
 
+  const handleUpdateReview = (id) => {
+    const found_review = review_list.find((review) => {
+      return review.id === id;
+    });
+  };
+
   const handleDeleteReview = (id) => {
     const filtered_review_list = review_list.filter((review) => {
       return review.id !== id;
     });
-
     setReviewList(filtered_review_list);
   };
   return (
     <>
-      <ReviewWrite
-        review={review}
-        setReview={setReview}
-        handleAddReview={handleAddReview}
-      ></ReviewWrite>
+      <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       {review_list.map(({ id, nick_name, review_content, review_score }) => {
         return (
           <UserReview
