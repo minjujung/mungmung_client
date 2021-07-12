@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 import { PageTitle, InputStyle, ThemeBtnColor } from "../common_css/style";
 import Schedule from "../components/Schedule";
@@ -32,6 +33,16 @@ const Reservation = (props) => {
   console.log(id, dogName, schedule, request);
   return (
     <Container>
+      <ArrowBackIosIcon
+        style={{
+          width: "30px",
+          height: "30px",
+          position: "absolute",
+          top: "30px",
+          left: "20px",
+          color: "gray",
+        }}
+      />
       <Title>예약 페이지</Title>
       <InputContainer>
         <label htmlFor="dogName">반려견 이름</label>
@@ -65,6 +76,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Header = styled.div`
+  display: flex;
 `;
 
 const Title = styled.h1`
