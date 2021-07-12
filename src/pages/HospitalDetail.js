@@ -1,7 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router";
 import styled, { css } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import { history } from "../redux/configureStore";
+import { getCookie } from "../shared/cookie";
 
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
@@ -13,7 +15,6 @@ import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
 import Footer from "../components/Footer";
 import { ThemeBtnColor } from "../common_css/style";
-import { history } from "../redux/configureStore";
 SwiperCore.use([Navigation, Pagination]);
 
 const HospitalDetail = (props) => {
@@ -38,17 +39,22 @@ const HospitalDetail = (props) => {
     },
   ]);
 
-  const historyWithData = useHistory();
   const hospitalId = props.match.params.id;
 
   const handleCurrentInfo = (value) => {
     setCurrentInfo(value);
   };
+  console.log(props);
 
   const goToReservation = (id) => {
-    historyWithData.push({
+    if (!getCookie()) {
+      window.alert("로그인이 필요한 서비스 입니다!");
+      history.push("/login");
+      return;
+    }
+    history.push({
       pathname: "/reservation",
-      state: { id },
+      state: { id: hospitalId },
     });
   };
 

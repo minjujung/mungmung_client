@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { PageTitle } from "../common_css/style";
@@ -7,20 +7,45 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 const MyPage = (props) => {
+  const dispatch = useDispatch();
+  const reservations = useSelector((state) => state.reservation.list);
+  const user_info = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(userActions.myPageDB());
+  }, []);
   return (
     <div>
       <Title>마이페이지</Title>
       <Grid>
         <PhotoCameraIcon style={{ fontSize: 40 }}></PhotoCameraIcon>
-        <AccountCircleTwoToneIcon
+        {/* <AccountCircleTwoToneIcon
           style={{ fontSize: 150 }}
-        ></AccountCircleTwoToneIcon>
+        ></AccountCircleTwoToneIcon> */}
+        <image
+          src={user_info.dogImage}
+          style={{ width: "100px", height: "100px" }}
+          alt="dog"
+        />
         <CheckCircleIcon style={{ fontSize: 40 }}></CheckCircleIcon>
       </Grid>
-      <Name>삼억이</Name>
+      <Name>{user_info.dogName}</Name>
       <Text bold>예약내역</Text>
-      <Grid2></Grid2>
+
+      <RevContainer>
+        {reservations.map((r, idx) => (
+          <Grid2>
+            <p>{r.hospitalId}</p>
+            <p>{r.reservationDate}</p>
+            <p>{r.reservationDetail}</p>
+          </Grid2>
+        ))}
+      </RevContainer>
+
       <Footer />
     </div>
   );
@@ -59,13 +84,18 @@ const Text = styled.div`
 
 const Grid2 = styled.div`
   display: flex;
+  flex-direction: column;
   margin: auto;
   width: 70%;
   min-height: 120px;
   border-radius: 10px;
   padding: 10px;
-  color: #fff;
-  background-color: #eef2f3;
+  border: 1px solid grey;
+`;
+
+const RevContainer = styled.div`
+  height: 40vh;
+  overflow-y: scroll;
 `;
 
 // const Profile = styled.div`

@@ -1,21 +1,22 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-import { setCookie } from "../../shared/Cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/cookie";
 import instance from "../../shared/config";
+import { actionCreators as reservationActions } from "./reservation";
+import axios from "axios";
 
 //actions
 const SET_USER = "SET_USER";
-const ADD_USER = "ADD_USER";
+const LOGOUT = "LOGOUT";
 
 //action creators
 const setUser = createAction(SET_USER, (user) => ({ user }));
-const addUser = createAction(ADD_USER, (user) => ({ user }));
+const logout = createAction(LOGOUT, () => {});
 
 //initial state
 const initialState = {
-  user: null,
-  is_login: false,
+  user: {},
 };
 
 // {userName : "아이디",
@@ -35,8 +36,9 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
     instance
       .post("/user/regist", new_user)
       .then((response) => {
+        console.log(response);
         window.alert("회원가입이 완료되었습니다!");
-        history.replace("/");
+        history.push("/login");
         //   if (response.data.msg === "success") {
         //     dispatch(setUser(new_user));
         //     window.alert("회원가입이 완료되었습니다!");
@@ -58,17 +60,64 @@ const loginDB = (userName, password) => {
       password,
     };
     instance
-      .post("/user", login_info)
+      .post("/login", login_info)
       .then((response) => {
         console.log(response);
-        window.alert("로그인 정보 서버에 전달 완료");
+        const accessToken = response.data;
+
+        //API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
+        // instance.defaults.headers.common[
+        //   "Authorization"
+        // ] = `Bearer ${accessToken}`;
+
+        //받은 token 쿠키에 저장
+        setCookie("token", accessToken);
+
+        // let user_info = {
+        //   dogName: response.data.dogName,
+        //   dogImage: response.data.dogImage,
+        //   reservation: [...response.data.reservation],
+        // };
+        dispatch(setUser(login_info));
       })
       .catch((error) => console.log("로그인 중 에러가 발생했어요!", error));
   };
 };
 
+// const loginCheckDB = () => {
+//   return function (dispatch, getState, { history }) {
+//     if(getCookie() === "token"){
+
+//     }
+//   };
+// };
+
 const logoutDB = () => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    deleteCookie("token");
+    instance.defaults.headers.common["Authorization"] = null;
+    delete instance.defaults.headers.common["Authorization"];
+    dispatch(logout());
+    history.push("/pages/mainpage");
+  };
+};
+
+const myPageDB = () => {
+  return function (dispatch, getState, { history }) {
+    const token = getCookie();
+    instance.defaults.headers.common["Authorization"] = `${token}`;
+    instance.get("/userinfo").then((response) => {
+      console.log(response);
+      const _user = response.data.user;
+      const user_info = {
+        dogName: _user.dogName,
+        dogImage: _user.dogImage,
+      };
+      console.log(user_info);
+      dispatch(setUser(user_info));
+      dispatch(reservationActions.getReservation(response.data.reservation));
+    });
+  };
 };
 
 //reducer
@@ -76,9 +125,11 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        setCookie("is_login", "success");
         draft.user = action.payload.user;
-        draft.is_login = true;
+      }),
+    [LOGOUT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = null;
       }),
   },
   initialState
@@ -87,6 +138,9 @@ export default handleActions(
 const actionCreators = {
   signupDB,
   loginDB,
+  // loginCheckDB,
+  logoutDB,
+  myPageDB,
 };
 
 export { actionCreators };

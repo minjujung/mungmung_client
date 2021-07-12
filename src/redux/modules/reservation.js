@@ -3,6 +3,7 @@ import { produce } from "immer";
 import moment from "moment";
 import instance from "../../shared/config";
 import axios from "axios";
+import { getCookie } from "../../shared/cookie";
 
 // actions
 const ADD_RESERVATION = "ADD_RESERVATION";
@@ -39,8 +40,16 @@ const addReservationDB = (
       reservationDetail,
     };
     console.log(new_reservation);
+    console.log(getCookie());
+    const token = getCookie();
+    instance.defaults.headers.common["Authorization"] = `${token}`;
+
     instance
-      .post("/reservations", new_reservation)
+      .post(
+        "/reservations",
+        new_reservation
+        // ... add other header lines like: 'Content-Type': 'application/json'
+      )
       .then((response) => {
         console.log(response);
         switch (response.data.msg) {
@@ -49,7 +58,7 @@ const addReservationDB = (
             window.alert(
               "예약이 완료되었습니다. 마이페이지에서 예약 목록을 확인해 보세요 :)"
             );
-            history.replace("/pages/mypage");
+            history.push("/pages/mypage");
             break;
           case "not_login":
             window.alert("로그인이 필요합니다!");
@@ -57,8 +66,9 @@ const addReservationDB = (
             break;
           default:
             // window.alert("예약 신청 중 오류가 생겼네요! 다시 부탁드려요!");
+            dispatch(addReservation(new_reservation));
             window.alert("test server ok!");
-            history.replace("/pages/mypage");
+            history.push("/pages/mypage");
             break;
         }
       })
@@ -68,11 +78,27 @@ const addReservationDB = (
   };
 };
 
+// const getReservationDB = () => {
+//   return function (dispatch, getState, { history }) {
+//     const token = getCookie();
+//     instance.defaults.headers.common["Authorization"] = `${token}`;
+//     instance.get("/userinfo").then((response) => {
+//       console.log(response);
+
+//       dispatch(getReservation(response.data.reservation));
+//     });
+//   };
+// };
+
 export default handleActions(
   {
     [ADD_RESERVATION]: (state, action) =>
       produce(state, (draft) => {
         draft.list.unshift(action.payload.reservation);
+      }),
+    [GET_RESERVATION]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.reservation_list;
       }),
   },
   initialState
@@ -80,6 +106,7 @@ export default handleActions(
 
 const actionCreators = {
   addReservationDB,
+  getReservation,
 };
 
 export { actionCreators };
