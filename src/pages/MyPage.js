@@ -7,7 +7,16 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 
+import { history } from "../redux/configureStore";
+
 const MyPage = (props) => {
+  const reservation = {
+    hospitalId : "병원 id",
+    hospitalName: "병원이름",
+    reservationDate : "예약시간",
+    reservationDetail : "요청사항",
+    };
+
   return (
     <div>
       <Title>마이페이지</Title>
@@ -15,10 +24,14 @@ const MyPage = (props) => {
         <PhotoCameraIcon style={{ fontSize: 40 }}></PhotoCameraIcon>
         <AccountCircleTwoToneIcon style={{ fontSize: 150 }}></AccountCircleTwoToneIcon>
         <CheckCircleIcon style={{ fontSize: 40 }}></CheckCircleIcon>
-      </Grid>
+      </Grid> 
       <Name>삼억이</Name>
       <Text bold>예약내역</Text>
-      <Grid2></Grid2>
+      <Grid2>
+        <p>{reservation.hospitalName}</p>
+        <p>{reservation.reservationDate}</p>
+        <p>{reservation.reservationDetail}</p>
+      </Grid2>
       <Footer />
     </div>
   );
@@ -38,7 +51,7 @@ const Grid = styled.div`
 `;
 
 const Name = styled.div`
-  padding: 20px;
+  padding: 10px;
   font-size: 1.5em;
   display: flex;
   align-items: center;
@@ -47,7 +60,7 @@ const Name = styled.div`
 `;
 
 const Text = styled.div`
-  padding: 25px;
+  padding: 15px;
   font-size: 1.3em;
   display: flex;
   align-items: flex-start;
@@ -57,22 +70,11 @@ const Text = styled.div`
 
 const Grid2 = styled.div`
   display: flex;
+  flex-direction: column;
   margin: auto;
-  width: 70%;
-  min-height: 120px;
-  border-radius: 10px;
-  padding: 10px;
-  color: #fff;
+  width: 60%;
+  color: black;
   background-color: #eef2f3;
 `;
-
-// const Profile = styled.div`
-//   display: flex;
-//   width: 90px;
-//   height: 90px;
-//   border-radius: 50px;
-//   color: #fff;
-//   background-color: #eef2f3;
-// `;
 
 export default MyPage;

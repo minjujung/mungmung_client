@@ -18,10 +18,6 @@ const initialState = {
   is_login: false,
 };
 
-// {userName : "아이디",
-// dogName : "반려견이름",
-// password : "비밀번호",
-// confirmPassword : "비밀번호확인"}
 //middleware
 const signupDB = (userName, dogName, password, confirmPassword) => {
   return function (dispatch, getState, { history }) {
