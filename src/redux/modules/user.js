@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
 import { setCookie } from "../../shared/Cookie";
-import axios from "axios";
+import instance from "../../shared/config";
 
 //actions
 const SET_USER = "SET_USER";
@@ -32,16 +32,18 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
       confirmPassword,
     };
 
-    axios
+    instance
       .post("/user/regist", new_user)
       .then((response) => {
-        if (response.data.msg === "success") {
-          dispatch(setUser(new_user));
-          window.alert("회원가입이 완료되었습니다!");
-          history.replace("/");
-        } else {
-          window.alert("가입 실패ㅜㅜ");
-        }
+        window.alert("회원가입이 완료되었습니다!");
+        history.replace("/");
+        //   if (response.data.msg === "success") {
+        //     dispatch(setUser(new_user));
+        //     window.alert("회원가입이 완료되었습니다!");
+        //     history.replace("/");
+        //   } else {
+        //     window.alert("가입 실패ㅜㅜ");
+        //   }
       })
       .catch((error) =>
         console.log("회원가입 내용 db에 저장하는 데 오류 발생!", error)
@@ -50,7 +52,19 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
 };
 
 const loginDB = (userName, password) => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    let login_info = {
+      userName,
+      password,
+    };
+    instance
+      .post("/user", login_info)
+      .then((response) => {
+        console.log(response);
+        window.alert("로그인 정보 서버에 전달 완료");
+      })
+      .catch((error) => console.log("로그인 중 에러가 발생했어요!", error));
+  };
 };
 
 const logoutDB = () => {
@@ -69,3 +83,10 @@ export default handleActions(
   },
   initialState
 );
+
+const actionCreators = {
+  signupDB,
+  loginDB,
+};
+
+export { actionCreators };

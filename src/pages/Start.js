@@ -13,7 +13,7 @@ const Start = (props) => {
       <Logo></Logo>
       <MainBtn
         onClick={() => {
-          history.push("/");
+          history.push("/pages/mainpage");
         }}
       >
         그냥 둘러볼래요!

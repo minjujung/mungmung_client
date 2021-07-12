@@ -1,0 +1,53 @@
+{
+  "reservations": [
+    {
+      "hospitalId": "1",
+      "dogName": "몽몽",
+      "reservationDate": "2021년 07월 14일오후 12시 ~ 오후 1시",
+      "reservationDetail": "ㅇㅇㅇㅇ",
+      "id": 1
+    },
+    {
+      "hospitalId": "1",
+      "dogName": "삼억이",
+      "reservationDate": "2021년 07월 14일오후 12시 ~ 오후 1시",
+      "reservationDetail": "슬개골이 아파요ㅡㅜㅜ",
+      "id": 2
+    },
+    {
+      "hospitalId": "1",
+      "dogName": "마이크",
+      "reservationDate": "2021년 07월 09일오전 11시 ~ 오후 12시",
+      "reservationDetail": "영양제가 필요할 것 같아요..",
+      "id": 3
+    }
+  ],
+  "user": [
+    {
+      "userName": "wjdalswn0530",
+      "password": "manju8898",
+      "id": 1
+    },
+    {
+      "userName": "love8898",
+      "password": "manju0530",
+      "id": 2
+    }
+  ],
+  "regist": [
+    {
+      "userName": "ddd",
+      "dogName": "ddd",
+      "password": "ddd",
+      "confirmPassword": "ddd",
+      "id": 2
+    },
+    {
+      "userName": "aaa",
+      "dogName": "aaa",
+      "password": "aaa",
+      "confirmPassword": "aaa",
+      "id": 3
+    }
+  ]
+}

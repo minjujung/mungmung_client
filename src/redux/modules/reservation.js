@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import moment from "moment";
+import instance from "../../shared/config";
 import axios from "axios";
 
 // actions
@@ -37,22 +38,27 @@ const addReservationDB = (
       reservationDate,
       reservationDetail,
     };
-    axios
+    console.log(new_reservation);
+    instance
       .post("/reservations", new_reservation)
       .then((response) => {
+        console.log(response);
         switch (response.data.msg) {
           case "success":
             dispatch(addReservation(new_reservation));
             window.alert(
               "예약이 완료되었습니다. 마이페이지에서 예약 목록을 확인해 보세요 :)"
             );
+            history.replace("/pages/mypage");
             break;
           case "not_login":
             window.alert("로그인이 필요합니다!");
             history.replace("/login");
             break;
           default:
-            window.alert("예약 신청 중 오류가 생겼네요! 다시 부탁드려요!");
+            // window.alert("예약 신청 중 오류가 생겼네요! 다시 부탁드려요!");
+            window.alert("test server ok!");
+            history.replace("/pages/mypage");
             break;
         }
       })

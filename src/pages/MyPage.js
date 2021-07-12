@@ -5,15 +5,17 @@ import { PageTitle } from "../common_css/style";
 import Footer from "../components/Footer";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
+import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 
 const MyPage = (props) => {
   return (
     <div>
       <Title>마이페이지</Title>
-      <Grid is flex width="auto">
+      <Grid>
         <PhotoCameraIcon style={{ fontSize: 40 }}></PhotoCameraIcon>
-        <AccountCircleTwoToneIcon style={{ fontSize: 150 }}></AccountCircleTwoToneIcon>
+        <AccountCircleTwoToneIcon
+          style={{ fontSize: 150 }}
+        ></AccountCircleTwoToneIcon>
         <CheckCircleIcon style={{ fontSize: 40 }}></CheckCircleIcon>
       </Grid>
       <Name>삼억이</Name>

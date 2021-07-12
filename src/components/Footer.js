@@ -5,12 +5,29 @@ import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
 import SearchIcon from "@material-ui/icons/Search";
 
+import { history } from "../redux/configureStore";
+
 const Footer = (props) => {
   return (
     <FooterStyle>
-      <HomeIcon style={IconStyle} />
-      <PersonIcon style={IconStyle} />
-      <SearchIcon style={IconStyle} />
+      <HomeIcon
+        style={IconStyle}
+        onClick={() => {
+          history.push("/pages/mainpage");
+        }}
+      />
+      <PersonIcon
+        style={IconStyle}
+        onClick={() => {
+          history.push("/pages/mypage");
+        }}
+      />
+      <SearchIcon
+        style={IconStyle}
+        onClick={() => {
+          history.push("/pages/search");
+        }}
+      />
     </FooterStyle>
   );
 };

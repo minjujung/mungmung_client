@@ -30,7 +30,6 @@ const Reservation = (props) => {
     );
   };
 
-  console.log(id, dogName, schedule, request);
   return (
     <Container>
       <ArrowBackIosIcon
