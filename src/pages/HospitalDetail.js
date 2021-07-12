@@ -13,7 +13,6 @@ import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
 import Footer from "../components/Footer";
 import { ThemeBtnColor } from "../common_css/style";
-import { history } from "../redux/configureStore";
 SwiperCore.use([Navigation, Pagination]);
 
 const HospitalDetail = (props) => {
@@ -82,7 +81,11 @@ const HospitalDetail = (props) => {
           return (
             <SwiperSlide key={index}>
               <div style={imgBoxCss}>
-                <img style={imgCss} src={img_url}></img>
+                <img
+                  style={imgCss}
+                  src={img_url}
+                  alt="병원 슬라이드 이미지"
+                ></img>
               </div>
             </SwiperSlide>
           );
@@ -117,7 +120,6 @@ const HospitalDetail = (props) => {
                 </>
               );
             }
-
             case "review": {
               return (
                 <>
@@ -125,7 +127,6 @@ const HospitalDetail = (props) => {
                 </>
               );
             }
-
             case "location": {
               return <Location></Location>;
             }
@@ -186,5 +187,4 @@ const Button = styled.div`
   ${ThemeBtnColor}
 `;
 
-const ReviewBox = styled.div``;
 export default HospitalDetail;

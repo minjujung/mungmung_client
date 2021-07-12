@@ -9,9 +9,9 @@ import { useHistory } from "react-router-dom";
 import ReviewWrite from "./ReviewWrite";
 const UserReview = ({
   id,
-  nick_name,
-  review_content,
-  review_score,
+  dogName,
+  reviewContent,
+  hospitalRate,
   handleDeleteReview,
   handleUpdateReview,
 }) => {
@@ -23,7 +23,7 @@ const UserReview = ({
   const totalStarCount = 5;
 
   //활성화된 별 갯수
-  const starCount = review_score; //나중에 여기에 평점값 출력
+  const starCount = hospitalRate; //나중에 여기에 평점값 출력
 
   //비활성화된 별 갯수
   const notValuedStartCount = totalStarCount - starCount;
@@ -33,7 +33,7 @@ const UserReview = ({
       <ReviewContainer>
         <ProfileBox>
           <AccountCircleIcon style={{ fontSize: "3.3rem" }}></AccountCircleIcon>
-          <NickName>{nick_name}</NickName>
+          <NickName>{dogName}</NickName>
         </ProfileBox>
         <ReviewInfo>
           <StarAndControll>
@@ -52,7 +52,7 @@ const UserReview = ({
                 );
               })}
             </StarBox>
-            {my_nick_name === nick_name && (
+            {my_nick_name === dogName && (
               <ControllBox>
                 <span
                   onClick={() =>
@@ -68,7 +68,7 @@ const UserReview = ({
               </ControllBox>
             )}
           </StarAndControll>
-          <Content>{review_content}</Content>
+          <Content>{reviewContent}</Content>
         </ReviewInfo>
       </ReviewContainer>
     </>
