@@ -17,19 +17,18 @@ const MainPage = (props) => {
 
   const imgList = [
     {
-      img_url:
-        "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
+      img_url: "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
     },
-]
+  ];
 
   return (
     <div>
       <Grid2>
-      {imgList.map(({ img_url }) => {
+        {imgList.map(({ img_url }, index) => {
           return (
-              <div style={imgBoxCss}>
-                <img style={imgCss} src={img_url}></img>
-              </div>
+            <div key={index} style={imgBoxCss}>
+              <img style={imgCss} src={img_url}></img>
+            </div>
           );
         })}
         <p>{hospital.hospitalName}</p>

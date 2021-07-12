@@ -13,6 +13,7 @@ const UserReview = ({
   review_content,
   review_score,
   handleDeleteReview,
+  handleUpdateReview,
 }) => {
   //임시 닉네임임, 리뷰 닉네임이 이거랑 다르면 수정 / 삭제 비노출
   const my_nick_name = "나야나";
@@ -38,10 +39,17 @@ const UserReview = ({
           <StarAndControll>
             <StarBox>
               {[...Array(starCount)].map((n, index) => {
-                return <StarIcon style={{ color: "#ECBA11" }}></StarIcon>;
+                return (
+                  <StarIcon key={index} style={{ color: "#ECBA11" }}></StarIcon>
+                );
               })}
               {[...Array(notValuedStartCount)].map((n, index) => {
-                return <StarBorderIcon onClick={() => {}}></StarBorderIcon>;
+                return (
+                  <StarBorderIcon
+                    key={index}
+                    onClick={() => {}}
+                  ></StarBorderIcon>
+                );
               })}
             </StarBox>
             {my_nick_name === nick_name && (
