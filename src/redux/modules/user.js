@@ -49,6 +49,14 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
   };
 };
 
+const loginDB = (userName, password) => {
+  return function (dispatch, getState, { history }) {};
+};
+
+const logoutDB = () => {
+  return function (dispatch, getState, { history }) {};
+};
+
 //reducer
 export default handleActions(
   {
