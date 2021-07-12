@@ -78,18 +78,6 @@ const addReservationDB = (
   };
 };
 
-// const getReservationDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     const token = getCookie();
-//     instance.defaults.headers.common["Authorization"] = `${token}`;
-//     instance.get("/userinfo").then((response) => {
-//       console.log(response);
-
-//       dispatch(getReservation(response.data.reservation));
-//     });
-//   };
-// };
-
 export default handleActions(
   {
     [ADD_RESERVATION]: (state, action) =>

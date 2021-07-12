@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/cookie";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
@@ -18,6 +20,11 @@ import { ThemeBtnColor } from "../common_css/style";
 SwiperCore.use([Navigation, Pagination]);
 
 const HospitalDetail = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userActions.loginCheckDB());
+  }, []);
+
   const [tabIndex, setTabIndex] = React.useState(1);
   const [currentInfo, setCurrentInfo] = React.useState("intro");
   const [tabContent, setTabContent] = React.useState([
@@ -44,7 +51,6 @@ const HospitalDetail = (props) => {
   const handleCurrentInfo = (value) => {
     setCurrentInfo(value);
   };
-  console.log(props);
 
   const goToReservation = (id) => {
     if (!getCookie()) {
@@ -82,13 +88,17 @@ const HospitalDetail = (props) => {
         slidesPerView={1}
         pagination={{ clickable: true }}
         onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSwiper={(swiper) => console.log(swiper)}
       >
-        {imgList.map(({ img_url }) => {
+        {imgList.map(({ img_url }, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <div style={imgBoxCss}>
-                <img style={imgCss} src={img_url}></img>
+                <img
+                  style={imgCss}
+                  src={img_url}
+                  alt="병원 슬라이드 이미지"
+                ></img>
               </div>
             </SwiperSlide>
           );
@@ -98,6 +108,7 @@ const HospitalDetail = (props) => {
         {tabContent.map(({ title, type, id }) => {
           return (
             <Tab
+              key={id}
               tabIndex={tabIndex}
               onClick={() => {
                 handleCurrentInfo(type);
@@ -122,7 +133,6 @@ const HospitalDetail = (props) => {
                 </>
               );
             }
-
             case "review": {
               return (
                 <>
@@ -130,7 +140,6 @@ const HospitalDetail = (props) => {
                 </>
               );
             }
-
             case "location": {
               return <Location></Location>;
             }
@@ -191,5 +200,4 @@ const Button = styled.div`
   ${ThemeBtnColor}
 `;
 
-const ReviewBox = styled.div``;
 export default HospitalDetail;

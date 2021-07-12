@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import StarIcon from "@material-ui/icons/Star";
@@ -10,20 +10,11 @@ import { useEffect } from "react";
 
 const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
-  const { handleAddReview } = props;
+  const { handleAddReview, handleUpdateReview, update_id } = props;
 
-  useEffect(() => {
-    if (props.type === "update") {
-      inputRef.current.value = props.review_content;
-      setCurrentReviewScore(props.starCount);
-    }
-  });
-
-  const [review, setReview] = React.useState({
-    id: new Date(),
-    nick_name: "나야나",
-    review_content: "",
-    review_score: 5,
+  const [review, setReview] = useState({
+    reviewContent: "",
+    reviewRate: 5,
   });
 
   //비활성화 + 활성화된 모든 별 갯정
@@ -38,7 +29,7 @@ const ReviewWrite = (props) => {
   const handleReviewScore = (score) => {
     setReview({
       ...review,
-      review_score: score,
+      reviewRate: score,
     });
   };
 
@@ -61,6 +52,7 @@ const ReviewWrite = (props) => {
         {[...Array(starCount)].map((n, index) => {
           return (
             <StarIcon
+              key={index}
               style={{ color: "#ECBA11" }}
               onClick={() => {
                 setCurrentReviewScore(index + 1);
@@ -72,6 +64,7 @@ const ReviewWrite = (props) => {
         {[...Array(notValuedStartCount)].map((n, index) => {
           return (
             <StarBorderIcon
+              key={index}
               onClick={() => {
                 setCurrentReviewScore(currentReviewScore + index + 1);
                 handleReviewScore(currentReviewScore + index + 1);
@@ -82,7 +75,7 @@ const ReviewWrite = (props) => {
       </ReviewStarBox>
       <ReviewWriteBox>
         <ReviewInput
-          name="review_content"
+          name="reviewContent"
           placeholder="리뷰를 입력해주세요"
           onChange={handleChangeReviewContent}
           onKeyPress={handleEnterReviewContent}
@@ -100,7 +93,12 @@ const ReviewWrite = (props) => {
         ) : (
           <ReviewBtn
             onClick={() => {
-              //   handleUpdateReview(review);
+              handleUpdateReview(
+                update_id,
+                review.dogName,
+                review.reviewContent,
+                review.hospitalRate
+              );
               inputRef.current.value = "";
             }}
           >
@@ -134,4 +132,9 @@ const ReviewBtn = styled.div`
 ReviewWrite.defaultProps = {
   type: "write",
 };
+
+ReviewWrite.defaultProps = {
+  type: "write",
+};
+
 export default ReviewWrite;

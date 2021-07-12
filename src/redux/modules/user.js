@@ -19,10 +19,6 @@ const initialState = {
   user: {},
 };
 
-// {userName : "아이디",
-// dogName : "반려견이름",
-// password : "비밀번호",
-// confirmPassword : "비밀번호확인"}
 //middleware
 const signupDB = (userName, dogName, password, confirmPassword) => {
   return function (dispatch, getState, { history }) {
@@ -65,10 +61,10 @@ const loginDB = (userName, password) => {
         console.log(response);
         const accessToken = response.data;
 
-        //API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
-        // instance.defaults.headers.common[
-        //   "Authorization"
-        // ] = `Bearer ${accessToken}`;
+        // API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
+        instance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
 
         //받은 token 쿠키에 저장
         setCookie("token", accessToken);
@@ -84,14 +80,6 @@ const loginDB = (userName, password) => {
   };
 };
 
-// const loginCheckDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     if(getCookie() === "token"){
-
-//     }
-//   };
-// };
-
 const logoutDB = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie("token");
@@ -102,8 +90,13 @@ const logoutDB = () => {
   };
 };
 
-const myPageDB = () => {
+const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
+    if (!getCookie()) {
+      window.alert("로그인을 해주세요");
+      history.replace("/login");
+      return;
+    }
     const token = getCookie();
     instance.defaults.headers.common["Authorization"] = `${token}`;
     instance.get("/userinfo").then((response) => {
@@ -138,9 +131,8 @@ export default handleActions(
 const actionCreators = {
   signupDB,
   loginDB,
-  // loginCheckDB,
+  loginCheckDB,
   logoutDB,
-  myPageDB,
 };
 
 export { actionCreators };

@@ -9,12 +9,14 @@ import { useHistory } from "react-router-dom";
 import ReviewWrite from "./ReviewWrite";
 const UserReview = ({
   id,
-  nick_name,
-  review_content,
-  review_score,
+  dogName,
+  reviewContent,
+  hospitalRate,
   handleDeleteReview,
+  handleUpdateReview,
 }) => {
   //임시 닉네임임, 리뷰 닉네임이 이거랑 다르면 수정 / 삭제 비노출
+  // review정보에 userId밖에 없어서 userName이랑 비교 불가
   const my_nick_name = "나야나";
 
   const history = useHistory();
@@ -22,29 +24,36 @@ const UserReview = ({
   const totalStarCount = 5;
 
   //활성화된 별 갯수
-  const starCount = review_score; //나중에 여기에 평점값 출력
+  const starCount = hospitalRate ? hospitalRate : 0; //나중에 여기에 평점값 출력
 
   //비활성화된 별 갯수
   const notValuedStartCount = totalStarCount - starCount;
-
+  console.log(starCount, totalStarCount);
   return (
     <>
       <ReviewContainer>
         <ProfileBox>
           <AccountCircleIcon style={{ fontSize: "3.3rem" }}></AccountCircleIcon>
-          <NickName>{nick_name}</NickName>
+          <NickName>{dogName}</NickName>
         </ProfileBox>
         <ReviewInfo>
           <StarAndControll>
             <StarBox>
               {[...Array(starCount)].map((n, index) => {
-                return <StarIcon style={{ color: "#ECBA11" }}></StarIcon>;
+                return (
+                  <StarIcon key={index} style={{ color: "#ECBA11" }}></StarIcon>
+                );
               })}
               {[...Array(notValuedStartCount)].map((n, index) => {
-                return <StarBorderIcon onClick={() => {}}></StarBorderIcon>;
+                return (
+                  <StarBorderIcon
+                    key={index}
+                    onClick={() => {}}
+                  ></StarBorderIcon>
+                );
               })}
             </StarBox>
-            {my_nick_name === nick_name && (
+            {my_nick_name === dogName && (
               <ControllBox>
                 <span
                   onClick={() =>
@@ -60,7 +69,7 @@ const UserReview = ({
               </ControllBox>
             )}
           </StarAndControll>
-          <Content>{review_content}</Content>
+          <Content>{reviewContent}</Content>
         </ReviewInfo>
       </ReviewContainer>
     </>

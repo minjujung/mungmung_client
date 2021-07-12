@@ -4,9 +4,14 @@ import Footer from "../components/Footer";
 import { PageTitle, InputStyle, ThemeBtnColor } from "../common_css/style";
 
 const Search = () => {
+  const dogName = [
+    {
+      dogName : "ludi",
+    },
+  ]
   return (
     <div>
-      <Title>땡땡이는 어디가 아픈가요?</Title>
+      <Title><b>{dogName[0].dogName}</b>는 어디가 아픈가요?</Title>
       <Grid>
         <Input type="text" placeholder="내용을 입력해주세요"></Input>
         <Button>search</Button>

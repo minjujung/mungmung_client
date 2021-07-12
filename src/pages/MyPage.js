@@ -10,13 +10,15 @@ import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
+import { history } from "../redux/configureStore";
+
 const MyPage = (props) => {
   const dispatch = useDispatch();
   const reservations = useSelector((state) => state.reservation.list);
   const user_info = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    dispatch(userActions.myPageDB());
+    dispatch(userActions.loginCheckDB());
   }, []);
   return (
     <div>
@@ -27,7 +29,7 @@ const MyPage = (props) => {
           style={{ fontSize: 150 }}
         ></AccountCircleTwoToneIcon> */}
         <image
-          src={user_info.dogImage}
+          src={`${user_info.dogImage}`}
           style={{ width: "100px", height: "100px" }}
           alt="dog"
         />
@@ -65,7 +67,7 @@ const Grid = styled.div`
 `;
 
 const Name = styled.div`
-  padding: 20px;
+  padding: 10px;
   font-size: 1.5em;
   display: flex;
   align-items: center;
@@ -74,7 +76,7 @@ const Name = styled.div`
 `;
 
 const Text = styled.div`
-  padding: 25px;
+  padding: 15px;
   font-size: 1.3em;
   display: flex;
   align-items: flex-start;
@@ -97,14 +99,5 @@ const RevContainer = styled.div`
   height: 40vh;
   overflow-y: scroll;
 `;
-
-// const Profile = styled.div`
-//   display: flex;
-//   width: 90px;
-//   height: 90px;
-//   border-radius: 50px;
-//   color: #fff;
-//   background-color: #eef2f3;
-// `;
 
 export default MyPage;

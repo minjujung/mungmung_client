@@ -7,11 +7,12 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import instance from "../shared/config";
 
-const MainPage = () => {
+import { history } from "../redux/configureStore";
+
+const MainPage = (props) => {
   const hospital = {
     hospitalName: "병원이름",
     hospitalId: "병원 id",
-    hospitalImage: "사진",
     hospitalContent: "소개",
     hospitalRate: "별점",
   };
@@ -21,6 +22,14 @@ const MainPage = () => {
   useEffect(() => {
     instance.get("/hospitals").then((response) => console.log(response));
   }, []);
+  const imgBoxCss = { width: "100%", height: "250px" };
+  const imgCss = { width: "100%", height: "100%" };
+
+  const imgList = [
+    {
+      img_url: "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
+    },
+  ];
 
   return (
     <div>
@@ -38,6 +47,13 @@ const MainPage = () => {
             color: "gray",
           }}
         />
+        {imgList.map(({ img_url }, index) => {
+          return (
+            <div key={index} style={imgBoxCss}>
+              <img style={imgCss} src={img_url}></img>
+            </div>
+          );
+        })}
         <p>{hospital.hospitalName}</p>
         <p>{hospital.hospitalContent}</p>
         <p>{hospital.hospitalRate}</p>
@@ -51,9 +67,8 @@ const Grid2 = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-  width: 70%;
-  min-height: 120px;
-  border-radius: 10px;
+  margin-top: 10px;
+  width: 60%;
   padding: 10px;
   color: black;
   background-color: #eef2f3;
