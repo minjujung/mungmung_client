@@ -14,9 +14,9 @@ const ReviewWrite = (props) => {
 
   const [review, setReview] = React.useState({
     id: new Date(),
-    nick_name: "나야나",
-    review_content: "",
-    review_score: 5,
+    dogName: "나야나",
+    reviewContent: "",
+    hospitalRate: 5,
   });
 
   //비활성화 + 활성화된 모든 별 갯정
@@ -31,7 +31,7 @@ const ReviewWrite = (props) => {
   const handleReviewScore = (score) => {
     setReview({
       ...review,
-      review_score: score,
+      hospitalRate: score,
     });
   };
 
@@ -77,7 +77,7 @@ const ReviewWrite = (props) => {
       </ReviewStarBox>
       <ReviewWriteBox>
         <ReviewInput
-          name="review_content"
+          name="reviewContent"
           placeholder="리뷰를 입력해주세요"
           onChange={handleChangeReviewContent}
           onKeyPress={handleEnterReviewContent}
@@ -97,9 +97,9 @@ const ReviewWrite = (props) => {
             onClick={() => {
               handleUpdateReview(
                 update_id,
-                review.nick_name,
-                review.review_content,
-                review.review_score
+                review.dogName,
+                review.reviewContent,
+                review.hospitalRate
               );
               inputRef.current.value = "";
             }}

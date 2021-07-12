@@ -22,14 +22,14 @@ const Review = () => {
   return (
     <>
       <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
-      {review_list.map(({ id, nick_name, review_content, review_score }) => {
+      {review_list.map(({ id, dogName, reviewContent, hospitalRate }) => {
         return (
           <UserReview
             key={id}
             id={id}
-            nick_name={nick_name}
-            review_content={review_content}
-            review_score={review_score}
+            dogName={dogName}
+            reviewContent={reviewContent}
+            hospitalRate={hospitalRate}
             handleDeleteReview={handleDeleteReview}
           ></UserReview>
         );

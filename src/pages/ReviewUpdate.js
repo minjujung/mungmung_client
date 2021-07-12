@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 
 const ReviewUpdate = ({ match }) => {
   const dispatch = useDispatch();
-  const handleUpdateReview = (id, nick_name, review_content, review_score) => {
-    const review = { id, nick_name, review_content, review_score };
+  const handleUpdateReview = (id, dogName, reviewContent, hospitalRate) => {
+    const review = { id, dogName, reviewContent, hospitalRate };
     dispatch(actionCreators.updateReviewDB(review));
   };
 
