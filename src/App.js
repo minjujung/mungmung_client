@@ -1,39 +1,48 @@
-import styled from "styled-components";
 import "./App.css";
-import {
-  InputStyle,
-  NormalBtnColor,
-  PageTitle,
-  ThemeBtnColor,
-} from "./common_css/style";
-import Footer from "./components/Footer";
+import styled from "styled-components";
+
+import { Route } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+
+import { history } from "./redux/configureStore";
+
+import Search from "./pages/Search";
+import MyPage from "./pages/MyPage";
+import MainPage from "./pages/MainPage";
+import Start from "./pages/Start";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Reservation from "./pages/Reservation";
+import HospitalDetail from "./pages/HospitalDetail";
+import ReviewUpdate from "./pages/ReviewUpdate";
 
 function App() {
   return (
-    <div className="App">
-      <Button>나는 버튼이다</Button>
-      <NormBtn>나는 버튼2다</NormBtn>
-      <Title>로그인</Title>
-      <Input type="text" placeholder="내용을 입력해주세요"></Input>
-      <Footer />
-    </div>
+    <Container>
+      <ConnectedRouter history={history}>
+        <Route exact path="/" component={Start} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/reservation" component={Reservation} />
+        <Route path="/hospitals/:id" component={HospitalDetail}></Route>
+        <Route path="/review/update/:id" component={ReviewUpdate}></Route>
+        <Route path="/pages/search" component={Search} />
+        <Route path="/pages/mypage" component={MyPage} />
+        <Route path="/pages/mainpage" component={MainPage} />
+      </ConnectedRouter>
+    </Container>
   );
 }
 
-const Button = styled.button`
-  ${ThemeBtnColor}
-`;
+const Container = styled.div`
+  width: 100%;
+  position: relative;
+  min-height: 100vh;
 
-const NormBtn = styled.button`
-  ${NormalBtnColor}
-`;
-
-const Title = styled.h1`
-  ${PageTitle}
-`;
-
-const Input = styled.input`
-  ${InputStyle}
+  @media screen and (min-width: 768px) {
+    width: 768px;
+    margin: 0 auto;
+  }
 `;
 
 export default App;
