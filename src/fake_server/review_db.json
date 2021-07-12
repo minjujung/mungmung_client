@@ -1,0 +1,28 @@
+{
+  "review_list": [
+    {
+      "id": 1,
+      "nick_name": "타노스",
+      "review_content": "최고최고!",
+      "review_score": 5
+    },
+    {
+      "id": 1,
+      "nick_name": "스파이더맨",
+      "review_content": "낫뱃!!",
+      "review_score": 3
+    },
+    {
+      "id": 1,
+      "nick_name": "아이언맨",
+      "review_content": "최악~!!!",
+      "review_score": 1
+    },
+    {
+      "nick_name": "나야나",
+      "review_content": "asdsadsa",
+      "review_score": 2,
+      "id": "2021-07-12T11:01:02.548Z"
+    }
+  ]
+}

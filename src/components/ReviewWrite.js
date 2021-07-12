@@ -10,14 +10,7 @@ import { useEffect } from "react";
 
 const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
-  const { handleAddReview } = props;
-
-  useEffect(() => {
-    if (props.type === "update") {
-      inputRef.current.value = props.review_content;
-      setCurrentReviewScore(props.starCount);
-    }
-  });
+  const { handleAddReview, handleUpdateReview, update_id } = props;
 
   const [review, setReview] = React.useState({
     id: new Date(),
@@ -61,6 +54,7 @@ const ReviewWrite = (props) => {
         {[...Array(starCount)].map((n, index) => {
           return (
             <StarIcon
+              key={index}
               style={{ color: "#ECBA11" }}
               onClick={() => {
                 setCurrentReviewScore(index + 1);
@@ -72,6 +66,7 @@ const ReviewWrite = (props) => {
         {[...Array(notValuedStartCount)].map((n, index) => {
           return (
             <StarBorderIcon
+              key={index}
               onClick={() => {
                 setCurrentReviewScore(currentReviewScore + index + 1);
                 handleReviewScore(currentReviewScore + index + 1);
@@ -100,7 +95,12 @@ const ReviewWrite = (props) => {
         ) : (
           <ReviewBtn
             onClick={() => {
-              //   handleUpdateReview(review);
+              handleUpdateReview(
+                update_id,
+                review.nick_name,
+                review.review_content,
+                review.review_score
+              );
               inputRef.current.value = "";
             }}
           >
@@ -134,4 +134,9 @@ const ReviewBtn = styled.div`
 ReviewWrite.defaultProps = {
   type: "write",
 };
+
+ReviewWrite.defaultProps = {
+  type: "write",
+};
+
 export default ReviewWrite;
