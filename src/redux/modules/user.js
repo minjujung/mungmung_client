@@ -56,7 +56,7 @@ const loginDB = (userName, password) => {
       password,
     };
     instance
-      .post("/login", login_info)
+      .post("/user", login_info)
       .then((response) => {
         console.log(response);
         const accessToken = response.data;
@@ -105,6 +105,7 @@ const loginCheckDB = () => {
       const user_info = {
         dogName: _user.dogName,
         dogImage: _user.dogImage,
+        userId: _user.userId,
       };
       console.log(user_info);
       dispatch(setUser(user_info));

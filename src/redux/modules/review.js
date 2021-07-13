@@ -39,15 +39,15 @@ const addReviewDB = (review) => {
   return function (dispatch, getState, { history }) {
     const token = getCookie();
     axios.defaults.headers.common["Authorization"] = `${token}`;
-    const { reviewContent, reviewRate } = review;
+    const { reviewContent, hospitalRate } = review;
     const new_review = {
       reviewContent,
-      reviewRate,
+      hospitalRate,
     };
     axios.post(serverIP + "/hospitals/1/reviews", new_review).then((result) => {
       const user_info = getState().user.user;
       console.log(result);
-      dispatch(addReview({ ...new_review, dogName: user_info.dogName }));
+      dispatch(addReview({ ...new_review, userId: user_info.userId }));
     });
   };
 };

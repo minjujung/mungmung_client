@@ -27,14 +27,14 @@ const Review = () => {
     <>
       <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       <ReviewContainer>
-        {review_list?.map(({ reviewId, reviewContent, reviewRate }) => {
+        {review_list?.map(({ reviewId, reviewContent, hospitalRate }) => {
           return (
             <UserReview
               key={reviewId}
               id={reviewId}
               dogName={user_info.dogName}
               reviewContent={reviewContent}
-              hospitalRate={reviewRate}
+              hospitalRate={hospitalRate}
               handleDeleteReview={handleDeleteReview}
             ></UserReview>
           );
