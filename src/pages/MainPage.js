@@ -3,21 +3,23 @@ import Footer from "../components/Footer";
 import styled from "styled-components";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import instance from "../shared/config";
 
 import { history } from "../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as listActions } from "../redux/modules/list";
 
-const MainPage = (props) => {
-  const hospital = {
-    hospitalName: "병원이름",
-    hospitalId: "병원 id",
-    hospitalContent: "소개",
-    hospitalRate: "별점",
-  };
-
+const MainPage = ({ props }) => {
   const dispatch = useDispatch();
+  const hospital_list=useSelector((state) => state.list.hospital_list)
+
+  console.log(hospital_list);
+
+  React.useEffect(() => {
+    dispatch(listActions.getHospitalDB())
+  }, []);
+
 
   useEffect(() => {
     instance.get("/hospitals").then((response) => console.log(response));
@@ -34,29 +36,14 @@ const MainPage = (props) => {
   return (
     <div>
       <Grid2>
-        <ExitToAppIcon
-          onClick={() => {
-            dispatch(userActions.logoutDB());
-          }}
-          style={{
-            width: "30px",
-            height: "30px",
-            position: "absolute",
-            top: "30px",
-            right: "20px",
-            color: "gray",
-          }}
-        />
-        {imgList.map(({ img_url }, index) => {
-          return (
-            <div key={index} style={imgBoxCss}>
-              <img style={imgCss} src={img_url}></img>
-            </div>
-          );
-        })}
-        <p>{hospital.hospitalName}</p>
-        <p>{hospital.hospitalContent}</p>
-        <p>{hospital.hospitalRate}</p>
+        {hospital_list.map((hospital,index) => (
+          // <p>{hospital.hospitalImageSource}</p>
+          <>
+          <p>{hospital.hospitalName}</p>
+          <p>{hospital.hospitalContent}</p>
+          <p>{hospital.hospitalRate}</p>
+          </>
+        ))}
       </Grid2>
       <Footer></Footer>
     </div>
