@@ -14,7 +14,7 @@ const ReviewWrite = (props) => {
 
   const [review, setReview] = useState({
     reviewContent: "",
-    reviewRate: 5,
+    hospitalRate: 5,
   });
 
   //비활성화 + 활성화된 모든 별 갯정
@@ -29,7 +29,7 @@ const ReviewWrite = (props) => {
   const handleReviewScore = (score) => {
     setReview({
       ...review,
-      reviewRate: score,
+      hospitalRate: score,
     });
   };
 
