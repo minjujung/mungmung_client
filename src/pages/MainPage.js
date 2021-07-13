@@ -51,13 +51,13 @@ const MainPage = (props) => {
           }}
         />
 
-        {hospital_list.map((hospital, index) => (
+        {hospital_list.map((hospital) => (
           // <p>{hospital.hospitalImageSource}</p>
-          <>
+          <div key={hospital.hospitalId}>
             <p>{hospital.hospitalName}</p>
             <p>{hospital.hospitalContent}</p>
             <p>{hospital.hospitalRate}</p>
-          </>
+          </div>
         ))}
       </Grid2>
       <Footer></Footer>

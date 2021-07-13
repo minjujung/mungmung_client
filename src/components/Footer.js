@@ -18,7 +18,7 @@ const Footer = (props) => {
           history.push("/pages/mainpage");
         }}
       />
-      {Object.keys(user_info).length === 0 ? (
+      {!user_info || Object.keys(user_info).length === 0 ? (
         <img
           src={dogProfile}
           alt="dog_default"
