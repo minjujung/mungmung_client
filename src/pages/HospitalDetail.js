@@ -78,9 +78,9 @@ const HospitalDetail = (props) => {
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
       >
-        {imgList.map(({ img_url }) => {
+        {imgList.map(({ img_url }, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <div style={imgBoxCss}>
                 <img style={imgCss} src={img_url}></img>
               </div>
@@ -92,6 +92,7 @@ const HospitalDetail = (props) => {
         {tabContent.map(({ title, type, id }) => {
           return (
             <Tab
+              key={id}
               tabIndex={tabIndex}
               onClick={() => {
                 handleCurrentInfo(type);
