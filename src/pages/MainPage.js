@@ -8,7 +8,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
-import { getCookie } from "../shared/cookie";
+import { getCookie } from "../shared/Cookie";
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
@@ -54,7 +54,13 @@ const MainPage = (props) => {
         {hospital_list.map((hospital, index) => (
           // <p>{hospital.hospitalImageSource}</p>
           <>
-            <p>{hospital.hospitalName}</p>
+            <p
+              onClick={() => {
+                history.push(`/hospitals/${hospital.hospitalId}`);
+              }}
+            >
+              {hospital.hospitalName}
+            </p>
             <p>{hospital.hospitalContent}</p>
             <p>{hospital.hospitalRate}</p>
           </>
