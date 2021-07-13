@@ -69,18 +69,16 @@ const updateReviewDB = (review) => {
   return function (dispatch, getState, { history }) {
     const token = getCookie();
     axios.defaults.headers.common["Authorization"] = `${token}`;
-
     const { id, reviewContent, hospitalRate } = review;
+
     const params = {
       reviewContent,
       hospitalRate,
     };
 
     instance
-      .put(`/hospitals/reviews/${id}`, {
-        params,
-      })
-      .then((result) => history.push("/hospitals/1"));
+      .put(`/hospitals/reviews/${id}`, params)
+      .then((result) => history.goBack());
   };
 };
 
