@@ -3,7 +3,7 @@ import produce from "immer";
 import moment from "moment";
 import axios from "axios";
 import { result } from "lodash";
-import { getCookie } from "../../shared/cookie";
+import { getCookie } from "../../shared/Cookie";
 
 const GET_REVIEW = "GET_REVIEW";
 const ADD_REVIEW = "ADD_REVIEW";

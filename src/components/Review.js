@@ -27,7 +27,7 @@ const Review = () => {
     <>
       <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       <ReviewContainer>
-        {review_list?.map(({ reviewId, reviewContent, reviewRate }) => {
+        {review_list.map(({ reviewId, reviewContent, reviewRate }) => {
           return (
             <UserReview
               key={reviewId}

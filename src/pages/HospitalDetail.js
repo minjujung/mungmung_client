@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { history } from "../redux/configureStore";
-import { getCookie } from "../shared/cookie";
+import { getCookie } from "../shared/Cookie";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
