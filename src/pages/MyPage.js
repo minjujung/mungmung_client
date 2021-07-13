@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { PageTitle } from "../common_css/style";
 import Footer from "../components/Footer";
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import AddToPhotosTwoToneIcon from "@material-ui/icons/AddToPhotosTwoTone";
 import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 
-import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configureStore";
+import { useSelector, useDispatch } from "react-redux";
+import ImageUpload from "../components/ImageUpload";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -23,19 +23,12 @@ const MyPage = (props) => {
   return (
     <div>
       <Title>마이페이지</Title>
-      <Grid>
-        <PhotoCameraIcon style={{ fontSize: 40 }}></PhotoCameraIcon>
-        {/* <AccountCircleTwoToneIcon
+
+      {/* <AccountCircleTwoToneIcon
           style={{ fontSize: 150 }}
         ></AccountCircleTwoToneIcon> */}
-        <img
-          src={`${user_info.dogImage}`}
-          style={{ width: "100px", height: "100px" }}
-          alt="dog"
-        />
+      <ImageUpload />
 
-        <CheckCircleIcon style={{ fontSize: 40 }}></CheckCircleIcon>
-      </Grid>
       <Name>{user_info.dogName}</Name>
       <Text bold>예약내역</Text>
 
