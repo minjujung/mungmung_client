@@ -4,11 +4,16 @@ const setCookie = (name, value, exp = 1) => {
   document.cookie = `${name} = ${value}; expires  =${date.toUTCString()}`;
 };
 
-const getCookie = () => {
-  const cookie = document.cookie;
-  const name = cookie.split("=")[0];
-  const tocken = cookie.split("=")[1];
-  return tocken;
+const getCookie = (name) => {
+  let cookie = "; " + document.cookie;
+  //   console.log(cookie);
+
+  let parts = cookie.split(`; ${name}=`);
+  //   console.log(parts);
+
+  if (parts.length === 2) {
+    return parts.pop().split(";").shift();
+  }
 };
 
 const deleteCookie = (name) => {

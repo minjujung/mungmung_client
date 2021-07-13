@@ -10,17 +10,10 @@ import instance from "../shared/config";
 import { history } from "../redux/configureStore";
 
 const MainPage = (props) => {
-  const hospital = {
-    hospitalName: "병원이름",
-    hospitalId: "병원 id",
-    hospitalContent: "소개",
-    hospitalRate: "별점",
-  };
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    instance.get("/hospitals").then((response) => console.log(response));
+    dispatch(userActions.loginCheckDB());
   }, []);
   const imgBoxCss = { width: "100%", height: "250px" };
   const imgCss = { width: "100%", height: "100%" };
@@ -54,9 +47,9 @@ const MainPage = (props) => {
             </div>
           );
         })}
-        <p>{hospital.hospitalName}</p>
+        {/* <p>{hospital.hospitalName}</p>
         <p>{hospital.hospitalContent}</p>
-        <p>{hospital.hospitalRate}</p>
+        <p>{hospital.hospitalRate}</p> */}
       </Grid2>
       <Footer></Footer>
     </div>

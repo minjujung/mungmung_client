@@ -37,7 +37,7 @@ const getReviewDB = () => {
 
 const addReviewDB = (review) => {
   return function (dispatch, getState, { history }) {
-    const token = getCookie();
+    const token = getCookie("token");
     axios.defaults.headers.common["Authorization"] = `${token}`;
     const { reviewContent, hospitalRate } = review;
     const new_review = {

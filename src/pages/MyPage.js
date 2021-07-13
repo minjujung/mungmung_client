@@ -28,11 +28,12 @@ const MyPage = (props) => {
         {/* <AccountCircleTwoToneIcon
           style={{ fontSize: 150 }}
         ></AccountCircleTwoToneIcon> */}
-        <image
+        <img
           src={`${user_info.dogImage}`}
           style={{ width: "100px", height: "100px" }}
           alt="dog"
         />
+
         <CheckCircleIcon style={{ fontSize: 40 }}></CheckCircleIcon>
       </Grid>
       <Name>{user_info.dogName}</Name>

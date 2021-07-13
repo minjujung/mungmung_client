@@ -92,12 +92,12 @@ const logoutDB = () => {
 
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    if (!getCookie()) {
+    if (!getCookie("token")) {
       window.alert("로그인을 해주세요");
       history.replace("/login");
       return;
     }
-    const token = getCookie();
+    const token = getCookie("token");
     instance.defaults.headers.common["Authorization"] = `${token}`;
     instance.get("/userinfo").then((response) => {
       console.log(response);
