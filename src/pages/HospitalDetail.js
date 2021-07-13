@@ -1,7 +1,11 @@
-import React from "react";
-import { useHistory } from "react-router";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import { history } from "../redux/configureStore";
+import { getCookie } from "../shared/cookie";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
@@ -13,10 +17,14 @@ import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
 import Footer from "../components/Footer";
 import { ThemeBtnColor } from "../common_css/style";
-import { history } from "../redux/configureStore";
 SwiperCore.use([Navigation, Pagination]);
 
 const HospitalDetail = (props) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userActions.loginCheckDB());
+  }, []);
+
   const [tabIndex, setTabIndex] = React.useState(1);
   const [currentInfo, setCurrentInfo] = React.useState("intro");
   const [tabContent, setTabContent] = React.useState([
@@ -38,7 +46,6 @@ const HospitalDetail = (props) => {
     },
   ]);
 
-  const historyWithData = useHistory();
   const hospitalId = props.match.params.id;
 
   const handleCurrentInfo = (value) => {
@@ -46,9 +53,14 @@ const HospitalDetail = (props) => {
   };
 
   const goToReservation = (id) => {
-    historyWithData.push({
+    if (!getCookie()) {
+      window.alert("로그인이 필요한 서비스 입니다!");
+      history.push("/login");
+      return;
+    }
+    history.push({
       pathname: "/reservation",
-      state: { id },
+      state: { id: hospitalId },
     });
   };
 
@@ -76,13 +88,17 @@ const HospitalDetail = (props) => {
         slidesPerView={1}
         pagination={{ clickable: true }}
         onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        // onSwiper={(swiper) => console.log(swiper)}
       >
         {imgList.map(({ img_url }, index) => {
           return (
             <SwiperSlide key={index}>
               <div style={imgBoxCss}>
-                <img style={imgCss} src={img_url}></img>
+                <img
+                  style={imgCss}
+                  src={img_url}
+                  alt="병원 슬라이드 이미지"
+                ></img>
               </div>
             </SwiperSlide>
           );
@@ -117,7 +133,6 @@ const HospitalDetail = (props) => {
                 </>
               );
             }
-
             case "review": {
               return (
                 <>
@@ -125,7 +140,6 @@ const HospitalDetail = (props) => {
                 </>
               );
             }
-
             case "location": {
               return <Location></Location>;
             }
@@ -186,5 +200,4 @@ const Button = styled.div`
   ${ThemeBtnColor}
 `;
 
-const ReviewBox = styled.div``;
 export default HospitalDetail;

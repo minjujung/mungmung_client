@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { PageTitle } from "../common_css/style";
@@ -6,40 +6,49 @@ import Footer from "../components/Footer";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import AddToPhotosTwoToneIcon from '@material-ui/icons/AddToPhotosTwoTone';
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
+
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 
 const MyPage = (props) => {
-  //가짜 데이터 생성
-  const dogName = [
-    {
-      dogName : "루디",
-    },
-  ]
+  const dispatch = useDispatch();
+  const reservations = useSelector((state) => state.reservation.list);
+  const user_info = useSelector((state) => state.user.user);
 
-  const reservation = {
-    hospitalId : "병원 id",
-    hospitalName: "병원이름",
-    reservationDate : "예약시간",
-    reservationDetail : "요청사항",
-    };
-
+  useEffect(() => {
+    dispatch(userActions.loginCheckDB());
+  }, []);
   return (
     <div>
       <Title>마이페이지</Title>
-      <Grid is flex width="auto">
-        <AddToPhotosTwoToneIcon style={{ color: "lightgray", fontSize: 150 }}/>
-        <CheckCircleIcon style={{ fontSize: 40 }} type="button" onClick={null}></CheckCircleIcon>
-      </Grid> 
-      <input type="file" style={{ fontSize: 10, display:"flex", margin:"auto"}} onChange={null}/>
-      <Name><b>{dogName[0].dogName}</b></Name>
+      <Grid>
+        <PhotoCameraIcon style={{ fontSize: 40 }}></PhotoCameraIcon>
+        {/* <AccountCircleTwoToneIcon
+          style={{ fontSize: 150 }}
+        ></AccountCircleTwoToneIcon> */}
+        <img
+          src={`${user_info.dogImage}`}
+          style={{ width: "100px", height: "100px" }}
+          alt="dog"
+        />
+        <CheckCircleIcon style={{ fontSize: 40 }}></CheckCircleIcon>
+      </Grid>
+      <Name>{user_info.dogName}</Name>
       <Text bold>예약내역</Text>
-      <Grid2>
-        <p>{reservation.hospitalName}</p>
-        <p>{reservation.reservationDate}</p>
-        <p>{reservation.reservationDetail}</p>
-      </Grid2>
+
+      <RevContainer>
+        {reservations.map((r, idx) => (
+          <Grid2>
+            <p>{r.hospitalId}</p>
+            <p>{r.reservationDate}</p>
+            <p>{r.reservationDetail}</p>
+          </Grid2>
+        ))}
+      </RevContainer>
+
       <Footer />
     </div>
   );
@@ -81,8 +90,20 @@ const Grid2 = styled.div`
   flex-direction: column;
   margin: auto;
   width: 70%;
+<<<<<<< HEAD
   color: black;
   background-color: #eef2f3;
+=======
+  min-height: 120px;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid grey;
+`;
+
+const RevContainer = styled.div`
+  height: 40vh;
+  overflow-y: scroll;
+>>>>>>> 312f0c73f7a163b347858113b998a62fccaeb010
 `;
 
 export default MyPage;

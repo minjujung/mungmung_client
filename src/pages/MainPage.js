@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "../components/Footer";
 import styled from "styled-components";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
+import { actionCreators as userActions } from "../redux/modules/user";
+import instance from "../shared/config";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +20,10 @@ const MainPage = ({ props }) => {
     dispatch(listActions.getHospitalDB())
   }, []);
 
+
+  useEffect(() => {
+    instance.get("/hospitals").then((response) => console.log(response));
+  }, []);
   const imgBoxCss = { width: "100%", height: "250px" };
   const imgCss = { width: "100%", height: "100%" };
 

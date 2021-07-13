@@ -8,6 +8,8 @@ import Schedule from "../components/Schedule";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as reservationActions } from "../redux/modules/reservation";
+import { getCookie } from "../shared/cookie";
+import { history } from "../redux/configureStore";
 
 const Reservation = (props) => {
   const dispatch = useDispatch();
@@ -30,7 +32,6 @@ const Reservation = (props) => {
     );
   };
 
-  console.log(id, dogName, schedule, request);
   return (
     <Container>
       <ArrowBackIosIcon
@@ -41,6 +42,9 @@ const Reservation = (props) => {
           top: "30px",
           left: "20px",
           color: "gray",
+        }}
+        onClick={() => {
+          history.goBack();
         }}
       />
       <Title>예약 페이지</Title>

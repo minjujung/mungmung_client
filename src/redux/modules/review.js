@@ -3,6 +3,7 @@ import produce from "immer";
 import moment from "moment";
 import axios from "axios";
 import { result } from "lodash";
+import { getCookie } from "../../shared/cookie";
 
 const GET_REVIEW = "GET_REVIEW";
 const ADD_REVIEW = "ADD_REVIEW";
@@ -14,54 +15,59 @@ const addReview = createAction(ADD_REVIEW, (review) => ({ review }));
 const deleteReview = createAction(DELETE_REVIEW, (review) => ({ review }));
 const updateReview = createAction(UPDATE_REVIEW, (review) => ({ review }));
 
+const serverIP = "http://52.79.234.172";
 const initialState = {
   review_list: [
     {
       id: 1,
-      nick_name: "타노스",
-      review_content: "최고최고!",
-      review_score: 5,
+      dogName: "타노스",
+      reviewContent: "최고최고!",
+      hospitalRate: 5,
     },
   ],
 };
 
 const getReviewDB = () => {
   return function (dispatch, getState, { history }) {
-    axios
-      .get("http://localhost:8888/review_list?_sort=id&_order=ASC")
-      .then((result) => {
-        dispatch(getReview(result.data));
-      });
+    axios.get(serverIP + "/hospitals/1/reviews").then((result) => {
+      dispatch(getReview(result.data));
+    });
   };
 };
 
 const addReviewDB = (review) => {
-  const { id, nick_name, review_content, review_score } = review;
   return function (dispatch, getState, { history }) {
-    axios.post("http://localhost:8888/review_list", review).then((result) => {
-      dispatch(getReviewDB());
+    const token = getCookie();
+    axios.defaults.headers.common["Authorization"] = `${token}`;
+    const { reviewContent, hospitalRate } = review;
+    const new_review = {
+      reviewContent,
+      hospitalRate,
+    };
+    axios.post(serverIP + "/hospitals/1/reviews", new_review).then((result) => {
+      const user_info = getState().user.user;
+      console.log(result);
+      dispatch(addReview({ ...new_review, userId: user_info.userId }));
     });
   };
 };
 
 const deleteReviewDB = (review) => {
   return function (dispatch, getState, { history }) {
-    axios
-      .delete(`http://localhost:8888/review_list/${review}`)
-      .then((result) => {
-        dispatch(getReviewDB());
-      });
+    axios.delete(serverIP + `/review_list/${review}`).then((result) => {
+      dispatch(getReviewDB());
+    });
   };
 };
 
 const updateReviewDB = (review) => {
   return function (dispatch, getState, { history }) {
-    const { id, nick_name, review_content, review_score } = review;
+    const { id, dogName, reviewContent, hospitalRate } = review;
     axios
-      .put(`http://localhost:8888/review_list/${id}`, {
-        nick_name,
-        review_content,
-        review_score,
+      .put(serverIP + `/review_list/${id}`, {
+        dogName,
+        reviewContent,
+        hospitalRate,
       })
       .then((result) => history.push("/hospitals/1"));
   };
@@ -74,9 +80,9 @@ export default handleActions(
         draft.review_list = action.payload.review;
       });
     },
-    [DELETE_REVIEW]: (state, action) => {
+    [ADD_REVIEW]: (state, action) => {
       return produce(state, (draft) => {
-        draft.review_list = action.payload.review;
+        draft.review_list.unshift(action.payload.review);
       });
     },
   },

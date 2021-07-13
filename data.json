@@ -1,0 +1,145 @@
+{
+  "reservations": [
+    {
+      "hospitalId": "1",
+      "dogName": "몽몽",
+      "reservationDate": "2021년 07월 14일오후 12시 ~ 오후 1시",
+      "reservationDetail": "ㅇㅇㅇㅇ",
+      "id": 1
+    },
+    {
+      "hospitalId": "1",
+      "dogName": "삼억이",
+      "reservationDate": "2021년 07월 14일오후 12시 ~ 오후 1시",
+      "reservationDetail": "슬개골이 아파요ㅡㅜㅜ",
+      "id": 2
+    },
+    {
+      "hospitalId": "1",
+      "dogName": "마이크",
+      "reservationDate": "2021년 07월 09일오전 11시 ~ 오후 12시",
+      "reservationDetail": "영양제가 필요할 것 같아요..",
+      "id": 3
+    },
+    {
+      "hospitalId": "1",
+      "dogName": "ff",
+      "reservationDate": "2021년 07월 13일오후 1시 ~ 오후 2시",
+      "reservationDetail": "ff",
+      "id": 4
+    },
+    {
+      "hospitalId": "2",
+      "dogName": "마이크",
+      "reservationDate": "2021년 07월 13일오후 2시 ~ 오후 3시",
+      "reservationDetail": "jjjj",
+      "id": 5
+    },
+    {
+      "hospitalId": "2",
+      "dogName": "에용",
+      "reservationDate": "2021년 07월 23일오후 2시 ~ 오후 3시",
+      "reservationDetail": "ㅇㅇㅇㅇ",
+      "id": 6
+    },
+    {
+      "hospitalId": "2",
+      "dogName": "예약 저장 테스트",
+      "reservationDate": "2021년 07월 22일오후 2시 ~ 오후 3시",
+      "reservationDetail": "ㅇㅀㅇㅀ",
+      "id": 7
+    },
+    {
+      "hospitalId": "2",
+      "dogName": "예약 저장 테스트2",
+      "reservationDate": "2021년 07월 14일오후 2시 ~ 오후 3시",
+      "reservationDetail": "ㄹㄹㄹ",
+      "id": 8
+    },
+    {
+      "hospitalId": "2",
+      "dogName": "예약 저장 테스트3",
+      "reservationDate": "2021년 07월 14일오후 12시 ~ 오후 1시",
+      "reservationDetail": "ㄹㄹ",
+      "id": 9
+    }
+  ],
+  "user": [
+    {
+      "userName": "wjdalswn0530",
+      "password": "manju8898",
+      "id": 1
+    },
+    {
+      "userName": "love8898",
+      "password": "manju0530",
+      "id": 2
+    },
+    {
+      "userName": "wjdalswn0530",
+      "password": "ddd",
+      "id": 3
+    },
+    {
+      "userName": "wjdalswn0530",
+      "password": "ddd",
+      "id": 4
+    },
+    {
+      "userName": "wjdalswn0530",
+      "password": "ddd",
+      "id": 5
+    },
+    {
+      "userName": "fff",
+      "password": "fff",
+      "id": 6
+    },
+    {
+      "userName": "ddd",
+      "password": "ddd",
+      "id": 7
+    },
+    {
+      "userName": "wjdalswn0530",
+      "password": "111",
+      "id": 8
+    },
+    {
+      "userName": "wjdalswn0530",
+      "password": "ddd",
+      "id": 9
+    },
+    {
+      "userName": "ddd",
+      "password": "ddd",
+      "id": 10
+    },
+    {
+      "userName": "wjdalswn0530",
+      "password": "ddd",
+      "id": 11
+    },
+    {
+      "userName": "wjdalswn0530",
+      "password": "ddd",
+      "id": 12
+    }
+  ],
+  "regist": [
+    {
+      "userName": "ddd",
+      "dogName": "ddd",
+      "password": "ddd",
+      "confirmPassword": "ddd",
+      "id": 2
+    },
+    {
+      "userName": "aaa",
+      "dogName": "aaa",
+      "password": "aaa",
+      "confirmPassword": "aaa",
+      "id": 3
+    }
+  ]
+}

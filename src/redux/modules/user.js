@@ -1,21 +1,22 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-import { setCookie } from "../../shared/Cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/cookie";
+import instance from "../../shared/config";
+import { actionCreators as reservationActions } from "./reservation";
 import axios from "axios";
 
 //actions
 const SET_USER = "SET_USER";
-const ADD_USER = "ADD_USER";
+const LOGOUT = "LOGOUT";
 
 //action creators
 const setUser = createAction(SET_USER, (user) => ({ user }));
-const addUser = createAction(ADD_USER, (user) => ({ user }));
+const logout = createAction(LOGOUT, () => {});
 
 //initial state
 const initialState = {
-  user: null,
-  is_login: false,
+  user: {},
 };
 
 //middleware
@@ -28,16 +29,19 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
       confirmPassword,
     };
 
-    axios
+    instance
       .post("/user/regist", new_user)
       .then((response) => {
-        if (response.data.msg === "success") {
-          dispatch(setUser(new_user));
-          window.alert("회원가입이 완료되었습니다!");
-          history.replace("/");
-        } else {
-          window.alert("가입 실패ㅜㅜ");
-        }
+        console.log(response);
+        window.alert("회원가입이 완료되었습니다!");
+        history.push("/login");
+        //   if (response.data.msg === "success") {
+        //     dispatch(setUser(new_user));
+        //     window.alert("회원가입이 완료되었습니다!");
+        //     history.replace("/");
+        //   } else {
+        //     window.alert("가입 실패ㅜㅜ");
+        //   }
       })
       .catch((error) =>
         console.log("회원가입 내용 db에 저장하는 데 오류 발생!", error)
@@ -46,11 +50,68 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
 };
 
 const loginDB = (userName, password) => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    let login_info = {
+      userName,
+      password,
+    };
+    instance
+      .post("/user", login_info)
+      .then((response) => {
+        console.log(response);
+        const accessToken = response.data;
+
+        // API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
+        instance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+
+        //받은 token 쿠키에 저장
+        setCookie("token", accessToken);
+
+        // let user_info = {
+        //   dogName: response.data.dogName,
+        //   dogImage: response.data.dogImage,
+        //   reservation: [...response.data.reservation],
+        // };
+        dispatch(setUser(login_info));
+      })
+      .catch((error) => console.log("로그인 중 에러가 발생했어요!", error));
+  };
 };
 
 const logoutDB = () => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    deleteCookie("token");
+    instance.defaults.headers.common["Authorization"] = null;
+    delete instance.defaults.headers.common["Authorization"];
+    dispatch(logout());
+    history.push("/pages/mainpage");
+  };
+};
+
+const loginCheckDB = () => {
+  return function (dispatch, getState, { history }) {
+    if (!getCookie()) {
+      window.alert("로그인을 해주세요");
+      history.replace("/login");
+      return;
+    }
+    const token = getCookie();
+    instance.defaults.headers.common["Authorization"] = `${token}`;
+    instance.get("/userinfo").then((response) => {
+      console.log(response);
+      const _user = response.data.user;
+      const user_info = {
+        dogName: _user.dogName,
+        dogImage: _user.dogImage,
+        userId: _user.userId,
+      };
+      console.log(user_info);
+      dispatch(setUser(user_info));
+      dispatch(reservationActions.getReservation(response.data.reservation));
+    });
+  };
 };
 
 //reducer
@@ -58,10 +119,21 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        setCookie("is_login", "success");
         draft.user = action.payload.user;
-        draft.is_login = true;
+      }),
+    [LOGOUT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = null;
       }),
   },
   initialState
 );
+
+const actionCreators = {
+  signupDB,
+  loginDB,
+  loginCheckDB,
+  logoutDB,
+};
+
+export { actionCreators };
