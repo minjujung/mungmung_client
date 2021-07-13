@@ -5,22 +5,25 @@ import UserReview from "./UserReview";
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators } from "../redux/modules/review";
+import { useParams } from "react-router-dom";
 
 const Review = () => {
   const review_list = useSelector((state) => state.review.review_list);
   const user_info = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+
   useEffect(() => {
-    dispatch(actionCreators.getReviewDB());
+    dispatch(actionCreators.getReviewDB(id));
   }, []);
 
   const handleAddReview = (review) => {
-    dispatch(actionCreators.addReviewDB(review));
+    dispatch(actionCreators.addReviewDB(id, review));
   };
 
   const handleDeleteReview = (id) => {
-    dispatch(actionCreators.getReviewDB());
+    // dispatch(actionCreators.getReviewDB(id));
     dispatch(actionCreators.deleteReviewDB(id));
   };
   return (
@@ -28,7 +31,6 @@ const Review = () => {
       <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       <ReviewContainer>
         {review_list.map(({ reviewId, reviewContent, hospitalRate }) => {
-          console.log("review_list : ", review_list);
           return (
             <UserReview
               key={reviewId}

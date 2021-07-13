@@ -54,7 +54,13 @@ const MainPage = (props) => {
         {hospital_list.map((hospital, index) => (
           // <p>{hospital.hospitalImageSource}</p>
           <>
-            <p>{hospital.hospitalName}</p>
+            <p
+              onClick={() => {
+                history.push(`/hospitals/${hospital.hospitalId}`);
+              }}
+            >
+              {hospital.hospitalName}
+            </p>
             <p>{hospital.hospitalContent}</p>
             <p>{hospital.hospitalRate}</p>
           </>
