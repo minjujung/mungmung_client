@@ -1,0 +1,22 @@
+{
+    "search": [
+      {
+        "hospitalId": 1,
+        "hospitalImage": "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
+        "hospitalName": "멍멍병원",
+        "hospitalContent": "여기는 멍멍이들을 위한 병원이라구용"
+      },
+      {
+        "hospitalId": 2,
+        "hospitalImage": "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
+        "hospitalName": "멍멍병원",
+        "hospitalContent": "여기는 멍멍이들을 위한 병원이라구용"
+      },
+      {
+        "hospitalId": 3,
+        "hospitalImage": "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
+        "hospitalName": "멍멍병원",
+        "hospitalContent": "여기는 멍멍이들을 위한 병원이라구용"
+      }
+    ]
+  }

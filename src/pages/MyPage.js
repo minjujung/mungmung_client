@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import { PageTitle } from "../common_css/style";
 import Footer from "../components/Footer";
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import AddToPhotosTwoToneIcon from '@material-ui/icons/AddToPhotosTwoTone';
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 
-import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configureStore";
+import { useSelector, useDispatch } from "react-redux";
 
 const MyPage = (props) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const MyPage = (props) => {
         {/* <AccountCircleTwoToneIcon
           style={{ fontSize: 150 }}
         ></AccountCircleTwoToneIcon> */}
-        <image
+        <img
           src={`${user_info.dogImage}`}
           style={{ width: "100px", height: "100px" }}
           alt="dog"
@@ -89,6 +90,10 @@ const Grid2 = styled.div`
   flex-direction: column;
   margin: auto;
   width: 70%;
+<<<<<<< HEAD
+  color: black;
+  background-color: #eef2f3;
+=======
   min-height: 120px;
   border-radius: 10px;
   padding: 10px;
@@ -98,6 +103,7 @@ const Grid2 = styled.div`
 const RevContainer = styled.div`
   height: 40vh;
   overflow-y: scroll;
+>>>>>>> 312f0c73f7a163b347858113b998a62fccaeb010
 `;
 
 export default MyPage;
