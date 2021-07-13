@@ -7,6 +7,7 @@ import User from "./modules/user";
 import Reservation from "./modules/reservation";
 import Review from "./modules/review";
 import List from "./modules/list";
+import Image from "./modules/image";
 
 export const history = createBrowserHistory();
 
@@ -14,8 +15,9 @@ const rootReducer = combineReducers({
   user: User,
   reservation: Reservation,
   review: Review,
-  router: connectRouter(history),
   list: List,
+  image: Image,
+  router: connectRouter(history),
 });
 
 const middlewares = [thunk.withExtraArgument({ history: history })];

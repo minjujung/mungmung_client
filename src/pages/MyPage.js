@@ -18,6 +18,10 @@ const MyPage = (props) => {
   const user_info = useSelector((state) => state.user.user);
 
   useEffect(() => {
+    if (!user_info) {
+      window.alert("로그인이 필요합니다!");
+      history.replace("/login");
+    }
     dispatch(userActions.loginCheckDB());
   }, []);
   return (

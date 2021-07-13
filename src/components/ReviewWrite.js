@@ -7,11 +7,13 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { InputStyle, ThemeBtnColor } from "../common_css/style";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
   const { handleAddReview, handleUpdateReview, update_id } = props;
 
+  const dogName = useSelector((state) => state.user.user.dogName);
   const [review, setReview] = useState({
     reviewContent: "",
     hospitalRate: 5,
@@ -95,7 +97,6 @@ const ReviewWrite = (props) => {
             onClick={() => {
               handleUpdateReview(
                 update_id,
-                review.dogName,
                 review.reviewContent,
                 review.hospitalRate
               );

@@ -4,14 +4,15 @@ import styled from "styled-components";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { actionCreators as userActions } from "../redux/modules/user";
-import instance from "../shared/config";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
+import { getCookie } from "../shared/cookie";
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.user);
   const hospital_list = useSelector((state) => state.list.hospital_list);
 
   console.log(hospital_list);
@@ -38,6 +39,7 @@ const MainPage = (props) => {
         <ExitToAppIcon
           onClick={() => {
             dispatch(userActions.logoutDB());
+            window.alert("로그아웃이 완료되었습니다!");
           }}
           style={{
             width: "30px",

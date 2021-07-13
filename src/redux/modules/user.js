@@ -8,10 +8,12 @@ import axios from "axios";
 
 //actions
 const SET_USER = "SET_USER";
+const EDIT_USER = "EDIT_USER";
 const LOGOUT = "LOGOUT";
 
 //action creators
 const setUser = createAction(SET_USER, (user) => ({ user }));
+const editUser = createAction(EDIT_USER, (image_url) => ({ image_url }));
 const logout = createAction(LOGOUT, () => {});
 
 //initial state
@@ -55,6 +57,7 @@ const loginDB = (userName, password) => {
       userName,
       password,
     };
+    console.log("login_info : ", login_info);
     instance
       .post("/user", login_info)
       .then((response) => {
@@ -75,6 +78,7 @@ const loginDB = (userName, password) => {
         //   reservation: [...response.data.reservation],
         // };
         dispatch(setUser(login_info));
+        history.push("/pages/mainpage");
       })
       .catch((error) => console.log("로그인 중 에러가 발생했어요!", error));
   };
@@ -92,25 +96,27 @@ const logoutDB = () => {
 
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    if (!getCookie("token")) {
-      window.alert("로그인을 해주세요");
-      history.replace("/login");
-      return;
+    // if (!getCookie("token")) {
+    //   window.alert("로그인을 해주세요");
+    //   history.replace("/login");
+    //   return;
+    // }
+    if (getCookie("token")) {
+      const token = getCookie("token");
+      instance.defaults.headers.common["Authorization"] = `${token}`;
+      instance.get("/userinfo").then((response) => {
+        console.log(response);
+        const _user = response.data.user;
+        const user_info = {
+          dogName: _user.dogName,
+          dogImage: _user.dogImage,
+          userId: _user.userId,
+        };
+        console.log(user_info);
+        dispatch(setUser(user_info));
+        dispatch(reservationActions.getReservation(response.data.reservation));
+      });
     }
-    const token = getCookie("token");
-    instance.defaults.headers.common["Authorization"] = `${token}`;
-    instance.get("/userinfo").then((response) => {
-      console.log(response);
-      const _user = response.data.user;
-      const user_info = {
-        dogName: _user.dogName,
-        dogImage: _user.dogImage,
-        userId: _user.userId,
-      };
-      console.log(user_info);
-      dispatch(setUser(user_info));
-      dispatch(reservationActions.getReservation(response.data.reservation));
-    });
   };
 };
 
@@ -121,6 +127,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
       }),
+    [EDIT_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.dogImage = action.payload.image_url;
+      }),
     [LOGOUT]: (state, action) =>
       produce(state, (draft) => {
         draft.user = null;
@@ -130,6 +140,7 @@ export default handleActions(
 );
 
 const actionCreators = {
+  editUser,
   signupDB,
   loginDB,
   loginCheckDB,

@@ -19,7 +19,10 @@ const getCookie = (name) => {
 const deleteCookie = (name) => {
   let date = new Date("2020-01-01").toUTCString();
 
-  document.cookie = name + "=; expires=" + date;
+  document.cookie =
+    name + "=; expires=" + date + ";domain = localhost;path = /pages";
+  document.cookie =
+    name + "=; expires=" + date + ";domain = localhost;path = /";
 };
 
 export { setCookie, getCookie, deleteCookie };
