@@ -11,8 +11,8 @@
 # production
 /build
 
-#firebase_api
-firebase.js
+# #firebase_api
+# firebase.js
 
 
 # misc
