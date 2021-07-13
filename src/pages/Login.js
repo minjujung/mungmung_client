@@ -41,7 +41,6 @@ const Login = (props) => {
         <LoginBtn
           onClick={() => {
             dispatch(userActions.loginDB(id, pwd));
-            history.push("/pages/mainpage");
           }}
         >
           로그인 하기

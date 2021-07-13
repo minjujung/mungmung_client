@@ -4,25 +4,25 @@ import styled from "styled-components";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { actionCreators as userActions } from "../redux/modules/user";
-import instance from "../shared/config";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
+import { getCookie } from "../shared/Cookie";
 
-const MainPage = ({ props }) => {
+const MainPage = (props) => {
   const dispatch = useDispatch();
-  const hospital_list=useSelector((state) => state.list.hospital_list)
+  const user_info = useSelector((state) => state.user.user);
+  const hospital_list = useSelector((state) => state.list.hospital_list);
 
   console.log(hospital_list);
 
   React.useEffect(() => {
-    dispatch(listActions.getHospitalDB())
+    dispatch(listActions.getHospitalDB());
   }, []);
 
-
   useEffect(() => {
-    instance.get("/hospitals").then((response) => console.log(response));
+    dispatch(userActions.loginCheckDB());
   }, []);
   const imgBoxCss = { width: "100%", height: "250px" };
   const imgCss = { width: "100%", height: "100%" };
@@ -36,12 +36,27 @@ const MainPage = ({ props }) => {
   return (
     <div>
       <Grid2>
-        {hospital_list.map((hospital,index) => (
+        <ExitToAppIcon
+          onClick={() => {
+            dispatch(userActions.logoutDB());
+            window.alert("로그아웃이 완료되었습니다!");
+          }}
+          style={{
+            width: "30px",
+            height: "30px",
+            position: "absolute",
+            top: "30px",
+            right: "20px",
+            color: "gray",
+          }}
+        />
+
+        {hospital_list.map((hospital, index) => (
           // <p>{hospital.hospitalImageSource}</p>
           <>
-          <p>{hospital.hospitalName}</p>
-          <p>{hospital.hospitalContent}</p>
-          <p>{hospital.hospitalRate}</p>
+            <p>{hospital.hospitalName}</p>
+            <p>{hospital.hospitalContent}</p>
+            <p>{hospital.hospitalRate}</p>
           </>
         ))}
       </Grid2>
