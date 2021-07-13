@@ -1,8 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import moment from "moment";
 import axios from "axios";
-import { result } from "lodash";
 
 const GET_HOSPITAL = "GET_HOSPITAL";
 

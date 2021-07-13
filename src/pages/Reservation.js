@@ -8,7 +8,7 @@ import Schedule from "../components/Schedule";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as reservationActions } from "../redux/modules/reservation";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "../shared/cookie";
 import { history } from "../redux/configureStore";
 
 const Reservation = (props) => {

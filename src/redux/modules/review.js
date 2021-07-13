@@ -3,7 +3,7 @@ import produce from "immer";
 import moment from "moment";
 import axios from "axios";
 import { result } from "lodash";
-import { getCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/cookie";
 import instance from "../../shared/config";
 
 const GET_REVIEW = "GET_REVIEW";
@@ -37,8 +37,7 @@ const getReviewDB = () => {
 
 const addReviewDB = (review) => {
   return function (dispatch, getState, { history }) {
-    const token = getCookie();
-
+    const token = getCookie("token");
     axios.defaults.headers.common["Authorization"] = `${token}`;
     const { reviewContent, hospitalRate } = review;
     const new_review = {
