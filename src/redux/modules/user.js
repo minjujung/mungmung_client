@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-import { deleteCookie, getCookie, setCookie } from "../../shared/cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
 import instance from "../../shared/config";
 import { actionCreators as reservationActions } from "./reservation";
 import axios from "axios";
@@ -55,6 +55,7 @@ const loginDB = (userName, password) => {
       userName,
       password,
     };
+    console.log("login_info : ", login_info);
     instance
       .post("/user", login_info)
       .then((response) => {
