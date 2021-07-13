@@ -16,25 +16,26 @@ const Review = () => {
   }, []);
 
   const handleAddReview = (review) => {
-    console.log(review);
     dispatch(actionCreators.addReviewDB(review));
   };
 
   const handleDeleteReview = (id) => {
+    dispatch(actionCreators.getReviewDB());
     dispatch(actionCreators.deleteReviewDB(id));
   };
   return (
     <>
       <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       <ReviewContainer>
-        {review_list.map(({ reviewId, reviewContent, reviewRate }) => {
+        {review_list.map(({ reviewId, reviewContent, hospitalRate }) => {
+          console.log("review_list : ", review_list);
           return (
             <UserReview
               key={reviewId}
               id={reviewId}
               dogName={user_info.dogName}
               reviewContent={reviewContent}
-              hospitalRate={reviewRate}
+              hospitalRate={hospitalRate}
               handleDeleteReview={handleDeleteReview}
             ></UserReview>
           );
