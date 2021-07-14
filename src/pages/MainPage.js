@@ -8,14 +8,11 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
-import { getCookie } from "../shared/cookie";
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
   const hospital_list = useSelector((state) => state.list.hospital_list);
-
-  console.log(hospital_list);
 
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
@@ -24,58 +21,79 @@ const MainPage = (props) => {
 
   return (
     <div>
-      <Grid2>
-        <ExitToAppIcon
-          onClick={() => {
-            dispatch(userActions.logoutDB());
-            window.alert("로그아웃이 완료되었습니다!");
-          }}
-          style={{
-            width: "30px",
-            height: "30px",
-            position: "absolute",
-            top: "30px",
-            right: "20px",
-            color: "gray",
-          }}
-        />
-
-        {hospital_list.map((hospital) => (
-          // <p>{hospital.hospitalImageSource}</p>
-          <div key={hospital.hospitalId}>
+      {" "}
+      <ExitToAppIcon
+        onClick={() => {
+          dispatch(userActions.logoutDB());
+          window.alert("로그아웃이 완료되었습니다!");
+        }}
+        style={{
+          fontSize: 45,
+          position: "absolute",
+          top: "15px",
+          right: "0px",
+        }}
+      ></ExitToAppIcon>
+      <DIV>
+        {hospital_list.map((hospital, index) => (
+          <Grid2
+            key={hospital.hospitalId}
+            onClick={() => {
+              history.push(`/hospitals/${hospital.hospitalId}`);
+            }}
+          >
             <img
+              style={{ width: "100%", height: "200px" }}
               src={
                 hospital.hospitalImageList &&
                 hospital.hospitalImageList[0].hospitalImageUrl
               }
               alt="hospital"
-            />
+            ></img>
+            <H3>{hospital.hospitalName}</H3>
             <p
-              onClick={() => {
-                history.push(`/hospitals/${hospital.hospitalId}`);
+              style={{
+                fontSize: "13px",
               }}
             >
-              {hospital.hospitalName}
+              {hospital.hospitalContent}
             </p>
-            <p>{hospital.hospitalContent}</p>
-            <p>{hospital.hospitalRate}</p>
-          </div>
+            <H4>★ {hospital.hospitalRate}</H4>
+          </Grid2>
         ))}
-      </Grid2>
+      </DIV>
       <Footer></Footer>
     </div>
   );
 };
 
+const DIV = styled.div`
+  overflow-y: scroll;
+  max-height: 500px;
+  padding: 10px;
+  margin: auto;
+`;
+//margin 값 초기화 해주기
+const H3 = styled.h3`
+  margin: 0;
+  text-align: center;
+`;
+
+const H4 = styled.h4`
+  margin: 0;
+`;
+
 const Grid2 = styled.div`
+  overflow-y: scroll;
   display: flex;
+  border: 0.1em outset #d3d3d3;
   flex-direction: column;
   margin: auto;
   margin-top: 10px;
-  width: 60%;
-  padding: 10px;
+  width: 80%;
   color: black;
-  background-color: #eef2f3;
+  background-color: #ffffff;
+  height: auto;
 `;
 
 export default MainPage;

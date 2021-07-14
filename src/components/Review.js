@@ -11,7 +11,7 @@ const Review = () => {
   const review_list = useSelector((state) => state.review.review_list);
   const user_info = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-
+  const dogName = user_info ? user_info.dogName : "1";
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,27 +28,33 @@ const Review = () => {
   };
   return (
     <>
-      <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
+      {Object.keys(user_info).length === 0 || (
+        <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
+      )}
       <ReviewContainer>
-        {review_list.map(({ reviewId, reviewContent, hospitalRate }) => {
-          return (
-            <UserReview
-              key={reviewId}
-              id={reviewId}
-              dogName={user_info.dogName}
-              reviewContent={reviewContent}
-              hospitalRate={hospitalRate}
-              handleDeleteReview={handleDeleteReview}
-            ></UserReview>
-          );
-        })}
+        {review_list.map(
+          ({ reviewId, reviewContent, hospitalRate, dogImage, modifiedAt }) => {
+            return (
+              <UserReview
+                key={reviewId}
+                id={reviewId}
+                dogImage={dogImage}
+                dogName={dogName}
+                reviewContent={reviewContent}
+                hospitalRate={hospitalRate}
+                modifiedAt={modifiedAt}
+                handleDeleteReview={handleDeleteReview}
+              ></UserReview>
+            );
+          }
+        )}
       </ReviewContainer>
     </>
   );
 };
 
 const ReviewContainer = styled.div`
-  height: 35vh;
+  height: 60vh;
   overflow-y: scroll;
 `;
 

@@ -18,7 +18,7 @@ import ReviewUpdate from "./pages/ReviewUpdate";
 
 function App() {
   return (
-    <Container>
+    <Container style={{ paddingBottom: "70px" }}>
       <ConnectedRouter history={history}>
         <Route exact path="/" component={Start} />
         <Route exact path="/login" component={Login} />

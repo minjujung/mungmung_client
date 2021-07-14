@@ -13,7 +13,6 @@ const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
   const { handleAddReview, handleUpdateReview, update_id } = props;
 
-  const dogName = useSelector((state) => state.user.user.dogName);
   const [review, setReview] = useState({
     reviewContent: "",
     hospitalRate: 5,
@@ -44,7 +43,15 @@ const ReviewWrite = (props) => {
 
   const handleEnterReviewContent = (e) => {
     if (e.key === "Enter") {
-      handleAddReview(review);
+      if (props.type === "update") {
+        handleUpdateReview(
+          update_id,
+          review.reviewContent,
+          review.hospitalRate
+        );
+      } else {
+        handleAddReview(review);
+      }
       inputRef.current.value = "";
     }
   };
@@ -130,10 +137,6 @@ const ReviewBtn = styled.div`
   ${ThemeBtnColor}
   width:23%
 `;
-
-ReviewWrite.defaultProps = {
-  type: "write",
-};
 
 ReviewWrite.defaultProps = {
   type: "write",
