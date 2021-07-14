@@ -19,21 +19,18 @@ import Footer from "../components/Footer";
 import { ThemeBtnColor } from "../common_css/style";
 import { useParams } from "react-router-dom";
 
-import { getHospitalDB } from "../redux/modules/hospital";
 SwiperCore.use([Navigation, Pagination]);
 
 const HospitalDetail = (props) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userActions.loginCheckDB());
-  }, []);
-
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getHospitalDB(id));
+    dispatch(userActions.loginCheckDB());
+    // dispatch(getHospitalDB(id));
   }, []);
+
   const [tabIndex, setTabIndex] = React.useState(1);
   const [currentInfo, setCurrentInfo] = React.useState("intro");
   const [tabContent, setTabContent] = React.useState([

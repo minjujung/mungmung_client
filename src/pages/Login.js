@@ -12,6 +12,10 @@ const Login = (props) => {
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
 
+  const login = () => {
+    dispatch(userActions.loginDB(id, pwd));
+  };
+
   return (
     <Container>
       <Title>로그인</Title>
@@ -35,13 +39,17 @@ const Login = (props) => {
           onChange={(e) => {
             setPwd(e.target.value);
           }}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              login();
+            }
+          }}
         />
       </InputContainer>
       <BtnContainer>
         <LoginBtn
-          onClick={() => {
-            dispatch(userActions.loginDB(id, pwd));
-          }}
+          onClick={login}
+          disabled={id === "" || pwd === "" ? true : false}
         >
           로그인 하기
         </LoginBtn>

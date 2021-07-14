@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import { PageTitle } from "../common_css/style";
 import Footer from "../components/Footer";
-import AddToPhotosTwoToneIcon from "@material-ui/icons/AddToPhotosTwoTone";
-import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 
 import { actionCreators as userActions } from "../redux/modules/user";
 

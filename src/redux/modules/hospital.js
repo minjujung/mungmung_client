@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import instance from "../../shared/config";
+import { getCookie } from "../../shared/cookie";
 
 const GET_HOSPITAL = "GET_HOSPITAL";
 
@@ -21,6 +22,8 @@ const initialState = {
 
 export const getHospitalDB = (id) => {
   return function (dispatch, getState, { history }) {
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     instance.get(`/hospitals/${id}`).then((result) => {
       dispatch(getHospital(result.data));
     });

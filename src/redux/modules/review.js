@@ -46,7 +46,7 @@ const addReviewDB = (id, review) => {
 
     console.log("new_review : ", new_review);
     instance.post(`/hospitals/${id}/reviews`, new_review).then((result) => {
-      dispatch(getReviewDB());
+      dispatch(getReviewDB(id));
     });
   };
 };

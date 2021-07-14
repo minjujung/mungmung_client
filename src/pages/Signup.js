@@ -15,6 +15,11 @@ const Signup = (props) => {
   const [pwd, setPwd] = useState("");
   const [pwdCheck, setPwdCheck] = useState("");
 
+  const signup = () => {
+    dispatch(userActions.signupDB(id, dog, pwd, pwdCheck));
+    history.push("/");
+  };
+
   return (
     <Container>
       <Title>회원 가입</Title>
@@ -58,14 +63,21 @@ const Signup = (props) => {
           onChange={(e) => {
             setPwdCheck(e.target.value);
           }}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              signup();
+            }
+          }}
         />
       </InputContainer>
       <BtnContainer>
         <SignupBtn
-          onClick={() => {
-            dispatch(userActions.signupDB(id, dog, pwd, pwdCheck));
-            history.push("/");
-          }}
+          onClick={signup}
+          disabled={
+            id === "" || dog === "" || pwd === "" || pwdCheck === ""
+              ? true
+              : false
+          }
         >
           회원가입 하기
         </SignupBtn>

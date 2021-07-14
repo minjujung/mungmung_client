@@ -9,7 +9,7 @@ import { actionCreators as imageActions } from "../redux/modules/image";
 const ImageUpload = (props) => {
   const imageInput = useRef();
   const [preview, setPreview] = useState(null);
-  const [click, setClick] = useState(false);
+  const [done, setDone] = useState(false);
 
   const dispatch = useDispatch();
   const is_uploading = useSelector((state) => state.image.uploading);
@@ -30,6 +30,8 @@ const ImageUpload = (props) => {
   const uploadFB = () => {
     let image = imageInput.current.files[0];
     dispatch(imageActions.uploadImageFB(image));
+    setTimeout(() => setDone(true), 500);
+    setTimeout(() => setDone(false), 3000);
   };
 
   return (
@@ -43,12 +45,7 @@ const ImageUpload = (props) => {
         disabled={is_uploading}
       />
       <label htmlFor="profile">
-        <PhotoCameraIcon
-          style={{ fontSize: 40 }}
-          onClick={() => {
-            setClick(true);
-          }}
-        ></PhotoCameraIcon>
+        <PhotoCameraIcon style={{ fontSize: 40 }}></PhotoCameraIcon>
       </label>
       <Image src={preview ? preview : user_info.dogImage} alt="dog" />
       {is_uploading ? null : (
@@ -57,8 +54,12 @@ const ImageUpload = (props) => {
             style={{ fontSize: 40 }}
             onClick={uploadFB}
           ></CheckCircleIcon>
-          <p style={{ textAlign: "center" }}>업로드 완료!</p>
         </>
+      )}
+      {done ? (
+        <p style={{ textAlign: "center" }}>업로드 완료!</p>
+      ) : (
+        <p style={{ textAlign: "center" }}>체크버튼을 누르면 업로드!</p>
       )}
     </Container>
   );

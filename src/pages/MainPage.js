@@ -42,7 +42,14 @@ const MainPage = (props) => {
 
         {hospital_list.map((hospital) => (
           // <p>{hospital.hospitalImageSource}</p>
-          <>
+          <div key={hospital.hospitalId}>
+            <img
+              src={
+                hospital.hospitalImageList &&
+                hospital.hospitalImageList[0].hospitalImageUrl
+              }
+              alt="hospital"
+            />
             <p
               onClick={() => {
                 history.push(`/hospitals/${hospital.hospitalId}`);
@@ -52,7 +59,7 @@ const MainPage = (props) => {
             </p>
             <p>{hospital.hospitalContent}</p>
             <p>{hospital.hospitalRate}</p>
-          </>
+          </div>
         ))}
       </Grid2>
       <Footer></Footer>
