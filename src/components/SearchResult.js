@@ -18,7 +18,7 @@ const SearchResult = ({ data }) => {
           }}
         >
           <img
-            src={d.hospitalImageSource}
+            src={d.hospitalImageList && d.hospitalImageList[0].hospitalImageUrl}
             alt="hospital"
             style={{ width: "200px", height: "150px" }}
           />

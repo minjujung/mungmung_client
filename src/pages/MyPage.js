@@ -32,10 +32,13 @@ const MyPage = (props) => {
 
       <RevContainer>
         {reservations.map((r, idx) => (
-          <Grid2 key={r.reservationId}>
-            <p>{r.hospitalId}</p>
-            <p>{r.reservationDate}</p>
-            <p>{r.reservationDetail}</p>
+          <Grid2
+            key={r.reservationId}
+            onClick={() => history.push(`/hospitals/${r.hospitalId}`)}
+          >
+            <Hospital>{r.hospitalName}</Hospital>
+            <Date>{r.reservationDate}</Date>
+            <Detail>{r.reservationDetail}</Detail>
           </Grid2>
         ))}
       </RevContainer>
@@ -49,13 +52,6 @@ const Title = styled.h1`
   display: flex;
   justify-content: center;
   ${PageTitle}
-`;
-
-const Grid = styled.div`
-  display: flex;
-  padding: 5px;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Name = styled.div`
@@ -79,12 +75,26 @@ const Text = styled.div`
 const Grid2 = styled.div`
   display: flex;
   flex-direction: column;
-  margin: auto;
-  width: 70%;
-  min-height: 120px;
-  border-radius: 10px;
+  margin: 10px auto;
+  width: 75%;
+  height: 90px;
+  border-radius: 5px;
   padding: 10px;
-  border: 1px solid grey;
+  background-color: rgb(250, 250, 250);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+`;
+
+const Hospital = styled.p`
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 18px;
+`;
+const Date = styled.p`
+  margin: 5px 0;
+  color: grey;
+`;
+const Detail = styled.p`
+  margin: 5px 0;
 `;
 
 const RevContainer = styled.div`
