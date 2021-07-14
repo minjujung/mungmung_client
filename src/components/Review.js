@@ -11,7 +11,7 @@ const Review = () => {
   const review_list = useSelector((state) => state.review.review_list);
   const user_info = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-
+  const dogName = user_info ? user_info.dogName : "1";
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,18 +28,21 @@ const Review = () => {
   };
   return (
     <>
-      <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
+      {Object.keys(user_info).length === 0 || (
+        <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
+      )}
       <ReviewContainer>
         {review_list.map(
-          ({ reviewId, reviewContent, hospitalRate, dogImage }) => {
+          ({ reviewId, reviewContent, hospitalRate, dogImage, modifiedAt }) => {
             return (
               <UserReview
                 key={reviewId}
                 id={reviewId}
                 dogImage={dogImage}
-                dogName={user_info.dogName}
+                dogName={dogName}
                 reviewContent={reviewContent}
                 hospitalRate={hospitalRate}
+                modifiedAt={modifiedAt}
                 handleDeleteReview={handleDeleteReview}
               ></UserReview>
             );

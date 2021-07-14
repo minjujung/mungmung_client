@@ -28,7 +28,7 @@ const MainPage = (props) => {
           window.alert("로그아웃이 완료되었습니다!");
         }}
         style={{
-          fontSize: 45,
+          fontSize: 40,
           position: "absolute",
           top: "15px",
           right: "0px",
@@ -81,6 +81,7 @@ const H3 = styled.h3`
 
 const H4 = styled.h4`
   margin: 0;
+  margin-left: 10px;
 `;
 
 const Grid2 = styled.div`
@@ -94,6 +95,9 @@ const Grid2 = styled.div`
   color: black;
   background-color: #ffffff;
   height: auto;
+  border-radius: 20px;
+  border:none;
+  box-shadow: 5px 5px #E5E5E3;
 `;
 
 export default MainPage;
