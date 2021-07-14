@@ -11,7 +11,6 @@ const Review = () => {
   const review_list = useSelector((state) => state.review.review_list);
   const user_info = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const dogName = user_info ? user_info.dogName : "1";
   const { id } = useParams();
 
   useEffect(() => {
@@ -33,7 +32,14 @@ const Review = () => {
       )}
       <ReviewContainer>
         {review_list.map(
-          ({ reviewId, reviewContent, hospitalRate, dogImage, modifiedAt }) => {
+          ({
+            reviewId,
+            reviewContent,
+            hospitalRate,
+            dogImage,
+            modifiedAt,
+            dogName,
+          }) => {
             return (
               <UserReview
                 key={reviewId}
