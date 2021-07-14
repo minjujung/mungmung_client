@@ -27,7 +27,7 @@ const Review = () => {
   };
   return (
     <>
-      {Object.keys(user_info).length === 0 || (
+      {Object.keys(user_info).length === 0 || user_info === null ? null : (
         <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       )}
       <ReviewContainer>
@@ -60,8 +60,9 @@ const Review = () => {
 };
 
 const ReviewContainer = styled.div`
-  height: 60vh;
-  overflow-y: scroll;
+  height: auto;
+  padding: 10px;
+  margin: auto;
 `;
 
 export default Review;

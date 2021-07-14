@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import Footer from "../components/Footer";
 import styled from "styled-components";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import StarIcon from "@material-ui/icons/Star";
 
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
-import { getCookie } from "../shared/Cookie";
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
@@ -25,18 +24,6 @@ const MainPage = (props) => {
   return (
     <div>
       {" "}
-      <ExitToAppIcon
-        onClick={() => {
-          dispatch(userActions.logoutDB());
-          window.alert("로그아웃이 완료되었습니다!");
-        }}
-        style={{
-          fontSize: 40,
-          position: "absolute",
-          top: "15px",
-          right: "0px",
-        }}
-      ></ExitToAppIcon>
       <DIV>
         {hospital_list.map((hospital, index) => (
           <Grid2
@@ -46,22 +33,33 @@ const MainPage = (props) => {
             }}
           >
             <img
-              style={{ width: "100%", height: "200px" }}
+              style={{
+                width: "100%",
+                height: "200px",
+                borderRadius: "20px 20px 0 0",
+              }}
               src={
                 hospital.hospitalImageList &&
-                hospital.hospitalImageList[0].hospitalImageUrl
+                hospital.hospitalImageList[0]?.hospitalImageUrl
               }
               alt="hospital"
             ></img>
             <H3>{hospital.hospitalName}</H3>
             <p
               style={{
-                fontSize: "13px",
+                fontSize: "17px",
+                margin: "10px auto",
               }}
             >
               {hospital.hospitalContent}
             </p>
-            <H4>★ {hospital.hospitalRate}</H4>
+            <H4>
+              <StarIcon
+                style={{ color: "#ECBA11", width: "20px", height: "20px" }}
+              />{" "}
+              {hospital.hospitalRate}{" "}
+              <Numbers>총 {hospital.howManyReviews}명이 평가했습니다.</Numbers>
+            </H4>
           </Grid2>
         ))}
       </DIV>
@@ -78,29 +76,35 @@ const DIV = styled.div`
 `;
 //margin 값 초기화 해주기
 const H3 = styled.h3`
-  margin: 0;
+  margin: 10px auto;
   text-align: center;
 `;
 
 const H4 = styled.h4`
+  display: flex;
+  align-items: center;
   margin: 0;
   margin-left: 10px;
 `;
 
+const Numbers = styled.span`
+  font-size: 15px;
+  font-weight: 300;
+  margin: 0 10px;
+`;
+
 const Grid2 = styled.div`
-  overflow-y: scroll;
   display: flex;
   border: 0.1em outset #d3d3d3;
   flex-direction: column;
-  margin: auto;
-  margin-top: 10px;
-  width: 80%;
+  margin: 20px auto;
+  width: 100%;
   color: black;
   background-color: #ffffff;
   height: auto;
   border-radius: 20px;
-  border:none;
-  box-shadow: 5px 5px #E5E5E3;
+  border: none;
+  box-shadow: 5px 5px #e5e5e3;
 `;
 
 export default MainPage;

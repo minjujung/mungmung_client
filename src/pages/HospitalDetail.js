@@ -6,12 +6,12 @@ import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import BackspaceIcon from "@material-ui/icons/Backspace";
+
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
-
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import Review from "../components/Review";
 import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
@@ -85,10 +85,6 @@ const HospitalDetail = (props) => {
 
   return (
     <Container>
-      <BackspaceIcon
-        onClick={() => history.push("/pages/mainpage")}
-        style={{ fontSize: "2.2rem", padding: "5px 0 0 15px" }}
-      ></BackspaceIcon>
       <Swiper
         spaceBetween={50}
         slidesPerView={1}
@@ -158,10 +154,6 @@ const HospitalDetail = (props) => {
 
 const Container = styled.div`
   width: 100%;
-  @media screen and (min-width: 768px) {
-    width: 768px;
-    margin: 0 auto;
-  }
 `;
 
 const TabBox = styled.div`
@@ -199,9 +191,11 @@ const CurrentInfoContainer = styled.div`
 
 const Button = styled.div`
   width: 150px;
-  position: absolute;
-  bottom: 80px;
-  right: 20px;
+  position: relative;
+  bottom: 0px;
+  left: 0px;
+  float: right;
+  margin-top: 30px;
   ${ThemeBtnColor}
 `;
 
