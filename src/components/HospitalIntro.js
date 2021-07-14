@@ -28,6 +28,7 @@ const HostpitalName = styled.h2``;
 const IntroContent = styled.pre`
   white-space: pre-wrap;
   word-break: break-all;
+  font-family: "Poor Story", cursive;
 `;
 const HospitalSubjectTitle = styled.h3``;
 const HospitalSubject = styled.div``;

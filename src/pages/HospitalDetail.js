@@ -85,19 +85,6 @@ const HospitalDetail = (props) => {
 
   return (
     <Container>
-      <ArrowBackIosIcon
-        style={{
-          width: "30px",
-          height: "30px",
-          position: "absolute",
-          top: "30px",
-          left: "20px",
-          zIndex: "10",
-        }}
-        onClick={() => {
-          history.goBack();
-        }}
-      />
       <Swiper
         spaceBetween={50}
         slidesPerView={1}
@@ -167,10 +154,6 @@ const HospitalDetail = (props) => {
 
 const Container = styled.div`
   width: 100%;
-  @media screen and (min-width: 768px) {
-    width: 768px;
-    margin: 0 auto;
-  }
 `;
 
 const TabBox = styled.div`
@@ -208,9 +191,11 @@ const CurrentInfoContainer = styled.div`
 
 const Button = styled.div`
   width: 150px;
-  position: absolute;
-  bottom: 80px;
-  right: 20px;
+  position: relative;
+  bottom: 0px;
+  left: 0px;
+  float: right;
+  margin-top: 30px;
   ${ThemeBtnColor}
 `;
 

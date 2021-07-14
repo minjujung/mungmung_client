@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { NormalFooter, IconStyle } from "../common_css/style";
-import HomeIcon from "@material-ui/icons/Home";
-import SearchIcon from "@material-ui/icons/Search";
+import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
+import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import dogProfile from "../image/강아지프로필.png";
 
 import { history } from "../redux/configureStore";
@@ -12,7 +12,7 @@ const Footer = (props) => {
   const user_info = useSelector((state) => state.user.user);
   return (
     <FooterStyle>
-      <HomeIcon
+      <HomeRoundedIcon
         style={IconStyle}
         onClick={() => {
           history.push("/pages/mainpage");
@@ -32,13 +32,19 @@ const Footer = (props) => {
         <img
           src={user_info?.dogImage}
           alt="dog"
-          style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+          style={{
+            width: "50px",
+            height: "50px",
+            border: "2px solid white",
+            borderRadius: "50%",
+            boxSizing: "border-box",
+          }}
           onClick={() => {
             history.push("/pages/mypage");
           }}
         />
       )}
-      <SearchIcon
+      <SearchRoundedIcon
         style={IconStyle}
         onClick={() => {
           history.push("/pages/search");

@@ -33,15 +33,19 @@ export const InputStyle = css`
 `;
 
 export const NormalFooter = css`
-  background-color: rgb(190, 190, 190);
+  background-color: rgb(208 208 208);
   display: flex;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 60px;
   font-size: 40px;
   justify-content: space-evenly;
   align-items: center;
+  @media screen and (min-width: 450px) {
+    width: 450px;
+    margin: 0 auto;
+  }
 `;
 
 export const IconStyle = {
@@ -49,4 +53,8 @@ export const IconStyle = {
   height: "50px",
   color: "white",
   cursor: "pointer",
+  border: "2px solid white",
+  borderRadius: "50%",
+  boxSizing: "border-box",
+  padding: "5px",
 };

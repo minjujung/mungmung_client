@@ -18,7 +18,7 @@ import ReviewUpdate from "./pages/ReviewUpdate";
 
 function App() {
   return (
-    <Container style={{ paddingBottom: "70px" }}>
+    <Container>
       <ConnectedRouter history={history}>
         <Route exact path="/" component={Start} />
         <Route exact path="/login" component={Login} />
@@ -36,11 +36,8 @@ function App() {
 
 const Container = styled.div`
   width: 100%;
-  position: relative;
-  min-height: 100vh;
-
-  @media screen and (min-width: 768px) {
-    width: 768px;
+  @media screen and (min-width: 450px) {
+    width: 450px;
     margin: 0 auto;
   }
 `;

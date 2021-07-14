@@ -43,7 +43,8 @@ const Search = () => {
         {!user_info || Object.keys(user_info).length === 0
           ? "땡땡이"
           : user_info.dogName}
-        는 어디가 아픈가요?
+        (이)는 <br />
+        어디가 아픈가요?
       </Title>
       <SearchField>
         <Keywords>
@@ -86,7 +87,7 @@ const Keyword = styled.button`
   border: none;
   background-color: yellowgreen;
   color: white;
-  border-radius: 30px;
+  border-radius: 10px;
   width: 100px;
   font-family: "Poor Story", cursive;
   font-size: 15px;
