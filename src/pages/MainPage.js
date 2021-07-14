@@ -33,33 +33,43 @@ const MainPage = ({ props }) => {
   // ];
 
   return (
-    <div>
-      {hospital_list.map((hospital, index) => (
-        <Grid2>
-          <img
-            style={{ width: "200px", height: "150px" }}
-            src={
-              hospital.hospitalImageList &&
-              hospital.hospitalImageList[0].hospitalImageUrl
-            }
-            alt="hospital"
-          ></img>
-          <H3>{hospital.hospitalName}</H3>
-          <p
-            style={{
-              fontSize: "13px",
-            }}
-          >
-            {hospital.hospitalContent}
-          </p>
-          <H4>★ {hospital.hospitalRate}</H4>
-        </Grid2>
-      ))}
+    <div> <ExitToAppIcon  style={{ fontSize: 45, float: "right" }}></ExitToAppIcon>
+      <DIV> 
+        {hospital_list.map((hospital, index) => (
+          <Grid2>
+            <img
+              style={{ width: "200px", height: "150px" }}
+              src={
+                hospital.hospitalImageList &&
+                hospital.hospitalImageList[0].hospitalImageUrl
+              }
+              alt="hospital"
+            ></img>
+            <H3>{hospital.hospitalName}</H3>
+            <p
+              style={{
+                fontSize: "13px",
+              }}
+            >
+              {hospital.hospitalContent}
+            </p>
+            <H4>★ {hospital.hospitalRate}</H4>
+          </Grid2>
+        ))}
+      </DIV>
       <Footer></Footer>
     </div>
   );
 };
 
+const DIV = styled.div`
+  overflow-y: scroll;
+  max-height: 500px;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+`;
 //margin 값 초기화 해주기
 const H3 = styled.h3`
   margin: 0;
@@ -71,16 +81,17 @@ const H4 = styled.h4`
 `;
 
 const Grid2 = styled.div`
+  overflow-y: scroll;
   display: flex;
   border: 0.1em outset #d3d3d3;
   flex-direction: column;
   margin: auto;
   margin-top: 10px;
-  width: 60%;
+  width: 80%;
   padding: 10px;
   color: black;
   background-color: #ffffff;
-  max-height: max-content;
+  height: auto;
 `;
 
 export default MainPage;
