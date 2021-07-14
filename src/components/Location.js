@@ -50,7 +50,7 @@ const Location = () => {
         id="myMap"
         style={{
           width: "100%",
-          height: "300px",
+          height: "200px",
         }}
       ></div>
       <LocationInfo>

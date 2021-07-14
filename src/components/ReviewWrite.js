@@ -66,6 +66,7 @@ const ReviewWrite = (props) => {
         {[...Array(notValuedStartCount)].map((n, index) => {
           return (
             <StarBorderIcon
+              style={{ color: "#ECBA11" }}
               key={index}
               onClick={() => {
                 setCurrentReviewScore(currentReviewScore + index + 1);

@@ -2,7 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { getCookie } from "../../shared/cookie";
 import instance from "../../shared/config";
-
 const GET_REVIEW = "GET_REVIEW";
 const ADD_REVIEW = "ADD_REVIEW";
 const DELETE_REVIEW = "DELETE_REVIEW";
@@ -43,8 +42,6 @@ const addReviewDB = (id, review) => {
       reviewContent,
       hospitalRate,
     };
-
-    console.log("new_review : ", new_review);
     instance.post(`/hospitals/${id}/reviews`, new_review).then((result) => {
       dispatch(getReviewDB(id));
     });
@@ -61,7 +58,7 @@ const deleteReviewDB = (review_id) => {
   };
 };
 
-const updateReviewDB = (review) => {
+const updateReviewDB = (hospitalId, review) => {
   return function (dispatch, getState, { history }) {
     const token = getCookie("token");
     instance.defaults.headers.common["Authorization"] = `${token}`;
@@ -72,9 +69,14 @@ const updateReviewDB = (review) => {
       hospitalRate,
     };
 
-    instance
-      .put(`/hospitals/reviews/${id}`, params)
-      .then((result) => history.goBack());
+    instance.put(`/hospitals/reviews/${id}`, params).then((result) => {
+      history.push({
+        pathname: `/hospitals/${hospitalId}`,
+        state: {
+          tabIndex: 2,
+        },
+      });
+    });
   };
 };
 
