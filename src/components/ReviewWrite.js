@@ -13,7 +13,6 @@ const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
   const { handleAddReview, handleUpdateReview, update_id } = props;
 
-  const dogName = useSelector((state) => state.user.user.dogName);
   const [review, setReview] = useState({
     reviewContent: "",
     hospitalRate: 5,
