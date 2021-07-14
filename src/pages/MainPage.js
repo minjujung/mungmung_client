@@ -9,8 +9,6 @@ import instance from "../shared/config";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
-import InfinityScroll from "../shared/InfinityScroll";
-import { scroll } from "dom7";
 
 const MainPage = ({ props }) => {
   const dispatch = useDispatch();
