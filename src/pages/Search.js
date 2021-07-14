@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import { PageTitle, InputStyle, ThemeBtnColor } from "../common_css/style";
@@ -6,9 +6,12 @@ import { PageTitle, InputStyle, ThemeBtnColor } from "../common_css/style";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import instance from "../shared/config";
+import SearchResult from "../components/SearchResult";
 const Search = () => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
+
+  const [data, setData] = useState("");
   const keyword_list = ["슬개골", "심장", "중성화"];
 
   useEffect(() => {
@@ -18,9 +21,9 @@ const Search = () => {
   const search = (e) => {
     const keyword = e.target.textContent;
     const encode = encodeURIComponent(keyword);
-    instance
-      .get(`/hospitals/search?subject=${encode}`)
-      .then((response) => console.log(response));
+    instance.get(`/hospitals/search?subject=${encode}`).then((response) => {
+      setData(response.data);
+    });
   };
 
   return (
@@ -44,6 +47,11 @@ const Search = () => {
           ))}
         </Keywords>
       </SearchField>
+      {data ? (
+        <SearchResult data={data} />
+      ) : (
+        <p style={{ textAlign: "center" }}>검색 결과가 없습니다ㅜㅜ</p>
+      )}
       <Footer />
     </div>
   );
@@ -65,7 +73,7 @@ const Button = styled.button`
 `;
 
 const SearchField = styled.div`
-  padding: 80px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
 `;

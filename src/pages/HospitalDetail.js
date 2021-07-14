@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/cookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import SwiperCore, { Navigation, Pagination } from "swiper";
@@ -17,14 +17,23 @@ import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
 import Footer from "../components/Footer";
 import { ThemeBtnColor } from "../common_css/style";
+import { useParams } from "react-router-dom";
+
+import { getHospitalDB } from "../redux/modules/hospital";
 SwiperCore.use([Navigation, Pagination]);
 
 const HospitalDetail = (props) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
   }, []);
 
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getHospitalDB(id));
+  }, []);
   const [tabIndex, setTabIndex] = React.useState(1);
   const [currentInfo, setCurrentInfo] = React.useState("intro");
   const [tabContent, setTabContent] = React.useState([
@@ -53,7 +62,7 @@ const HospitalDetail = (props) => {
   };
 
   const goToReservation = (id) => {
-    if (!getCookie()) {
+    if (!getCookie("token")) {
       window.alert("로그인이 필요한 서비스 입니다!");
       history.push("/login");
       return;

@@ -3,13 +3,13 @@ import styled from "styled-components";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
-import { storage } from "../shared/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 const ImageUpload = (props) => {
   const imageInput = useRef();
   const [preview, setPreview] = useState(null);
+  const [click, setClick] = useState(false);
 
   const dispatch = useDispatch();
   const is_uploading = useSelector((state) => state.image.uploading);
@@ -31,6 +31,7 @@ const ImageUpload = (props) => {
     let image = imageInput.current.files[0];
     dispatch(imageActions.uploadImageFB(image));
   };
+
   return (
     <Container>
       <input
@@ -42,7 +43,12 @@ const ImageUpload = (props) => {
         disabled={is_uploading}
       />
       <label htmlFor="profile">
-        <PhotoCameraIcon style={{ fontSize: 40 }}></PhotoCameraIcon>
+        <PhotoCameraIcon
+          style={{ fontSize: 40 }}
+          onClick={() => {
+            setClick(true);
+          }}
+        ></PhotoCameraIcon>
       </label>
       <Image src={preview ? preview : user_info.dogImage} alt="dog" />
       {is_uploading ? null : (

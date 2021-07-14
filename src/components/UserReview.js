@@ -21,10 +21,6 @@ const UserReview = ({
   // review정보에 userId밖에 없어서 userName이랑 비교 불가
   const user = useSelector((state) => state.user.user.dogName);
   const my_nick_name = user;
-
-  React.useEffect(() => {
-    console.log("reviewId : ", id);
-  }, []);
   const history = useHistory();
   //비활성화 + 활성화된 모든 별 갯수
   const totalStarCount = 5;

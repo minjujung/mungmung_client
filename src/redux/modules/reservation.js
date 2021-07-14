@@ -40,8 +40,7 @@ const addReservationDB = (
       reservationDetail,
     };
     console.log(new_reservation);
-    console.log(getCookie());
-    const token = getCookie();
+    const token = getCookie("token");
     instance.defaults.headers.common["Authorization"] = `${token}`;
 
     instance

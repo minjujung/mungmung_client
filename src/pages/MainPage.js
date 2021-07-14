@@ -17,21 +17,10 @@ const MainPage = (props) => {
 
   console.log(hospital_list);
 
-  React.useEffect(() => {
-    dispatch(listActions.getHospitalDB());
-  }, []);
-
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
+    dispatch(listActions.getHospitalsDB());
   }, []);
-  const imgBoxCss = { width: "100%", height: "250px" };
-  const imgCss = { width: "100%", height: "100%" };
-
-  const imgList = [
-    {
-      img_url: "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
-    },
-  ];
 
   return (
     <div>
@@ -53,11 +42,17 @@ const MainPage = (props) => {
 
         {hospital_list.map((hospital) => (
           // <p>{hospital.hospitalImageSource}</p>
-          <div key={hospital.hospitalId}>
-            <p>{hospital.hospitalName}</p>
+          <>
+            <p
+              onClick={() => {
+                history.push(`/hospitals/${hospital.hospitalId}`);
+              }}
+            >
+              {hospital.hospitalName}
+            </p>
             <p>{hospital.hospitalContent}</p>
             <p>{hospital.hospitalRate}</p>
-          </div>
+          </>
         ))}
       </Grid2>
       <Footer></Footer>

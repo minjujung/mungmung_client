@@ -1,8 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import moment from "moment";
-import axios from "axios";
-import { result } from "lodash";
 import { getCookie } from "../../shared/cookie";
 import instance from "../../shared/config";
 
@@ -27,38 +24,38 @@ const initialState = {
   ],
 };
 
-const getReviewDB = () => {
+const getReviewDB = (id) => {
   return function (dispatch, getState, { history }) {
-    instance.get("/hospitals/1/reviews").then((result) => {
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
+    instance.get(`/hospitals/${id}/reviews`).then((result) => {
       dispatch(getReview(result.data));
     });
   };
 };
 
-const addReviewDB = (review) => {
+const addReviewDB = (id, review) => {
   return function (dispatch, getState, { history }) {
     const token = getCookie("token");
-    axios.defaults.headers.common["Authorization"] = `${token}`;
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     const { reviewContent, hospitalRate } = review;
     const new_review = {
       reviewContent,
       hospitalRate,
     };
 
-    instance.post("/hospitals/1/reviews", new_review).then((result) => {
-      // const user_info = getState().user.user;
+    console.log("new_review : ", new_review);
+    instance.post(`/hospitals/${id}/reviews`, new_review).then((result) => {
       dispatch(getReviewDB());
-      // dispatch(addReview({ ...new_review, userId: user_info.userId }));
     });
   };
 };
 
 const deleteReviewDB = (review_id) => {
   return function (dispatch, getState, { history }) {
-    const token = getCookie();
-    axios.defaults.headers.common["Authorization"] = `${token}`;
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     instance.delete(`/hospitals/reviews/${review_id}`).then((result) => {
-      console.log("asdasdas");
       dispatch(deleteReview(review_id));
     });
   };
@@ -66,20 +63,18 @@ const deleteReviewDB = (review_id) => {
 
 const updateReviewDB = (review) => {
   return function (dispatch, getState, { history }) {
-    const token = getCookie();
-    axios.defaults.headers.common["Authorization"] = `${token}`;
-
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     const { id, reviewContent, hospitalRate } = review;
+
     const params = {
       reviewContent,
       hospitalRate,
     };
 
     instance
-      .put(`/hospitals/reviews/${id}`, {
-        params,
-      })
-      .then((result) => history.push("/hospitals/1"));
+      .put(`/hospitals/reviews/${id}`, params)
+      .then((result) => history.goBack());
   };
 };
 
