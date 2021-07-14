@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ThemeBtnColor } from "../common_css/style";
+
 import styled from "styled-components";
 
 import { PageTitle } from "../common_css/style";
@@ -23,43 +25,48 @@ const MyPage = (props) => {
     dispatch(userActions.loginCheckDB());
   }, []);
   return (
-    <div>
-      <Title>마이페이지</Title>
-      <ImageUpload />
+    <>
+      <div>
+        <Title>마이페이지</Title>
+        <ImageUpload />
 
-      <Name>{user_info.dogName}</Name>
-      <Text bold>예약내역</Text>
+        <Name>{user_info.dogName}</Name>
+        <LogoutBtn
+          onClick={() => {
+            dispatch(userActions.logoutDB());
+            window.alert("로그아웃이 완료되었습니다!");
+          }}
+        >
+          로그아웃
+        </LogoutBtn>
+        <Text bold>예약내역</Text>
 
-      <RevContainer>
-        {reservations.map((r, idx) => (
-          <Grid2 key={r.reservationId}>
-            <p>{r.hospitalId}</p>
-            <p>{r.reservationDate}</p>
-            <p>{r.reservationDetail}</p>
-          </Grid2>
-        ))}
-      </RevContainer>
+        <RevContainer>
+          {reservations.map((r, idx) => (
+            <Grid2
+              key={r.reservationId}
+              onClick={() => history.push(`/hospitals/${r.hospitalId}`)}
+            >
+              <Hospital>{r.hospitalName}</Hospital>
+              <Date>{r.reservationDate}</Date>
+              <Detail>{r.reservationDetail}</Detail>
+            </Grid2>
+          ))}
+        </RevContainer>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 
 const Title = styled.h1`
-  display: flex;
-  justify-content: center;
-  ${PageTitle}
-`;
-
-const Grid = styled.div`
-  display: flex;
-  padding: 5px;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  ${PageTitle};
 `;
 
 const Name = styled.div`
-  padding: 10px;
+  padding: 5px 10px;
   font-size: 1.5em;
   display: flex;
   align-items: center;
@@ -67,8 +74,19 @@ const Name = styled.div`
   font-weight: bold;
 `;
 
+const LogoutBtn = styled.button`
+  display: block;
+  margin: 0px auto;
+  border: none;
+  padding: 8px;
+  background-color: grey;
+  color: white;
+  font-family: "Poor Story", cursive;
+  border-radius: 8px;
+`;
+
 const Text = styled.div`
-  padding: 15px;
+  padding: 0 15px 10px 15px;
   font-size: 1.3em;
   display: flex;
   align-items: flex-start;
@@ -79,16 +97,30 @@ const Text = styled.div`
 const Grid2 = styled.div`
   display: flex;
   flex-direction: column;
-  margin: auto;
-  width: 70%;
-  min-height: 120px;
-  border-radius: 10px;
+  margin: 10px auto;
+  width: 75%;
+  height: 90px;
+  border-radius: 5px;
   padding: 10px;
-  border: 1px solid grey;
+  background-color: rgb(250, 250, 250);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+`;
+
+const Hospital = styled.p`
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 18px;
+`;
+const Date = styled.p`
+  margin: 5px 0;
+  color: grey;
+`;
+const Detail = styled.p`
+  margin: 5px 0;
 `;
 
 const RevContainer = styled.div`
-  height: 40vh;
+  height: 200px;
   overflow-y: scroll;
 `;
 

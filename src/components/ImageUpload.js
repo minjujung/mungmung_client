@@ -59,7 +59,9 @@ const ImageUpload = (props) => {
       {done ? (
         <p style={{ textAlign: "center" }}>업로드 완료!</p>
       ) : (
-        <p style={{ textAlign: "center" }}>체크버튼을 누르면 업로드!</p>
+        <p style={{ textAlign: "center", margin: "5px 0" }}>
+          체크버튼을 누르면 업로드!
+        </p>
       )}
     </Container>
   );

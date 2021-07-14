@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-import { deleteCookie, getCookie, setCookie } from "../../shared/cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
 import instance from "../../shared/config";
 import defaultImage from "../../image/강아지프로필.png";
 import { actionCreators as reservationActions } from "./reservation";
@@ -65,12 +65,11 @@ const loginDB = (userName, password) => {
         const accessToken = response.data;
 
         // API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
-        // instance.defaults.headers.common[
-        //   "Authorization"
-        // ] = `Bearer ${accessToken}`;
+        instance.defaults.headers.common["Authorization"] = `${accessToken}`;
 
         //받은 token 쿠키에 저장
-        setCookie("token", accessToken);
+        setCookie("token", accessToken, 1, "/");
+        // const token = getCookie("token");
         dispatch(setUser(login_info));
         history.push("/pages/mainpage");
       })
@@ -95,9 +94,9 @@ const loginCheckDB = () => {
     //   history.replace("/login");
     //   return;
     // }
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     if (getCookie("token")) {
-      const token = getCookie("token");
-      instance.defaults.headers.common["Authorization"] = `${token}`;
       instance.get("/userinfo").then((response) => {
         console.log(response);
         const _user = response.data.user;
