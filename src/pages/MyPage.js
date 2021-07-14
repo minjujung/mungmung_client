@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 import { PageTitle } from "../common_css/style";
 import Footer from "../components/Footer";
-import AddToPhotosTwoToneIcon from "@material-ui/icons/AddToPhotosTwoTone";
-import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
 
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -27,10 +25,6 @@ const MyPage = (props) => {
   return (
     <div>
       <Title>마이페이지</Title>
-
-      {/* <AccountCircleTwoToneIcon
-          style={{ fontSize: 150 }}
-        ></AccountCircleTwoToneIcon> */}
       <ImageUpload />
 
       <Name>{user_info.dogName}</Name>
@@ -38,7 +32,7 @@ const MyPage = (props) => {
 
       <RevContainer>
         {reservations.map((r, idx) => (
-          <Grid2>
+          <Grid2 key={r.reservationId}>
             <p>{r.hospitalId}</p>
             <p>{r.reservationDate}</p>
             <p>{r.reservationDetail}</p>

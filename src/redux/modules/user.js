@@ -1,10 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/cookie";
 import instance from "../../shared/config";
+import defaultImage from "../../image/강아지프로필.png";
 import { actionCreators as reservationActions } from "./reservation";
-import axios from "axios";
 
 //actions
 const SET_USER = "SET_USER";
@@ -65,18 +65,12 @@ const loginDB = (userName, password) => {
         const accessToken = response.data;
 
         // API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
-        instance.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${accessToken}`;
+        // instance.defaults.headers.common[
+        //   "Authorization"
+        // ] = `Bearer ${accessToken}`;
 
         //받은 token 쿠키에 저장
         setCookie("token", accessToken);
-
-        // let user_info = {
-        //   dogName: response.data.dogName,
-        //   dogImage: response.data.dogImage,
-        //   reservation: [...response.data.reservation],
-        // };
         dispatch(setUser(login_info));
         history.push("/pages/mainpage");
       })
@@ -109,7 +103,7 @@ const loginCheckDB = () => {
         const _user = response.data.user;
         const user_info = {
           dogName: _user.dogName,
-          dogImage: _user.dogImage,
+          dogImage: `${_user.dogImage ? _user.dogImage : defaultImage}`,
           userId: _user.userId,
         };
         console.log(user_info);

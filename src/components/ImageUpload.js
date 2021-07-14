@@ -3,13 +3,13 @@ import styled from "styled-components";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
-import { storage } from "../shared/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 const ImageUpload = (props) => {
   const imageInput = useRef();
   const [preview, setPreview] = useState(null);
+  const [done, setDone] = useState(false);
 
   const dispatch = useDispatch();
   const is_uploading = useSelector((state) => state.image.uploading);
@@ -30,7 +30,10 @@ const ImageUpload = (props) => {
   const uploadFB = () => {
     let image = imageInput.current.files[0];
     dispatch(imageActions.uploadImageFB(image));
+    setTimeout(() => setDone(true), 500);
+    setTimeout(() => setDone(false), 3000);
   };
+
   return (
     <Container>
       <input
@@ -51,8 +54,12 @@ const ImageUpload = (props) => {
             style={{ fontSize: 40 }}
             onClick={uploadFB}
           ></CheckCircleIcon>
-          <p style={{ textAlign: "center" }}>업로드 완료!</p>
         </>
+      )}
+      {done ? (
+        <p style={{ textAlign: "center" }}>업로드 완료!</p>
+      ) : (
+        <p style={{ textAlign: "center" }}>체크버튼을 누르면 업로드!</p>
       )}
     </Container>
   );

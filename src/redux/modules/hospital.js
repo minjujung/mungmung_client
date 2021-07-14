@@ -1,12 +1,11 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import moment from "moment";
-import axios from "axios";
-import { result } from "lodash";
-import { getCookie } from "../../shared/Cookie";
 import instance from "../../shared/config";
+import { getCookie } from "../../shared/cookie";
 
 const GET_HOSPITAL = "GET_HOSPITAL";
+
+const getHospital = createAction(GET_HOSPITAL, (hospital) => ({ hospital }));
 
 const initialState = {
   hospital: {
@@ -21,10 +20,10 @@ const initialState = {
   },
 };
 
-const getHospital = createAction(GET_HOSPITAL, (hospital) => ({ hospital }));
-
 export const getHospitalDB = (id) => {
   return function (dispatch, getState, { history }) {
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     instance.get(`/hospitals/${id}`).then((result) => {
       dispatch(getHospital(result.data));
     });

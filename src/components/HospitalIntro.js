@@ -12,7 +12,7 @@ const HospitalIntro = () => {
       <IntroContent>{hospitalContent}</IntroContent>
       <HospitalSubjectTitle>진찰 가능 항목</HospitalSubjectTitle>
       <HospitalSubject>
-        {subjectList.map(({ subjectName }, index) => {
+        {subjectList?.map(({ subjectName }, index) => {
           if (subjectList.length === index + 1) {
             return subjectName;
           } else {

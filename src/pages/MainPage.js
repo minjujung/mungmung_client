@@ -8,7 +8,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "../shared/cookie";
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
@@ -17,21 +17,10 @@ const MainPage = (props) => {
 
   console.log(hospital_list);
 
-  React.useEffect(() => {
-    dispatch(listActions.getHospitalDB());
-  }, []);
-
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
+    dispatch(listActions.getHospitalsDB());
   }, []);
-  const imgBoxCss = { width: "100%", height: "250px" };
-  const imgCss = { width: "100%", height: "100%" };
-
-  const imgList = [
-    {
-      img_url: "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
-    },
-  ];
 
   return (
     <div>
@@ -51,9 +40,16 @@ const MainPage = (props) => {
           }}
         />
 
-        {hospital_list.map((hospital, index) => (
+        {hospital_list.map((hospital) => (
           // <p>{hospital.hospitalImageSource}</p>
-          <>
+          <div key={hospital.hospitalId}>
+            <img
+              src={
+                hospital.hospitalImageList &&
+                hospital.hospitalImageList[0].hospitalImageUrl
+              }
+              alt="hospital"
+            />
             <p
               onClick={() => {
                 history.push(`/hospitals/${hospital.hospitalId}`);
@@ -63,7 +59,7 @@ const MainPage = (props) => {
             </p>
             <p>{hospital.hospitalContent}</p>
             <p>{hospital.hospitalRate}</p>
-          </>
+          </div>
         ))}
       </Grid2>
       <Footer></Footer>

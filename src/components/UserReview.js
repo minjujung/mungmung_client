@@ -69,7 +69,7 @@ const UserReview = ({
                     })
                   }
                 >
-                  정{" "}
+                  수정{" "}
                 </span>
                 <span>/</span>
                 <span onClick={() => handleDeleteReview(id)}> 삭제</span>

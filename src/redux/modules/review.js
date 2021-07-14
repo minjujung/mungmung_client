@@ -1,9 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import moment from "moment";
-import axios from "axios";
-import { result } from "lodash";
-import { getCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/cookie";
 import instance from "../../shared/config";
 const GET_REVIEW = "GET_REVIEW";
 const ADD_REVIEW = "ADD_REVIEW";
@@ -28,6 +25,8 @@ const initialState = {
 
 const getReviewDB = (id) => {
   return function (dispatch, getState, { history }) {
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     instance.get(`/hospitals/${id}/reviews`).then((result) => {
       dispatch(getReview(result.data));
     });
@@ -37,7 +36,7 @@ const getReviewDB = (id) => {
 const addReviewDB = (id, review) => {
   return function (dispatch, getState, { history }) {
     const token = getCookie("token");
-    axios.defaults.headers.common["Authorization"] = `${token}`;
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     const { reviewContent, hospitalRate } = review;
     const new_review = {
       reviewContent,
@@ -51,8 +50,8 @@ const addReviewDB = (id, review) => {
 
 const deleteReviewDB = (review_id) => {
   return function (dispatch, getState, { history }) {
-    const token = getCookie();
-    axios.defaults.headers.common["Authorization"] = `${token}`;
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     instance.delete(`/hospitals/reviews/${review_id}`).then((result) => {
       dispatch(deleteReview(review_id));
     });
@@ -61,8 +60,8 @@ const deleteReviewDB = (review_id) => {
 
 const updateReviewDB = (hospitalId, review) => {
   return function (dispatch, getState, { history }) {
-    const token = getCookie();
-    axios.defaults.headers.common["Authorization"] = `${token}`;
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
     const { id, reviewContent, hospitalRate } = review;
 
     const params = {

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { history } from "../redux/configureStore";
-import { getCookie } from "../shared/Cookie";
+import { getCookie } from "../shared/cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -60,7 +60,6 @@ const HospitalDetail = (props) => {
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
     dispatch(getHospitalDB(id));
-    // setImgList(hospitalImageList);
 
     if (location.state !== undefined) {
       setTabIndex(location.state.tabIndex);
@@ -70,7 +69,7 @@ const HospitalDetail = (props) => {
   const hospitalId = props.match.params.id;
 
   const goToReservation = (id) => {
-    if (!getCookie()) {
+    if (!getCookie("token")) {
       window.alert("로그인이 필요한 서비스 입니다!");
       history.push("/login");
       return;
@@ -93,7 +92,7 @@ const HospitalDetail = (props) => {
         onSlideChange={() => console.log("slide change")}
         // onSwiper={(swiper) => console.log(swiper)}
       >
-        {imgList.map(({ hospitalImageUrl }, index) => {
+        {hospitalImageList?.map(({ hospitalImageUrl }, index) => {
           return (
             <SwiperSlide key={index}>
               <div style={imgBoxCss}>
