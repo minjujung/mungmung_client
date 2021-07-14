@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import { getCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/cookie";
 import instance from "../../shared/config";
 const GET_REVIEW = "GET_REVIEW";
 const ADD_REVIEW = "ADD_REVIEW";

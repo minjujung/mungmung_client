@@ -3,7 +3,7 @@ import { produce } from "immer";
 import moment from "moment";
 import instance from "../../shared/config";
 import axios from "axios";
-import { getCookie } from "../../shared/Cookie";
+import { getCookie } from "../../shared/cookie";
 
 // actions
 const ADD_RESERVATION = "ADD_RESERVATION";
