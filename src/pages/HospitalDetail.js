@@ -6,7 +6,7 @@ import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-
+import BackspaceIcon from "@material-ui/icons/Backspace";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
@@ -85,6 +85,10 @@ const HospitalDetail = (props) => {
 
   return (
     <Container>
+      <BackspaceIcon
+        onClick={() => history.push("/pages/mainpage")}
+        style={{ fontSize: "2.2rem", padding: "5px 0 0 15px" }}
+      ></BackspaceIcon>
       <Swiper
         spaceBetween={50}
         slidesPerView={1}

@@ -8,14 +8,11 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
-import { getCookie } from "../shared/cookie";
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
   const user_info = useSelector((state) => state.user.user);
   const hospital_list = useSelector((state) => state.list.hospital_list);
-
-  console.log(hospital_list);
 
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
@@ -41,8 +38,12 @@ const MainPage = (props) => {
         />
 
         {hospital_list.map((hospital) => (
-          // <p>{hospital.hospitalImageSource}</p>
-          <div key={hospital.hospitalId}>
+          <div
+            key={hospital.hospitalId}
+            onClick={() => {
+              history.push(`/hospitals/${hospital.hospitalId}`);
+            }}
+          >
             <img
               src={
                 hospital.hospitalImageList &&
@@ -50,13 +51,7 @@ const MainPage = (props) => {
               }
               alt="hospital"
             />
-            <p
-              onClick={() => {
-                history.push(`/hospitals/${hospital.hospitalId}`);
-              }}
-            >
-              {hospital.hospitalName}
-            </p>
+            <p>{hospital.hospitalName}</p>
             <p>{hospital.hospitalContent}</p>
             <p>{hospital.hospitalRate}</p>
           </div>
