@@ -3,10 +3,10 @@ import styled, { css } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { history } from "../redux/configureStore";
-import { getCookie } from "../shared/cookie";
-import { useDispatch } from "react-redux";
+import { getCookie } from "../shared/Cookie";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-
+import BackspaceIcon from "@material-ui/icons/Backspace";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
@@ -17,16 +17,22 @@ import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
 import Footer from "../components/Footer";
 import { ThemeBtnColor } from "../common_css/style";
+import { useParams } from "react-router-dom";
+
+import { getHospitalDB } from "../redux/modules/hospital";
+
+import { useLocation } from "react-router";
+
 SwiperCore.use([Navigation, Pagination]);
 
 const HospitalDetail = (props) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(userActions.loginCheckDB());
-  }, []);
+  const { id } = useParams();
+  const hospital = useSelector((state) => state.hospital.hospital);
+  const { hospitalImageList } = hospital;
 
+  const location = useLocation();
   const [tabIndex, setTabIndex] = React.useState(1);
-  const [currentInfo, setCurrentInfo] = React.useState("intro");
   const [tabContent, setTabContent] = React.useState([
     {
       id: 1,
@@ -45,15 +51,25 @@ const HospitalDetail = (props) => {
       type: "location",
     },
   ]);
+  const [imgList, setImgList] = React.useState([
+    {
+      hospitalImageUrl: "",
+    },
+  ]);
+
+  useEffect(() => {
+    dispatch(userActions.loginCheckDB());
+    dispatch(getHospitalDB(id));
+
+    if (location.state !== undefined) {
+      setTabIndex(location.state.tabIndex);
+    }
+  }, []);
 
   const hospitalId = props.match.params.id;
 
-  const handleCurrentInfo = (value) => {
-    setCurrentInfo(value);
-  };
-
   const goToReservation = (id) => {
-    if (!getCookie()) {
+    if (!getCookie("token")) {
       window.alert("로그인이 필요한 서비스 입니다!");
       history.push("/login");
       return;
@@ -67,22 +83,12 @@ const HospitalDetail = (props) => {
   const imgBoxCss = { width: "100%", height: "250px" };
   const imgCss = { width: "100%", height: "100%" };
 
-  const imgList = [
-    {
-      img_url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLL6HvWwGwEg6mfw8LgN6DjDH14iQtJx9SGA&usqp=CAU",
-    },
-    {
-      img_url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLWytcbbmd2EXBVNxU4xtRvO7xK-2OieG9cg&usqp=CAU",
-    },
-    {
-      img_url:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv-vYUHMm9_GYUCBDyLOinP0CZDFOhES478w&usqp=CAU",
-    },
-  ];
   return (
     <Container>
+      <BackspaceIcon
+        onClick={() => history.push("/pages/mainpage")}
+        style={{ fontSize: "2.2rem", padding: "5px 0 0 15px" }}
+      ></BackspaceIcon>
       <Swiper
         spaceBetween={50}
         slidesPerView={1}
@@ -90,13 +96,13 @@ const HospitalDetail = (props) => {
         onSlideChange={() => console.log("slide change")}
         // onSwiper={(swiper) => console.log(swiper)}
       >
-        {imgList.map(({ img_url }, index) => {
+        {hospitalImageList?.map(({ hospitalImageUrl }, index) => {
           return (
             <SwiperSlide key={index}>
               <div style={imgBoxCss}>
                 <img
                   style={imgCss}
-                  src={img_url}
+                  src={hospitalImageUrl}
                   alt="병원 슬라이드 이미지"
                 ></img>
               </div>
@@ -111,7 +117,6 @@ const HospitalDetail = (props) => {
               key={id}
               tabIndex={tabIndex}
               onClick={() => {
-                handleCurrentInfo(type);
                 setTabIndex(id);
               }}
             >
@@ -122,8 +127,8 @@ const HospitalDetail = (props) => {
       </TabBox>
       <CurrentInfoContainer>
         {(function () {
-          switch (currentInfo) {
-            case "intro": {
+          switch (tabIndex) {
+            case 1: {
               return (
                 <>
                   <HospitalIntro></HospitalIntro>
@@ -133,14 +138,14 @@ const HospitalDetail = (props) => {
                 </>
               );
             }
-            case "review": {
+            case 2: {
               return (
                 <>
                   <Review></Review>
                 </>
               );
             }
-            case "location": {
+            case 3: {
               return <Location></Location>;
             }
           }

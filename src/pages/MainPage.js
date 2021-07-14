@@ -4,41 +4,46 @@ import styled from "styled-components";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { actionCreators as userActions } from "../redux/modules/user";
-import instance from "../shared/config";
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as listActions } from "../redux/modules/list";
 
-const MainPage = ({ props }) => {
+const MainPage = (props) => {
   const dispatch = useDispatch();
+  const user_info = useSelector((state) => state.user.user);
   const hospital_list = useSelector((state) => state.list.hospital_list);
 
-  console.log(hospital_list);
-
-  React.useEffect(() => {
-    dispatch(listActions.getHospitalDB());
-  }, []);
-
   useEffect(() => {
-    instance.get("/hospitals").then((response) => console.log(response));
+    dispatch(userActions.loginCheckDB());
+    dispatch(listActions.getHospitalsDB());
   }, []);
-  // const imgBoxCss = { width: "100%", height: "250px" };
-  // const imgCss = { width: "100%", height: "100%" };
-
-  // const imgList = [
-  //   {
-  //     img_url: "https://hyunjung.s3.ap-northeast-2.amazonaws.com/hospital.jpeg",
-  //   },
-  // ];
 
   return (
-    <div> <ExitToAppIcon  style={{ fontSize: 45, float: "right" }}></ExitToAppIcon>
-      <DIV> 
+    <div>
+      {" "}
+      <ExitToAppIcon
+        onClick={() => {
+          dispatch(userActions.logoutDB());
+          window.alert("로그아웃이 완료되었습니다!");
+        }}
+        style={{
+          fontSize: 45,
+          position: "absolute",
+          top: "15px",
+          right: "0px",
+        }}
+      ></ExitToAppIcon>
+      <DIV>
         {hospital_list.map((hospital, index) => (
-          <Grid2>
+          <Grid2
+            key={hospital.hospitalId}
+            onClick={() => {
+              history.push(`/hospitals/${hospital.hospitalId}`);
+            }}
+          >
             <img
-              style={{ width: "200px", height: "150px" }}
+              style={{ width: "100%", height: "200px" }}
               src={
                 hospital.hospitalImageList &&
                 hospital.hospitalImageList[0].hospitalImageUrl
@@ -66,9 +71,7 @@ const DIV = styled.div`
   overflow-y: scroll;
   max-height: 500px;
   padding: 10px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: auto;
 `;
 //margin 값 초기화 해주기
 const H3 = styled.h3`
@@ -88,7 +91,6 @@ const Grid2 = styled.div`
   margin: auto;
   margin-top: 10px;
   width: 80%;
-  padding: 10px;
   color: black;
   background-color: #ffffff;
   height: auto;

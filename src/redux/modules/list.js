@@ -1,12 +1,12 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import moment from "moment";
 import axios from "axios";
-import { result } from "lodash";
 
-const GET_HOSPITAL = "GET_HOSPITAL";
+const GET_HOSPITALS = "GET_HOSPITALS";
 
-const getHospital = createAction(GET_HOSPITAL, (hospital) => ({ hospital }));
+const getHospitals = createAction(GET_HOSPITALS, (hospitals) => ({
+  hospitals,
+}));
 
 const serverIP = "http://52.79.234.172";
 const initialState = {
@@ -22,19 +22,20 @@ const initialState = {
   ],
 };
 
-const getHospitalDB = () => {
+const getHospitalsDB = () => {
   return function (dispatch, getState, { history }) {
     axios.get(serverIP + "/hospitals").then((result) => {
-      dispatch(getHospital(result.data));
+      console.log(result.data);
+      dispatch(getHospitals(result.data));
     });
   };
 };
 
 export default handleActions(
   {
-    [GET_HOSPITAL]: (state, action) => {
+    [GET_HOSPITALS]: (state, action) => {
       return produce(state, (draft) => {
-        draft.hospital_list = action.payload.hospital;
+        draft.hospital_list = action.payload.hospitals;
       });
     },
   },
@@ -42,8 +43,8 @@ export default handleActions(
 );
 
 const actionCreators = {
-  getHospital,
-  getHospitalDB,
+  getHospitals,
+  getHospitalsDB,
 };
 
 export { actionCreators };

@@ -7,11 +7,13 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { InputStyle, ThemeBtnColor } from "../common_css/style";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const ReviewWrite = (props) => {
   const [currentReviewScore, setCurrentReviewScore] = React.useState(5);
   const { handleAddReview, handleUpdateReview, update_id } = props;
 
+  const dogName = useSelector((state) => state.user.user.dogName);
   const [review, setReview] = useState({
     reviewContent: "",
     hospitalRate: 5,
@@ -42,7 +44,15 @@ const ReviewWrite = (props) => {
 
   const handleEnterReviewContent = (e) => {
     if (e.key === "Enter") {
-      handleAddReview(review);
+      if (props.type === "update") {
+        handleUpdateReview(
+          update_id,
+          review.reviewContent,
+          review.hospitalRate
+        );
+      } else {
+        handleAddReview(review);
+      }
       inputRef.current.value = "";
     }
   };
@@ -64,6 +74,7 @@ const ReviewWrite = (props) => {
         {[...Array(notValuedStartCount)].map((n, index) => {
           return (
             <StarBorderIcon
+              style={{ color: "#ECBA11" }}
               key={index}
               onClick={() => {
                 setCurrentReviewScore(currentReviewScore + index + 1);
@@ -95,7 +106,6 @@ const ReviewWrite = (props) => {
             onClick={() => {
               handleUpdateReview(
                 update_id,
-                review.dogName,
                 review.reviewContent,
                 review.hospitalRate
               );
@@ -128,10 +138,6 @@ const ReviewBtn = styled.div`
   ${ThemeBtnColor}
   width:23%
 `;
-
-ReviewWrite.defaultProps = {
-  type: "write",
-};
 
 ReviewWrite.defaultProps = {
   type: "write",

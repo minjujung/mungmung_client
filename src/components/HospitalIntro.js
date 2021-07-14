@@ -1,27 +1,28 @@
 import React from "react";
 import styled from "styled-components";
 import { ThemeBtnColor } from "../common_css/style";
+import { useDispatch, useSelector } from "react-redux";
 
 const HospitalIntro = () => {
+  const hospital = useSelector((state) => state.hospital.hospital);
+  const { hospitalName, hospitalContent, subjectList } = hospital;
   return (
     <>
-      <HostpitalName>아프지멍 병원</HostpitalName>
-      <IntroContent>
-        안녕하세요.안녕하세요.안녕하세요.안녕하세요. 안녕하세요. 안녕하세요.
-        안녕하세요.안녕하세요.안녕하세요.안녕하세요.
-        안녕하세요.안녕하세요.안녕하세요.안녕하세요.
-        안녕하세요.안녕하세요.안녕하세요.안녕하세요. 안녕하세요.안녕하세요.
-        안녕하세요. 안녕하세요. 안녕하세요. 안녕하세요.
-      </IntroContent>
+      <HostpitalName>{hospitalName}</HostpitalName>
+      <IntroContent>{hospitalContent}</IntroContent>
       <HospitalSubjectTitle>진찰 가능 항목</HospitalSubjectTitle>
-      <HospitalSubject>슬개골, 중성화, 스케일링 등등</HospitalSubject>
+      <HospitalSubject>
+        {subjectList?.map(({ subjectName }, index) => {
+          if (subjectList.length === index + 1) {
+            return subjectName;
+          } else {
+            return subjectName + ", ";
+          }
+        })}
+      </HospitalSubject>
     </>
   );
 };
-
-// const Container = styled.div`
-//   position: relative;
-// `;
 
 const HostpitalName = styled.h2``;
 const IntroContent = styled.pre`
