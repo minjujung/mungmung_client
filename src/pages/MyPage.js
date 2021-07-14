@@ -90,10 +90,6 @@ const Grid2 = styled.div`
   flex-direction: column;
   margin: auto;
   width: 70%;
-<<<<<<< HEAD
-  color: black;
-  background-color: #eef2f3;
-=======
   min-height: 120px;
   border-radius: 10px;
   padding: 10px;
@@ -103,7 +99,6 @@ const Grid2 = styled.div`
 const RevContainer = styled.div`
   height: 40vh;
   overflow-y: scroll;
->>>>>>> 312f0c73f7a163b347858113b998a62fccaeb010
 `;
 
 export default MyPage;
