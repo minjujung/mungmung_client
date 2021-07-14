@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import instance from "../../shared/config";
-import { getCookie } from "../../shared/cookie";
+import { getCookie } from "../../shared/Cookie";
 
 const GET_HOSPITAL = "GET_HOSPITAL";
 
