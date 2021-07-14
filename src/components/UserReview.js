@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import { Avatar } from "@material-ui/core";
 
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +13,7 @@ import ReviewWrite from "./ReviewWrite";
 const UserReview = ({
   id,
   dogName,
+  dogImage,
   reviewContent,
   hospitalRate,
   handleDeleteReview,
@@ -19,9 +21,9 @@ const UserReview = ({
 }) => {
   //임시 닉네임임, 리뷰 닉네임이 이거랑 다르면 수정 / 삭제 비노출
   // review정보에 userId밖에 없어서 userName이랑 비교 불가
-  const user = useSelector((state) => state.user.user.dogName);
+  const user = useSelector((state) => state.user.user);
   const hospitalId = useSelector((state) => state.hospital.hospital.hospitalId);
-  const my_nick_name = user;
+  const my_nick_name = user.dogName;
   const history = useHistory();
   //비활성화 + 활성화된 모든 별 갯수
   const totalStarCount = 5;
@@ -36,7 +38,20 @@ const UserReview = ({
     <>
       <ReviewContainer>
         <ProfileBox>
-          <AccountCircleIcon style={{ fontSize: "3.3rem" }}></AccountCircleIcon>
+          {dogImage ? (
+            <Avatar
+              alt="Remy Sharp"
+              src={dogImage}
+              style={{ width: "44px", height: "44px" }}
+
+              // className={classes.small}
+            />
+          ) : (
+            <AccountCircleIcon
+              style={{ fontSize: "3.3rem" }}
+            ></AccountCircleIcon>
+          )}
+
           <NickName>{dogName}</NickName>
         </ProfileBox>
         <ReviewInfo>

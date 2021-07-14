@@ -30,25 +30,28 @@ const Review = () => {
     <>
       <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       <ReviewContainer>
-        {review_list.map(({ reviewId, reviewContent, hospitalRate }) => {
-          return (
-            <UserReview
-              key={reviewId}
-              id={reviewId}
-              dogName={user_info.dogName}
-              reviewContent={reviewContent}
-              hospitalRate={hospitalRate}
-              handleDeleteReview={handleDeleteReview}
-            ></UserReview>
-          );
-        })}
+        {review_list.map(
+          ({ reviewId, reviewContent, hospitalRate, dogImage }) => {
+            return (
+              <UserReview
+                key={reviewId}
+                id={reviewId}
+                dogImage={dogImage}
+                dogName={user_info.dogName}
+                reviewContent={reviewContent}
+                hospitalRate={hospitalRate}
+                handleDeleteReview={handleDeleteReview}
+              ></UserReview>
+            );
+          }
+        )}
       </ReviewContainer>
     </>
   );
 };
 
 const ReviewContainer = styled.div`
-  height: 35vh;
+  height: 60vh;
   overflow-y: scroll;
 `;
 

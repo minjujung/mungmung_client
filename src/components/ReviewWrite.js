@@ -44,7 +44,15 @@ const ReviewWrite = (props) => {
 
   const handleEnterReviewContent = (e) => {
     if (e.key === "Enter") {
-      handleAddReview(review);
+      if (props.type === "update") {
+        handleUpdateReview(
+          update_id,
+          review.reviewContent,
+          review.hospitalRate
+        );
+      } else {
+        handleAddReview(review);
+      }
       inputRef.current.value = "";
     }
   };
@@ -130,10 +138,6 @@ const ReviewBtn = styled.div`
   ${ThemeBtnColor}
   width:23%
 `;
-
-ReviewWrite.defaultProps = {
-  type: "write",
-};
 
 ReviewWrite.defaultProps = {
   type: "write",
