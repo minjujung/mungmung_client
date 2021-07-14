@@ -12,7 +12,17 @@ const Search = () => {
   const user_info = useSelector((state) => state.user.user);
 
   const [data, setData] = useState("");
-  const keyword_list = ["슬개골", "심장", "중성화"];
+  const keyword_list = [
+    "슬개골",
+    "심장",
+    "중성화",
+    "예방접종",
+    "내과",
+    "외과",
+    "치과",
+    "24시",
+    "호흡기",
+  ];
 
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
@@ -36,10 +46,6 @@ const Search = () => {
         는 어디가 아픈가요?
       </Title>
       <SearchField>
-        <InputField>
-          <Input type="text" placeholder="내용을 입력해주세요"></Input>
-          <Button>search</Button>
-        </InputField>
         <Keywords>
           {keyword_list.map((keyword) => (
             <Keyword key={keyword} onClick={search}>
@@ -51,7 +57,7 @@ const Search = () => {
       {data ? (
         <SearchResult data={data} />
       ) : (
-        <p style={{ textAlign: "center" }}>검색 결과가 없습니다ㅜㅜ</p>
+        <p style={{ textAlign: "center" }}> 키워드를 눌려보세요!</p>
       )}
       <Footer />
     </div>
@@ -63,31 +69,17 @@ const Title = styled.h1`
   ${PageTitle};
 `;
 
-const Input = styled.input`
-  ${InputStyle}
-`;
-
-const Button = styled.button`
-  margin-left: 15px;
-  text-align: center;
-  ${ThemeBtnColor}
-`;
-
 const SearchField = styled.div`
-  padding: 40px;
   display: flex;
-  flex-direction: column;
-`;
-
-const InputField = styled.div`
-  display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin: 30px 0;
 `;
 
 const Keywords = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-auto-rows: 40px;
+  gap: 10px;
 `;
 
 const Keyword = styled.button`
@@ -96,7 +88,8 @@ const Keyword = styled.button`
   color: white;
   border-radius: 30px;
   width: 100px;
-  padding: 10px;
+  font-family: "Poor Story", cursive;
+  font-size: 15px;
 `;
 
 export default Search;

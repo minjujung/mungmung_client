@@ -84,7 +84,6 @@ const H4 = styled.h4`
 `;
 
 const Grid2 = styled.div`
-  overflow-y: scroll;
   display: flex;
   border: 0.1em outset #d3d3d3;
   flex-direction: column;

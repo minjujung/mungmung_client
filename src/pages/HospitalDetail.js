@@ -6,12 +6,12 @@ import { history } from "../redux/configureStore";
 import { getCookie } from "../shared/Cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import BackspaceIcon from "@material-ui/icons/Backspace";
+
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
-
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import Review from "../components/Review";
 import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
@@ -85,10 +85,19 @@ const HospitalDetail = (props) => {
 
   return (
     <Container>
-      <BackspaceIcon
-        onClick={() => history.push("/pages/mainpage")}
-        style={{ fontSize: "2.2rem", padding: "5px 0 0 15px" }}
-      ></BackspaceIcon>
+      <ArrowBackIosIcon
+        style={{
+          width: "30px",
+          height: "30px",
+          position: "absolute",
+          top: "30px",
+          left: "20px",
+          zIndex: "10",
+        }}
+        onClick={() => {
+          history.goBack();
+        }}
+      />
       <Swiper
         spaceBetween={50}
         slidesPerView={1}
