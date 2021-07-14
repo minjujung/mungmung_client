@@ -33,7 +33,7 @@ const Review = () => {
       )}
       <ReviewContainer>
         {review_list.map(
-          ({ reviewId, reviewContent, hospitalRate, dogImage }) => {
+          ({ reviewId, reviewContent, hospitalRate, dogImage, modifiedAt }) => {
             return (
               <UserReview
                 key={reviewId}
@@ -42,6 +42,7 @@ const Review = () => {
                 dogName={dogName}
                 reviewContent={reviewContent}
                 hospitalRate={hospitalRate}
+                modifiedAt={modifiedAt}
                 handleDeleteReview={handleDeleteReview}
               ></UserReview>
             );

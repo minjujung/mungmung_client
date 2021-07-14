@@ -5,6 +5,7 @@ import styled from "styled-components";
 import StarIcon from "@material-ui/icons/Star";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { Avatar } from "@material-ui/core";
+import moment from "moment";
 
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,6 +19,7 @@ const UserReview = ({
   hospitalRate,
   handleDeleteReview,
   handleUpdateReview,
+  modifiedAt,
 }) => {
   //임시 닉네임임, 리뷰 닉네임이 이거랑 다르면 수정 / 삭제 비노출
   // review정보에 userId밖에 없어서 userName이랑 비교 불가
@@ -33,7 +35,8 @@ const UserReview = ({
 
   //비활성화된 별 갯수
   const notValuedStartCount = totalStarCount - starCount;
-  console.log(starCount, totalStarCount);
+
+  const modiDate = moment(modifiedAt).format("YYYY-MM-DD HH:mm");
   return (
     <>
       <ReviewContainer>
@@ -92,6 +95,7 @@ const UserReview = ({
             )}
           </StarAndControll>
           <Content>{reviewContent}</Content>
+          <p>{modiDate}</p>
         </ReviewInfo>
       </ReviewContainer>
     </>
