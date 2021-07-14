@@ -20,6 +20,7 @@ const UserReview = ({
   //임시 닉네임임, 리뷰 닉네임이 이거랑 다르면 수정 / 삭제 비노출
   // review정보에 userId밖에 없어서 userName이랑 비교 불가
   const user = useSelector((state) => state.user.user.dogName);
+  const hospitalId = useSelector((state) => state.hospital.hospital.hospitalId);
   const my_nick_name = user;
   const history = useHistory();
   //비활성화 + 활성화된 모든 별 갯수
@@ -49,6 +50,7 @@ const UserReview = ({
               {[...Array(notValuedStartCount)].map((n, index) => {
                 return (
                   <StarBorderIcon
+                    style={{ color: "#ECBA11" }}
                     key={index}
                     onClick={() => {}}
                   ></StarBorderIcon>
@@ -61,10 +63,13 @@ const UserReview = ({
                   onClick={() =>
                     history.push({
                       pathname: `/review/update/${id}`,
+                      state: {
+                        hospitalId: hospitalId,
+                      },
                     })
                   }
                 >
-                  수정{" "}
+                  정{" "}
                 </span>
                 <span>/</span>
                 <span onClick={() => handleDeleteReview(id)}> 삭제</span>
