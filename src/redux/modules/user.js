@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-import { deleteCookie, getCookie, setCookie } from "../../shared/cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
 import instance from "../../shared/config";
 import defaultImage from "../../image/강아지프로필.png";
 import { actionCreators as reservationActions } from "./reservation";
