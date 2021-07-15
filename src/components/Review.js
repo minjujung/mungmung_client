@@ -25,9 +25,11 @@ const Review = () => {
     // dispatch(actionCreators.getReviewDB(id));
     dispatch(actionCreators.deleteReviewDB(id));
   };
+  console.log(Object.keys(user_info).length === 0);
+  console.log(user_info);
   return (
     <>
-      {Object.keys(user_info).length === 0 || user_info === null ? null : (
+      {Object.keys(user_info).length === 0 ? null : (
         <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       )}
       <ReviewContainer>
