@@ -33,29 +33,21 @@ const HospitalDetail = (props) => {
 
   const location = useLocation();
   const [tabIndex, setTabIndex] = React.useState(1);
-  const [tabContent, setTabContent] = React.useState([
+  const tabContent = [
     {
       id: 1,
       title: "소개",
-      type: "intro",
     },
     {
       id: 2,
       title: "리뷰",
-      type: "review",
     },
     ,
     {
       id: 3,
       title: "위치",
-      type: "location",
     },
-  ]);
-  const [imgList, setImgList] = React.useState([
-    {
-      hospitalImageUrl: "",
-    },
-  ]);
+  ];
 
   useEffect(() => {
     dispatch(userActions.loginCheckDB());
@@ -90,7 +82,6 @@ const HospitalDetail = (props) => {
         slidesPerView={1}
         pagination={{ clickable: true }}
         onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
       >
         {hospitalImageList?.map(({ hospitalImageUrl }, index) => {
           return (
@@ -107,7 +98,7 @@ const HospitalDetail = (props) => {
         })}
       </Swiper>
       <TabBox>
-        {tabContent.map(({ title, type, id }) => {
+        {tabContent.map(({ title, id }) => {
           return (
             <Tab
               key={id}

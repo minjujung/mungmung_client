@@ -54,6 +54,7 @@ const Review = () => {
             );
           }
         )}
+        {review_list.length === 0 && <div>현재 작성된 리뷰가 없습니다.</div>}
       </ReviewContainer>
     </>
   );
