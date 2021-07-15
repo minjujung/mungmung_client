@@ -89,9 +89,9 @@ const loginDB = (userName, password) => {
 const logoutDB = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie("token");
+    dispatch(logout());
     instance.defaults.headers.common["Authorization"] = null;
     delete instance.defaults.headers.common["Authorization"];
-    dispatch(logout());
     history.push("/pages/mainpage");
   };
 };
