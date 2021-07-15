@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { InputStyle, PageTitle, ThemeBtnColor } from "../common_css/style";
+import signupLogo from "../image/logo3.jpeg";
 
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { LogoStyle } from "../common_css/style";
 
 const Signup = (props) => {
   //userName, dogName, password, confirmPassword
@@ -22,7 +24,7 @@ const Signup = (props) => {
 
   return (
     <Container>
-      <Title>회원 가입</Title>
+      <Title> <Logo src={signupLogo}/>회원 가입</Title>
       <InputContainer>
         <label htmlFor="id">아이디</label>
         <Input
@@ -92,6 +94,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Logo = styled.img`
+  ${LogoStyle};
 `;
 
 const InputContainer = styled.div`

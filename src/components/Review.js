@@ -25,8 +25,8 @@ const Review = () => {
     // dispatch(actionCreators.getReviewDB(id));
     dispatch(actionCreators.deleteReviewDB(id));
   };
-  console.log(Object.keys(user_info).length === 0);
-  console.log(user_info);
+  // console.log(Object.keys(user_info).length === 0);
+  // console.log(user_info);
   return (
     <>
       {Object.keys(user_info).length === 0 ? null : (
