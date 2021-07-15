@@ -42,7 +42,6 @@ const Search = () => {
     const encode = encodeURIComponent(keyword);
     instance.get(`/hospitals/search?subject=${encode}`).then((response) => {
       setData(response.data);
-      console.log(response.data);
     });
   };
 

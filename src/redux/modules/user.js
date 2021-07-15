@@ -34,16 +34,8 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
     instance
       .post("/user/regist", new_user)
       .then((response) => {
-        console.log(response);
         window.alert("회원가입이 완료되었습니다!");
         history.push("/login");
-        //   if (response.data.msg === "success") {
-        //     dispatch(setUser(new_user));
-        //     window.alert("회원가입이 완료되었습니다!");
-        //     history.replace("/");
-        //   } else {
-        //     window.alert("가입 실패ㅜㅜ");
-        //   }
       })
       .catch((error) =>
         console.log("회원가입 내용 db에 저장하는 데 오류 발생!", error)
@@ -57,7 +49,6 @@ const loginDB = (userName, password) => {
       userName,
       password,
     };
-    console.log("login_info : ", login_info);
     instance
       .post("/user", login_info)
       .then((response) => {
@@ -102,14 +93,12 @@ const loginCheckDB = () => {
       const token = getCookie("token");
       instance.defaults.headers.common["Authorization"] = `${token}`;
       instance.get("/userinfo").then((response) => {
-        console.log(response);
         const _user = response.data.user;
         const user_info = {
           dogName: _user.dogName,
           dogImage: `${_user.dogImage ? _user.dogImage : defaultImage}`,
           userId: _user.userId,
         };
-        console.log(user_info);
         dispatch(setUser(user_info));
       });
     }
