@@ -26,6 +26,10 @@ const Reservation = (props) => {
   } = props;
 
   const reservate = () => {
+    if (!schedule) {
+      window.alert("저장 버튼을 눌려주세요!");
+      return;
+    }
     dispatch(
       reservationActions.addReservationDB(id, dogName, schedule, request)
     );
