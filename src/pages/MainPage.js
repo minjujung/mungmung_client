@@ -11,10 +11,7 @@ import { actionCreators as listActions } from "../redux/modules/list";
 
 const MainPage = (props) => {
   const dispatch = useDispatch();
-  const user_info = useSelector((state) => state.user.user);
   const hospital_list = useSelector((state) => state.list.hospital_list);
-
-  console.log(hospital_list);
 
   useEffect(() => {
     dispatch(userActions.loginCheckDB());

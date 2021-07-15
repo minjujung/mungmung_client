@@ -15,7 +15,6 @@ import Signup from "./pages/Signup";
 import Reservation from "./pages/Reservation";
 import HospitalDetail from "./pages/HospitalDetail";
 import ReviewUpdate from "./pages/ReviewUpdate";
-
 function App() {
   return (
     <Container>

@@ -27,8 +27,6 @@ const uploadImageFB = (image) => {
     const _upload = storage.ref(`images/${image.name}`).put(image);
 
     _upload.then((snapshot) => {
-      console.log(snapshot);
-
       snapshot.ref.getDownloadURL().then((url) => {
         dispatch(uploadImage(url));
         instance.post("/userinfo/image", { dogImage: url }).then((response) => {

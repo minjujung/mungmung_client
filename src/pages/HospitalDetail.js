@@ -11,7 +11,6 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import Review from "../components/Review";
 import Location from "../components/Location";
 import HospitalIntro from "../components/HospitalIntro";
@@ -30,7 +29,6 @@ const HospitalDetail = (props) => {
   const { id } = useParams();
   const hospital = useSelector((state) => state.hospital.hospital);
   const { hospitalImageList } = hospital;
-
   const location = useLocation();
   const [tabIndex, setTabIndex] = React.useState(1);
   const tabContent = [
@@ -81,7 +79,6 @@ const HospitalDetail = (props) => {
         spaceBetween={50}
         slidesPerView={1}
         pagination={{ clickable: true }}
-        onSlideChange={() => console.log("slide change")}
       >
         {hospitalImageList?.map(({ hospitalImageUrl }, index) => {
           return (
