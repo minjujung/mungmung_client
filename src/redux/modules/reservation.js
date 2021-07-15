@@ -64,11 +64,7 @@ const addReservationDB = (
           default:
             // window.alert("예약 신청 중 오류가 생겼네요! 다시 부탁드려요!");
             dispatch(addReservation(new_reservation));
-<<<<<<< HEAD
-            window.alert("예약이 완료되었습니다!");
-=======
             window.alert("예약이 완료되었습니다.");
->>>>>>> 9db6b37880cd16a31828991ffb2a082515e1237c
             history.push("/pages/mypage");
             break;
         }
