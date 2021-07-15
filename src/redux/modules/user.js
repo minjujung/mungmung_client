@@ -70,10 +70,19 @@ const loginDB = (userName, password) => {
         //받은 token 쿠키에 저장
         setCookie("token", accessToken, 1, "/");
         // const token = getCookie("token");
-        dispatch(setUser(login_info));
+        dispatch(setUser({ userName }));
         history.push("/pages/mainpage");
       })
-      .catch((error) => console.log("로그인 중 에러가 발생했어요!", error));
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.status === 400) {
+          window.alert("아이디 또는 비밀번호가 일치하지 않습니다!");
+          return;
+        }
+        window.alert(
+          "로그인 중 예상치 못한 문제 발생! 잠시후 다시 시도해 주세요😅"
+        );
+      });
   };
 };
 
@@ -89,14 +98,9 @@ const logoutDB = () => {
 
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    // if (!getCookie("token")) {
-    //   window.alert("로그인을 해주세요");
-    //   history.replace("/login");
-    //   return;
-    // }
-    const token = getCookie("token");
-    instance.defaults.headers.common["Authorization"] = `${token}`;
     if (getCookie("token")) {
+      const token = getCookie("token");
+      instance.defaults.headers.common["Authorization"] = `${token}`;
       instance.get("/userinfo").then((response) => {
         console.log(response);
         const _user = response.data.user;
@@ -107,7 +111,6 @@ const loginCheckDB = () => {
         };
         console.log(user_info);
         dispatch(setUser(user_info));
-        dispatch(reservationActions.getReservation(response.data.reservation));
       });
     }
   };

@@ -51,6 +51,7 @@ const Schedule = ({ setSchedule }) => {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
           disableToolbar
+          disablePast
           inputVariant="outlined"
           format="yyyy년 MM월 dd일"
           margin="normal"

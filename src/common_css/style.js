@@ -12,7 +12,9 @@ const Button = css`
 `;
 
 export const ThemeBtnColor = css`
-  background-color: rgb(114, 203, 128);
+  /* background-color: rgb(114, 203, 128); */
+  background-color: ${(props) =>
+    props.disabled ? "rgb(114 , 203, 128, 0.7)" : "rgb(114, 203, 128)"};
   ${Button}
 `;
 

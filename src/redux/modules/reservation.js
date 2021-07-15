@@ -77,6 +77,22 @@ const addReservationDB = (
   };
 };
 
+const getReservationDB = () => {
+  return function (dispatch, getState, { history }) {
+    const token = getCookie("token");
+    instance.defaults.headers.common["Authorization"] = `${token}`;
+    instance
+      .get("/userinfo")
+      .then((response) => {
+        dispatch(getReservation(response.data.reservation));
+      })
+      .catch((error) => {
+        console.log(error.response);
+        window.alert("병원정보를 불러오는데 오류가 발생했습니다!");
+      });
+  };
+};
+
 export default handleActions(
   {
     [ADD_RESERVATION]: (state, action) =>
@@ -93,7 +109,7 @@ export default handleActions(
 
 const actionCreators = {
   addReservationDB,
-  getReservation,
+  getReservationDB,
 };
 
 export { actionCreators };

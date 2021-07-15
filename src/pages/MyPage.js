@@ -7,6 +7,7 @@ import { PageTitle } from "../common_css/style";
 import Footer from "../components/Footer";
 
 import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as reservationActions } from "../redux/modules/reservation";
 
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +24,7 @@ const MyPage = (props) => {
       history.replace("/login");
     }
     dispatch(userActions.loginCheckDB());
+    dispatch(reservationActions.getReservationDB());
   }, []);
   return (
     <>
