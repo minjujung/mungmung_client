@@ -25,9 +25,11 @@ const Review = () => {
     // dispatch(actionCreators.getReviewDB(id));
     dispatch(actionCreators.deleteReviewDB(id));
   };
+  console.log(Object.keys(user_info).length === 0);
+  console.log(user_info);
   return (
     <>
-      {Object.keys(user_info).length === 0 || user_info === null ? null : (
+      {Object.keys(user_info).length === 0 ? null : (
         <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       )}
       <ReviewContainer>
@@ -54,6 +56,7 @@ const Review = () => {
             );
           }
         )}
+        {review_list.length === 0 && <div>현재 작성된 리뷰가 없습니다.</div>}
       </ReviewContainer>
     </>
   );
