@@ -58,3 +58,11 @@ export const IconStyle = {
   boxSizing: "border-box",
   padding: "5px",
 };
+
+export const LogoStyle = css`
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top:10px;
+  left:10px;
+`;

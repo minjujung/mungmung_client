@@ -36,9 +36,11 @@ function App() {
 
 const Container = styled.div`
   width: 100%;
+  padding-bottom: 80px;
   @media screen and (min-width: 450px) {
     width: 450px;
     margin: 0 auto;
+    position: relative;
   }
 `;
 

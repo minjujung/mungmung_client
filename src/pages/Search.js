@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import { PageTitle, InputStyle, ThemeBtnColor } from "../common_css/style";
+import searchLogo from "../image/logo3.jpeg";
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { LogoStyle } from "../common_css/style";
 import instance from "../shared/config";
 import SearchResult from "../components/SearchResult";
 const Search = () => {
@@ -64,7 +66,7 @@ const Search = () => {
 
   return (
     <div>
-      <Title>
+      <Title> <Logo src={searchLogo}/>
         {!user_info || Object.keys(user_info).length === 0
           ? "땡땡이"
           : user_info.dogName}
@@ -93,6 +95,10 @@ const Search = () => {
     </div>
   );
 };
+
+const Logo = styled.img`
+  ${LogoStyle};
+`;
 
 const Title = styled.h1`
   text-align: center;
