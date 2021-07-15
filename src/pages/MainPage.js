@@ -69,8 +69,6 @@ const MainPage = (props) => {
 };
 
 const DIV = styled.div`
-  overflow-y: scroll;
-  height: 80vh;
   padding: 10px;
   margin: auto;
 `;

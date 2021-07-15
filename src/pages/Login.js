@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { InputStyle, PageTitle, ThemeBtnColor } from "../common_css/style";
+import loginLogo from "../image/logo3.jpeg";
 
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { LogoStyle } from "../common_css/style";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -18,7 +20,8 @@ const Login = (props) => {
 
   return (
     <Container>
-      <Title>로그인</Title>
+      
+      <Title><Logo src={loginLogo}/>로그인</Title>
       <InputContainer>
         <label htmlFor="id">아이디</label>
         <Input
@@ -71,6 +74,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Logo = styled.img`
+  ${LogoStyle};
 `;
 
 const InputContainer = styled.div`
