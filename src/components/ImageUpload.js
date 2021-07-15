@@ -18,7 +18,6 @@ const ImageUpload = (props) => {
   const selectFile = (e) => {
     const reader = new FileReader();
     const file = imageInput.current.files[0];
-    console.log(file);
 
     reader.readAsDataURL(file);
 
