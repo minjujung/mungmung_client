@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+
 const { kakao } = window;
+
 const Location = () => {
+  const hospital = useSelector((state) => state.hospital.hospital);
+  const { hospitalName, hospitalLocation, hospitalNumber } = hospital;
   useEffect(() => {
     const mapContainer = document.getElementById("myMap"), // 지도를 표시할 div
       mapOption = {
@@ -16,31 +21,27 @@ const Location = () => {
     const geocoder = new kakao.maps.services.Geocoder();
 
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(
-      "제주특별자치도 제주시 첨단로 242",
-      function (result, status) {
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-          const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    geocoder.addressSearch(hospitalLocation, function (result, status) {
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-          // 결과값으로 받은 위치를 마커로 표시합니다
-          const marker = new kakao.maps.Marker({
-            map: map,
-            position: coords,
-          });
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        const marker = new kakao.maps.Marker({
+          map: map,
+          position: coords,
+        });
 
-          // 인포윈도우로 장소에 대한 설명을 표시합니다
-          const infowindow = new kakao.maps.InfoWindow({
-            content:
-              '<div style="width:150px;text-align:center;padding:6px 0;">아프지멍 동물병원</div>',
-          });
-          infowindow.open(map, marker);
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `<div style="width:150px;text-align:center;padding:6px 0;">${hospitalName}</div>`,
+        });
+        infowindow.open(map, marker);
 
-          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-          map.setCenter(coords);
-        }
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
       }
-    );
+    });
   }, []);
 
   return (
@@ -49,12 +50,12 @@ const Location = () => {
         id="myMap"
         style={{
           width: "100%",
-          height: "300px",
+          height: "200px",
         }}
       ></div>
       <LocationInfo>
-        <LocationAddr>주소 : 제주특별자치도 제주시 첨단로 242</LocationAddr>
-        <LocationTel>전화번호 : 02 - 000 - 0000</LocationTel>
+        <LocationAddr>주소 : {hospitalLocation}</LocationAddr>
+        <LocationTel>전화번호 : {hospitalNumber}</LocationTel>
       </LocationInfo>
     </>
   );

@@ -1,21 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { InputStyle, PageTitle, ThemeBtnColor } from "../common_css/style";
+import loginLogo from "../image/logo3.jpeg";
 
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { LogoStyle } from "../common_css/style";
 
 const Login = (props) => {
+  const dispatch = useDispatch();
+
+  const [id, setId] = useState("");
+  const [pwd, setPwd] = useState("");
+
+  const login = () => {
+    dispatch(userActions.loginDB(id, pwd));
+  };
+
   return (
     <Container>
-      <Title>로그인</Title>
+      
+      <Title><Logo src={loginLogo}/>로그인</Title>
       <InputContainer>
         <label htmlFor="id">아이디</label>
-        <Input id="id" type="text" placeholder="아이디를 입력해주세요" />
+        <Input
+          id="id"
+          type="text"
+          placeholder="아이디를 입력해주세요"
+          value={id}
+          onChange={(e) => {
+            setId(e.target.value);
+          }}
+        />
         <label htmlFor="pw">비밀번호</label>
-        <Input id="pw" type="text" placeholder="비밀번호를 입력해주세요" />
+        <Input
+          id="pw"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          value={pwd}
+          onChange={(e) => {
+            setPwd(e.target.value);
+          }}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              login();
+            }
+          }}
+        />
       </InputContainer>
       <BtnContainer>
-        <LoginBtn>로그인 하기</LoginBtn>
+        <LoginBtn
+          onClick={login}
+          disabled={id === "" || pwd === "" ? true : false}
+        >
+          로그인 하기
+        </LoginBtn>
         <SignupBtn
           onClick={() => {
             history.push("/signup");
@@ -34,6 +74,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Logo = styled.img`
+  ${LogoStyle};
 `;
 
 const InputContainer = styled.div`

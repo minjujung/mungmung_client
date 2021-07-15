@@ -8,6 +8,7 @@ import Schedule from "../components/Schedule";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as reservationActions } from "../redux/modules/reservation";
+import { history } from "../redux/configureStore";
 
 const Reservation = (props) => {
   const dispatch = useDispatch();
@@ -25,12 +26,15 @@ const Reservation = (props) => {
   } = props;
 
   const reservate = () => {
+    if (!schedule) {
+      window.alert("저장 버튼을 눌려주세요!");
+      return;
+    }
     dispatch(
       reservationActions.addReservationDB(id, dogName, schedule, request)
     );
   };
 
-  console.log(id, dogName, schedule, request);
   return (
     <Container>
       <ArrowBackIosIcon
@@ -41,6 +45,9 @@ const Reservation = (props) => {
           top: "30px",
           left: "20px",
           color: "gray",
+        }}
+        onClick={() => {
+          history.goBack();
         }}
       />
       <Title>예약 페이지</Title>

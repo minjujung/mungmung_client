@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { PageTitle, NormalBtnColor, ThemeBtnColor } from "../common_css/style";
+import startLogo from "../image/logo2.jpg";
 
 import { history } from "../redux/configureStore";
 
@@ -10,10 +11,10 @@ const Start = (props) => {
       <Title>아프지멍</Title>
       <SubTitle>반려견 병원 예약 플랫폼</SubTitle>
 
-      <Logo></Logo>
+      <Logo src={startLogo} />
       <MainBtn
         onClick={() => {
-          history.push("/");
+          history.push("/pages/mainpage");
         }}
       >
         그냥 둘러볼래요!
@@ -53,12 +54,12 @@ const SubTitle = styled.h3`
   margin: 20px auto 0px auto;
 `;
 
-const Logo = styled.div`
-  width: 200px;
-  height: 200px;
+const Logo = styled.img`
+  width: 250px;
+  height: 250px;
   background-color: lightgray;
   border-radius: 50%;
-  margin: 80px auto;
+  margin: 40px auto;
 `;
 
 const MainBtn = styled.button`

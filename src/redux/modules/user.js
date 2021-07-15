@@ -1,21 +1,24 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-import { setCookie } from "../../shared/Cookie";
-import axios from "axios";
+import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
+import instance from "../../shared/config";
+import defaultImage from "../../image/강아지프로필.png";
+import { actionCreators as reservationActions } from "./reservation";
 
 //actions
 const SET_USER = "SET_USER";
-const ADD_USER = "ADD_USER";
+const EDIT_USER = "EDIT_USER";
+const LOGOUT = "LOGOUT";
 
 //action creators
 const setUser = createAction(SET_USER, (user) => ({ user }));
-const addUser = createAction(ADD_USER, (user) => ({ user }));
+const editUser = createAction(EDIT_USER, (image_url) => ({ image_url }));
+const logout = createAction(LOGOUT, () => {});
 
 //initial state
 const initialState = {
-  user: null,
-  is_login: false,
+  user: {},
 };
 
 //middleware
@@ -28,16 +31,11 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
       confirmPassword,
     };
 
-    axios
+    instance
       .post("/user/regist", new_user)
       .then((response) => {
-        if (response.data.msg === "success") {
-          dispatch(setUser(new_user));
-          window.alert("회원가입이 완료되었습니다!");
-          history.replace("/");
-        } else {
-          window.alert("가입 실패ㅜㅜ");
-        }
+        window.alert("회원가입이 완료되었습니다!");
+        history.push("/login");
       })
       .catch((error) =>
         console.log("회원가입 내용 db에 저장하는 데 오류 발생!", error)
@@ -46,11 +44,64 @@ const signupDB = (userName, dogName, password, confirmPassword) => {
 };
 
 const loginDB = (userName, password) => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    let login_info = {
+      userName,
+      password,
+    };
+    instance
+      .post("/user", login_info)
+      .then((response) => {
+        const accessToken = response.data;
+
+        // API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
+        instance.defaults.headers.common["Authorization"] = `${accessToken}`;
+
+        //받은 token 쿠키에 저장
+        setCookie("token", accessToken, 1, "/");
+        // const token = getCookie("token");
+        dispatch(setUser({ userName }));
+        history.push("/pages/mainpage");
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.status === 400) {
+          window.alert("아이디 또는 비밀번호가 일치하지 않습니다!");
+          return;
+        }
+        window.alert(
+          "로그인 중 예상치 못한 문제 발생! 잠시후 다시 시도해 주세요😅"
+        );
+      });
+  };
 };
 
 const logoutDB = () => {
-  return function (dispatch, getState, { history }) {};
+  return function (dispatch, getState, { history }) {
+    deleteCookie("token");
+    dispatch(logout());
+    instance.defaults.headers.common["Authorization"] = null;
+    delete instance.defaults.headers.common["Authorization"];
+    history.push("/pages/mainpage");
+  };
+};
+
+const loginCheckDB = () => {
+  return function (dispatch, getState, { history }) {
+    if (getCookie("token")) {
+      const token = getCookie("token");
+      instance.defaults.headers.common["Authorization"] = `${token}`;
+      instance.get("/userinfo").then((response) => {
+        const _user = response.data.user;
+        const user_info = {
+          dogName: _user.dogName,
+          dogImage: `${_user.dogImage ? _user.dogImage : defaultImage}`,
+          userId: _user.userId,
+        };
+        dispatch(setUser(user_info));
+      });
+    }
+  };
 };
 
 //reducer
@@ -58,10 +109,26 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        setCookie("is_login", "success");
         draft.user = action.payload.user;
-        draft.is_login = true;
+      }),
+    [EDIT_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.dogImage = action.payload.image_url;
+      }),
+    [LOGOUT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = null;
       }),
   },
   initialState
 );
+
+const actionCreators = {
+  editUser,
+  signupDB,
+  loginDB,
+  loginCheckDB,
+  logoutDB,
+};
+
+export { actionCreators };

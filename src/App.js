@@ -15,7 +15,6 @@ import Signup from "./pages/Signup";
 import Reservation from "./pages/Reservation";
 import HospitalDetail from "./pages/HospitalDetail";
 import ReviewUpdate from "./pages/ReviewUpdate";
-
 function App() {
   return (
     <Container>
@@ -36,12 +35,11 @@ function App() {
 
 const Container = styled.div`
   width: 100%;
-  position: relative;
-  min-height: 100vh;
-
-  @media screen and (min-width: 768px) {
-    width: 768px;
+  padding-bottom: 80px;
+  @media screen and (min-width: 450px) {
+    width: 450px;
     margin: 0 auto;
+    position: relative;
   }
 `;
 

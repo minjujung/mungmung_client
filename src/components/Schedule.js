@@ -51,11 +51,13 @@ const Schedule = ({ setSchedule }) => {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
           disableToolbar
+          disablePast
           inputVariant="outlined"
           format="yyyy년 MM월 dd일"
           margin="normal"
           id="date-picker-inline"
           value={selectedDate}
+          disablePast
           onChange={handleDateChange}
           KeyboardButtonProps={{
             "aria-label": "change date",

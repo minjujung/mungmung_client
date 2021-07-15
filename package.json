@@ -13,6 +13,8 @@
     "axios": "^0.21.1",
     "connected-react-router": "^6.9.1",
     "date-fns": "^2.22.1",
+    "dotenv": "^10.0.0",
+    "firebase": "^8.7.1",
     "history": "4.10.1",
     "immer": "^9.0.5",
     "lodash": "^4.17.21",
@@ -36,7 +38,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server --watch data.json --port 4000 --routes route.json"
   },
   "eslintConfig": {
     "extends": [

@@ -9,10 +9,12 @@ const Button = css`
   box-sizing: border-box;
   padding: 12px 16px;
   font-weight: bold;
+  font-family: "Poor Story", cursive;
 `;
 
 export const ThemeBtnColor = css`
-  background-color: rgb(114, 203, 128);
+  background-color: ${(props) =>
+    props.disabled ? "rgb(114 , 203, 128, 0.7)" : "rgb(114, 203, 128)"};
   ${Button}
 `;
 
@@ -33,15 +35,19 @@ export const InputStyle = css`
 `;
 
 export const NormalFooter = css`
-  background-color: rgb(190, 190, 190);
+  background-color: rgb(208 208 208);
   display: flex;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 60px;
   font-size: 40px;
   justify-content: space-evenly;
   align-items: center;
+  @media screen and (min-width: 450px) {
+    width: 450px;
+    margin: 0 auto;
+  }
 `;
 
 export const IconStyle = {
@@ -49,4 +55,16 @@ export const IconStyle = {
   height: "50px",
   color: "white",
   cursor: "pointer",
+  border: "2px solid white",
+  borderRadius: "50%",
+  boxSizing: "border-box",
+  padding: "5px",
 };
+
+export const LogoStyle = css`
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+`;

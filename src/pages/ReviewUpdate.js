@@ -2,12 +2,16 @@ import React from "react";
 import ReviewWrite from "../components/ReviewWrite";
 import { actionCreators } from "../redux/modules/review";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router";
 
-const ReviewUpdate = ({ match }) => {
+const ReviewUpdate = ({ match }, props) => {
+  const location = useLocation();
+
+  const hospitalId = location.state.hospitalId;
   const dispatch = useDispatch();
-  const handleUpdateReview = (id, dogName, reviewContent, hospitalRate) => {
-    const review = { id, dogName, reviewContent, hospitalRate };
-    dispatch(actionCreators.updateReviewDB(review));
+  const handleUpdateReview = (id, reviewContent, hospitalRate) => {
+    const review = { id, reviewContent, hospitalRate };
+    dispatch(actionCreators.updateReviewDB(hospitalId, review));
   };
 
   return (
