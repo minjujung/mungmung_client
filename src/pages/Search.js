@@ -16,24 +16,6 @@ const Search = () => {
   const [data, setData] = useState("");
   const [btnBg, setBtnBg] = useState("");
   const keyword_list = [
-    // {
-    //   id: 0, subject: "슬개골"
-    // },
-    // const keyword_list = [{
-    //   id: 1, subject: "심장"
-    // },
-    // const keyword_list = [{
-    //   id: 2, subject: ""
-    // },
-    // const keyword_list = [{
-    //   id: 3, subject: "슬개골"
-    // },
-    // const keyword_list = [{
-    //   id: 4, subject: "슬개골"
-    // },
-    // const keyword_list = [{
-    //   id: 5, subject: "슬개골"
-    // },
     "슬개골",
     "심장",
     "중성화",
@@ -66,7 +48,9 @@ const Search = () => {
 
   return (
     <div>
-      <Title> <Logo src={searchLogo}/>
+      <Title>
+        {" "}
+        <Logo src={searchLogo} />
         {!user_info || Object.keys(user_info).length === 0
           ? "땡땡이"
           : user_info.dogName}

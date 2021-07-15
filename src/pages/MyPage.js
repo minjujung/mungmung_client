@@ -68,7 +68,7 @@ const Title = styled.h1`
 `;
 
 const Name = styled.div`
-  padding: 5px 10px;
+  padding: 0 10px 5px 10px;
   font-size: 1.5em;
   display: flex;
   align-items: center;

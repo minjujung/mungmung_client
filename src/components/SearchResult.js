@@ -33,7 +33,7 @@ const SearchResult = ({ data }) => {
             <StarIcon
               style={{ color: "#ECBA11", width: "20px", height: "20px" }}
             />{" "}
-            {d.hospitalRate}{" "}
+            {Number.parseFloat(d.hospitalRate).toFixed(1)}{" "}
             <Numbers>총 {d.howManyReviews}명이 평가했습니다.</Numbers>
           </H4>
         </Grid>
