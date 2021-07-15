@@ -25,7 +25,7 @@ const UserReview = ({
   // review정보에 userId밖에 없어서 userName이랑 비교 불가
   const user = useSelector((state) => state.user.user);
   const hospitalId = useSelector((state) => state.hospital.hospital.hospitalId);
-  const my_nick_name = user.dogName ? user.dogName : "2";
+  const my_nick_name = user?.dogName ? user?.dogName : "2";
   const history = useHistory();
   //비활성화 + 활성화된 모든 별 갯수
   const totalStarCount = 5;
