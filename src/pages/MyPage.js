@@ -99,7 +99,6 @@ const Grid2 = styled.div`
   flex-direction: column;
   margin: 10px auto;
   width: 75%;
-  height: 90px;
   border-radius: 5px;
   padding: 10px;
   background-color: rgb(250, 250, 250);
@@ -120,8 +119,8 @@ const Detail = styled.p`
 `;
 
 const RevContainer = styled.div`
-  height: 200px;
-  overflow-y: scroll;
+  height: auto;
+  line-height: 30px;
 `;
 
 export default MyPage;
