@@ -28,7 +28,7 @@ const Review = () => {
 
   return (
     <>
-      {Object.keys(user_info).length === 0 ? null : (
+      {user_info === null || Object.keys(user_info).length === 0 ? null : (
         <ReviewWrite handleAddReview={handleAddReview}></ReviewWrite>
       )}
       <ReviewContainer>

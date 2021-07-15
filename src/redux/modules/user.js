@@ -52,7 +52,6 @@ const loginDB = (userName, password) => {
     instance
       .post("/user", login_info)
       .then((response) => {
-        console.log(response);
         const accessToken = response.data;
 
         // API 요청하는 콜마다 해더에 accessTocken 담아 보내도록 설정
