@@ -12,7 +12,26 @@ const Search = () => {
   const user_info = useSelector((state) => state.user.user);
 
   const [data, setData] = useState("");
+  const [btnBg, setBtnBg] = useState("");
   const keyword_list = [
+    // {
+    //   id: 0, subject: "슬개골"
+    // },
+    // const keyword_list = [{
+    //   id: 1, subject: "심장"
+    // },
+    // const keyword_list = [{
+    //   id: 2, subject: ""
+    // },
+    // const keyword_list = [{
+    //   id: 3, subject: "슬개골"
+    // },
+    // const keyword_list = [{
+    //   id: 4, subject: "슬개골"
+    // },
+    // const keyword_list = [{
+    //   id: 5, subject: "슬개골"
+    // },
     "슬개골",
     "심장",
     "중성화",
@@ -28,7 +47,13 @@ const Search = () => {
     dispatch(userActions.loginCheckDB());
   }, []);
 
-  const search = (e) => {
+  const changeColor = (e, idx) => {
+    e.preventDefault();
+    setBtnBg(idx);
+  };
+
+  const search = (e, idx) => {
+    changeColor(e, idx);
     const keyword = e.target.textContent;
     const encode = encodeURIComponent(keyword);
     instance.get(`/hospitals/search?subject=${encode}`).then((response) => {
@@ -48,8 +73,12 @@ const Search = () => {
       </Title>
       <SearchField>
         <Keywords>
-          {keyword_list.map((keyword) => (
-            <Keyword key={keyword} onClick={search}>
+          {keyword_list.map((keyword, idx) => (
+            <Keyword
+              key={keyword}
+              onClick={(e) => search(e, idx)}
+              color={btnBg === idx ? true : false}
+            >
               {keyword}
             </Keyword>
           ))}
@@ -85,12 +114,13 @@ const Keywords = styled.div`
 
 const Keyword = styled.button`
   border: none;
-  background-color: yellowgreen;
+  background-color: ${(props) => (props.color ? "yellowgreen" : "grey")};
   color: white;
   border-radius: 10px;
   width: 100px;
   font-family: "Poor Story", cursive;
   font-size: 15px;
+  font-weight: bold;
 `;
 
 export default Search;
