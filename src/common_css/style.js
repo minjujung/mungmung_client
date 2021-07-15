@@ -9,10 +9,10 @@ const Button = css`
   box-sizing: border-box;
   padding: 12px 16px;
   font-weight: bold;
+  font-family: "Poor Story", cursive;
 `;
 
 export const ThemeBtnColor = css`
-  /* background-color: rgb(114, 203, 128); */
   background-color: ${(props) =>
     props.disabled ? "rgb(114 , 203, 128, 0.7)" : "rgb(114, 203, 128)"};
   ${Button}
@@ -65,6 +65,6 @@ export const LogoStyle = css`
   width: 60px;
   height: 60px;
   position: absolute;
-  top:10px;
-  left:10px;
+  top: 10px;
+  left: 10px;
 `;
