@@ -16,6 +16,15 @@ const Signup = (props) => {
   const [dog, setDog] = useState("");
   const [pwd, setPwd] = useState("");
   const [pwdCheck, setPwdCheck] = useState("");
+  const [pwdAlert, setPwdAlert] = useState(true);
+
+  const checkPwd = (e) => {
+    if (e.target.value.length >= 6) {
+      setPwdAlert(false);
+    } else if (e.target.value.length < 6) {
+      setPwdAlert(true);
+    }
+  };
 
   const signup = () => {
     dispatch(userActions.signupDB(id, dog, pwd, pwdCheck));
@@ -24,7 +33,11 @@ const Signup = (props) => {
 
   return (
     <Container>
-      <Title> <Logo src={signupLogo}/>회원 가입</Title>
+      <Title>
+        {" "}
+        <Logo src={signupLogo} />
+        회원 가입
+      </Title>
       <InputContainer>
         <label htmlFor="id">아이디</label>
         <Input
@@ -47,15 +60,21 @@ const Signup = (props) => {
           }}
         />
         <label htmlFor="pw">비밀번호</label>
-        <Input
+        <PwdInput
           id="pw"
           type="password"
-          placeholder="비밀번호를 입력해주세요"
+          placeholder="비밀번호를 6글자 이상 입력해주세요"
           value={pwd}
           onChange={(e) => {
+            checkPwd(e);
             setPwd(e.target.value);
           }}
         />
+        {pwdAlert ? (
+          <Alert>비밀번호는 최소 6글자 이상이어야 합니다!</Alert>
+        ) : (
+          <Check>비밀번호로 사용 가능 합니다!</Check>
+        )}
         <label htmlFor="pwCheck">비밀번호 체크</label>
         <Input
           id="pwCheck"
@@ -119,6 +138,27 @@ const Input = styled.input`
   @media screen and (max-width: 320px) {
     margin: 3px 0 25px 0;
   }
+`;
+
+const PwdInput = styled.input`
+  margin: 10px 0 0px 0;
+  ${InputStyle}
+
+  @media screen and (max-width: 320px) {
+    margin: 3px 0 0px 0;
+  }
+`;
+
+const Alert = styled.p`
+  color: red;
+  font-size: 13px;
+  margin-left: 5px;
+`;
+
+const Check = styled.p`
+  color: rgb(114, 203, 128);
+  font-size: 13px;
+  margin-left: 5px;
 `;
 
 const BtnContainer = styled.div`
