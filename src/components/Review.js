@@ -11,6 +11,7 @@ const Review = () => {
   const review_list = useSelector((state) => state.review.review_list);
   const user_info = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -22,11 +23,9 @@ const Review = () => {
   };
 
   const handleDeleteReview = (id) => {
-    // dispatch(actionCreators.getReviewDB(id));
     dispatch(actionCreators.deleteReviewDB(id));
   };
-  // console.log(Object.keys(user_info).length === 0);
-  // console.log(user_info);
+
   return (
     <>
       {Object.keys(user_info).length === 0 ? null : (

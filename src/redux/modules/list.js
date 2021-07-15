@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import axios from "axios";
+import instance from "../../shared/config";
 
 const GET_HOSPITALS = "GET_HOSPITALS";
 
@@ -24,8 +25,7 @@ const initialState = {
 
 const getHospitalsDB = () => {
   return function (dispatch, getState, { history }) {
-    axios.get(serverIP + "/hospitals").then((result) => {
-      console.log(result.data);
+    instance.get("/hospitals").then((result) => {
       dispatch(getHospitals(result.data));
     });
   };

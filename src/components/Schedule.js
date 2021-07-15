@@ -56,6 +56,7 @@ const Schedule = ({ setSchedule }) => {
           margin="normal"
           id="date-picker-inline"
           value={selectedDate}
+          disablePast
           onChange={handleDateChange}
           KeyboardButtonProps={{
             "aria-label": "change date",

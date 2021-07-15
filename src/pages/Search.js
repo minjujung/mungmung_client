@@ -60,13 +60,14 @@ const Search = () => {
     const encode = encodeURIComponent(keyword);
     instance.get(`/hospitals/search?subject=${encode}`).then((response) => {
       setData(response.data);
-      console.log(response.data);
     });
   };
 
   return (
     <div>
-      <Title> <Logo src={searchLogo}/>
+      <Title>
+        {" "}
+        <Logo src={searchLogo} />
         {!user_info || Object.keys(user_info).length === 0
           ? "땡땡이"
           : user_info.dogName}

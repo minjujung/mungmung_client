@@ -39,7 +39,6 @@ const addReservationDB = (
       reservationDate,
       reservationDetail,
     };
-    console.log(new_reservation);
     const token = getCookie("token");
     instance.defaults.headers.common["Authorization"] = `${token}`;
 
@@ -50,7 +49,6 @@ const addReservationDB = (
         // ... add other header lines like: 'Content-Type': 'application/json'
       )
       .then((response) => {
-        console.log(response);
         switch (response.data.msg) {
           case "success":
             dispatch(addReservation(new_reservation));
@@ -66,7 +64,7 @@ const addReservationDB = (
           default:
             // window.alert("예약 신청 중 오류가 생겼네요! 다시 부탁드려요!");
             dispatch(addReservation(new_reservation));
-            window.alert("test server ok!");
+            window.alert("예약이 완료되었습니다.");
             history.push("/pages/mypage");
             break;
         }
